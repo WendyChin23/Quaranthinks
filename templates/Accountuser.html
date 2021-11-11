@@ -1,0 +1,337 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+<<<<<<< Updated upstream
+  <title>ADMIN Account (User) </title>
+=======
+  <title>ADMIN Account (User)</title>
+>>>>>>> Stashed changes
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="{% static 'assets/img/favicon.jpg'%}" rel="icon">
+  <link href="{% static 'assets/img/apple-touch-icon.jpg'%}" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'assets/vendor/animate.css/animate.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/remixicon/remixicon.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: Sailor - v4.6.0
+  * Template URL: https://bootstrapmade.com/sailor-free-bootstrap-theme/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top d-flex align-items-center">
+    <div class="container d-flex align-items-center">
+
+      <h1 class="logo me-auto"><a href="{% url 'appdev:Home_view' %}">TECHNOBIGAY</a></h1>
+      <!-- Uncomment below if you prefer to use an image logo -->
+      <!-- <a href="index.html" class="logo me-auto"><img src="{% static 'assets/img/logo.png' %}" alt="" class="img-fluid"></a>-->
+
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li><a href="{% url 'appdev:Home_view' %}" class="active">Home</a></li>
+
+       
+              <li><a href="{% url 'appdev:team_view' %}">Team</a></li>
+           
+
+            
+          <li><a href="{% url 'appdev:services_view' %}">Services</a></li>
+          <li><a href="{% url 'appdev:rewards_view' %}"  >Rewards</a></li>
+          <li><a href="{% url 'appdev:grades_view' %}">Grades</a></li>
+        
+
+          <li><a href="{% url 'appdev:contact_view' %}">Contact</a></li>
+          <li><a href="{% url 'appdev:members_view' %}">Account</a></li>
+          <li><a href="{% url 'appdev:Home_view' %}" class="getstarted">Get Started</a></li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
+
+    </div>
+  </header><!-- End Header -->
+
+<head>
+    <title>Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="{% static 'new/css/vendor/bootstrap.min.css' %}" type="text/css" rel="stylesheet">
+    <link href="{% static 'new/css/vendor/font-awesome.min.css' %}" type="text/css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>
+    <link href="{% static 'new/css/jquery.bdt.css' %}" type="text/css" rel="stylesheet">
+    <link href="{% static 'new/css/style.css' %}" type="text/css" rel="stylesheet">
+    <i class="bi bi-list mobile-nav-toggle"></i>
+</head>
+<body>
+{% block content %}
+<div class="container">
+    <div class="row">
+            <div class="box clearfix">
+            <center><h1 class="heading"><br><br><br>Admin User Dashboard</h1></center>
+            <center> <h2 class="heading">Account User</h2></center>
+            
+           
+
+
+</center> <br>
+
+            <table class="table table-hover" id="bootstrap-table">
+
+                <thead>
+                <tr>
+                        
+                    <th>ID Number</th> 
+                    <th>First Name</th> 
+                    <th>Last Name</th> 
+                    <th>Email</th> 
+                    <th>Address</th>
+                    <th>Age</th>
+                    <th>Birthdate</th>
+                    <th>Username</th>
+                    <th>Password</th>
+                    <th>Action</th>  
+                </tr> 
+                </thead>
+                <tbody>
+            {% for accountuser in accountuser %}
+            <tr>
+                        
+                <td>{{accountuser.idn}}</td> 
+                <td>{{accountuser.firstname}}</td> 
+                <td>{{accountuser.lastname}}</td> 
+                <td>{{accountuser.email}}</td> 
+                <td>{{accountuser.address}}</td> 
+                <td>{{accountuser.age}}</td>
+                <td>{{accountuser.birthdate}}</td>
+                 <td>{{accountuser.username}}</td>
+                 <td>{{accountuser.password}}</td>
+                 
+                <td>
+                
+                    <button href="#" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal3-{{accountuser.idn}}" data-whatever="@mdo data-placement=" title="Update">UPDATE</button>
+
+                        <div class="modal fade" id="exampleModal-{{useaccountuserr.idn}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Update User</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                              <div class="modal-body">
+                                <form method="POST">
+                                  {% csrf_token %}
+                                  <div class="form-group">
+                                
+                                 <label for="recipient-name" class="col-form-label">ID Number</label>
+                                <input name="idn-idn" value="{{accountuser.idn}}" subject.type="text" class="form-control" id="idn-idn" readonly>
+
+                                  <label for="recipient-name" class="col-form-label">First Name</label>
+                                  <input type="text" name="first-name" value="{{accountuser.firstname}}" class="form-control" id="first-name">
+                        
+                                  <label for="recipient-name" class="col-form-label">Last Name</label>
+                                  <input type="text" name="last-name" value="{{accountuser.lastname}}" class="form-control" id="last-name">
+                                  <label for="recipient-name" class="col-form-label">Email</label>
+                                  <input type="text" name="last-name" value="{{accountuser.email}}" class="form-control" id="email-email">
+                        
+                                  <label for="recipient-name" class="col-form-label">Address</label>
+                                  <input type="text" name="address-address" value="{{accountuser.address}}" class="form-control" id="address-address">
+
+                                  <label for="recipient-name" class="col-form-label">Age</label>
+                                  <input type="text" name="address-address" value="{{accountuser.age}}" class="form-control" id="age-age">
+
+                           <label for="recipient-name" class="col-form-label">Birthdate</label>
+                                  <input type="date" name="address-address" value="{{accountuser.birthdate}}" class="form-control" id="birth-date">
+                        
+                                  <label for="recipient-name" class="col-form-label">Username</label>
+                                   <input type="text" name="course-course" value="{{accountuser.username}}" class="form-control" id=" user-name">
+                        
+                        
+                                  <label for="recipient-name" class="col-form-label">Password</label>
+                                  <input type="text" name="year-year" value="{{accountuser.password}}" class="form-control" id=" pass-word">
+                            
+                                  </div>
+                                
+                        
+                                
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                                <button type="submit" id="BtnUpdate" name="BtnUpdate" class="btn btn-primary">UPDATE</button>
+                              </div>
+
+                                </form>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        
+                        
+                        <!-- Button trigger modal -->
+  <a href="button" href="#" class="btn btn-primary" data-target="#Modal-{{accountuser.idn}}"data-toggle="modal">DELETE</a>
+    </div>
+                          
+                         <!-- Modal HTML -->
+<div id="Modal-{{accountuser.idn}}" class="modal fade">
+	<div class="modal-dialog modal-confirm">
+		<div class="modal-content">
+			<div class="modal-header">
+				<div class="icon-box">
+					<i class="material-icons">&#xE5CD;</i>
+				</div>				
+				<h4 class="modal-title">Are you sure?</h4>	
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			</div>
+      <form method="POST">
+          {% csrf_token %}
+
+			<div class="modal-body">
+				<input type="text" name="iidn-idn" value = {{accountuser.idn}} hidden>
+        Are you sure you want to delete
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
+				<button type="submit" id="BtnDelete" name="BtnDelete" class="btn btn-danger">Delete</button>
+			</div>
+		</div>
+	</div>
+</div>  
+                </td> 
+             </tr>
+              {% endfor %}          
+            </tbody>
+            </table>
+        </div>
+        </div>
+    </div>
+   
+
+    <br>   <br>   <br>   <br>   <br>   <br>   <br>   <br>   <br>   <br>   <br>
+    
+{% endblock content %}
+<script src="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
+<script src="{% static 'new/js/vendor/bootstrap.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'new/js/vendor/jquery.sortelements.js' %}" type="text/javascript"></script>
+<script src="{% static 'new/js/jquery.bdt.min.js' %}" type="text/javascript"></script>
+<script>
+    $(document).ready( function () {
+        $('#bootstrap-table').bdt({
+            showSearchForm: 1,
+            showEntriesPerPageField: 1
+        });
+    });
+</script>
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+    <div class="footer-top">
+      <div class="container">
+        <div class="row">
+
+          <div class="col-lg-3 col-md-6">
+            <div class="footer-info">
+              <h3>TECHNOBIGAY</h3>
+              <p>+
+                N Bacalso Street <br>
+                Cebu 6000, Philippines<br><br>
+                <strong>Phone:</strong> +63912345678<br>
+                <strong>Email:</strong> support@quaranthinks.com<br>
+              </p>
+              <div class="social-links mt-3">
+                <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
+                <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+                <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+                <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
+                <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-2 col-md-6 footer-links">
+            <h4>Useful Links</h4>
+            <ul>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>Our Services</h4>
+            <ul>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Rewards</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Grades</a></li>
+
+
+            </ul>
+          </div>
+
+          <div class="col-lg-4 col-md-6 footer-newsletter">
+            <h4>Our Newsletter</h4>
+            <p>Love getting exclusive deals? Join our newsletter program for more info!</p>
+            <form action="" method="post">
+              <input type="email" name="email"><input type="submit" value="Subscribe">
+            </form>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="copyright">
+        &copy; Copyright <strong><span>TechnoBigay by QuaranThinks</span></strong>. All Rights Reserved
+      </div>
+      <div class="credits">
+        <!-- All the links in the footer should remain intact. -->
+        <!-- You can delete the links only if you purchased the pro version. -->
+        <!-- Licensing information: https://bootstrapmade.com/license/ -->
+        <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/sailor-free-bootstrap-theme/ -->
+        Designed by <a href="https://bootstrapmade.com/">QuaranThinks</a>
+      </div>
+    </div>
+  </footer><!-- End Footer -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/php-email-form/validate.js' %}"></script>
+  <script src="{% static 'assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/waypoints/noframework.waypoints.js' %}"></script>
+
+  <!-- Template Main JS File -->
+  <script src="{% static 'assets/js/main.js' %}"></script>
+
+</body>
+
+</html>

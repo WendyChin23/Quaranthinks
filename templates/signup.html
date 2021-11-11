@@ -44,6 +44,11 @@
 </head>
 
 <body>
+  {% block content %}
+	
+	<hr/>
+	<form method="POST">
+		{% csrf_token %}
 
   <!-- ======= Header ======= -->
   <header id="header" class="fixed-top d-flex align-items-center">
@@ -106,63 +111,65 @@
 						<div class="input-group-prepend">
 							<span class="input-group-text"><i class="fas fa-id-card"></i></span>
 						</div>
-						<input type="text" class="form-control" placeholder="Student ID">
+						<input type="text" class="form-control" placeholder="Student ID"  id="id-Idn" name="idn">
 					</div>
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text"><i class="fas fa-user"></i></span>
 						</div>
-						<input type="text" class="form-control" placeholder="First Name">
+						<input type="text" class="form-control" placeholder="First Name" id="id-fname" name="firstname"> 
 					</div>
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text"><i class="fas fa-user"></i></span>
 						</div>
-						<input type="text" class="form-control" placeholder="Last Name">
+						<input type="text" class="form-control" placeholder="Last Name" id="id-lname" name="lastname">
 					</div>
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text"><i class="fas fa-at"></i></span>
 						</div>
-						<input type="text" class="form-control" placeholder="Email">
+						<input type="text" class="form-control" placeholder="Email"  id="id-email" name="email">
 					</div>
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
 						</div>
-						<input type="text" class="form-control" placeholder="Address">
+						<input type="text" class="form-control" placeholder="Address"  id="id-Address" name="address">
 					</div>
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text"><i class="fas fa-calendar"></i></span>
 						</div>
-						<input type="text" class="form-control" placeholder="Age">
+						<input type="text" class="form-control" placeholder="Age"  id="id-age" name="age">
 					</div>
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text"><i class="fas fa-birthday-cake"></i></span>
 						</div>
-						<input type="text" class="form-control" placeholder="Birth Date">
+						<input type="date" class="form-control" placeholder="Birth Date"  id="id-birthdate" name="birthdate">
 					</div>
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text"><i class="fas fa-user-tie"></i></span>
 						</div>
-						<input type="text" class="form-control" placeholder="Username">
+						<input type="text" class="form-control" placeholder="Username"  id="id-username" name="username">
 					</div>
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text"><i class="fas fa-key"></i></span>
 						</div>
-						<input type="password" class="form-control" placeholder="Password">
+						<input type="password" class="form-control" placeholder="Password"  id="id-password" name="password">
 					</div>
 					<div class="form-group">
-						<input type="submit" value="Login" class="btn float-right login_btn">
+            <div class="text-center"><button class="btn float-right login_btn"  href="{% url 'appdev:members_view' %}" type="submit">Sign Up</button></div>            
+
 					</div>
+          {% endblock content %}
 				</form>
 			</div>
 			<div class="card-footer">
-				<div class="d-flex justify-content-center links">
+				<div class="d-flex justify-content-center links" href="{% url 'appdev:members_view' %}">
 					Already have an account?<a href="{% url 'appdev:members_view' %}">Login here</a>
 				</div>
 			</div>

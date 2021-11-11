@@ -7,4 +7,6 @@ Members:
 Alonzo, Psalm
 Omboy, Ronnel C.
 Regner, Marielle
-Yap, Jerech Ira Ann
+Yap, Jerech Ira Ann 
+
+######### SAMPLE #########

@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import View
+
+from appdev.models import AccountUser
 # Create your views here.
 
 class Home(View):
@@ -53,3 +55,13 @@ class Signup(View):
 class Testimonial(View):
 	def get(self, request):
 		return render(request,'testimonials.html')
+
+class AccountDashboardView(View):
+    def get(self, request):
+        account = AccountUser.objects.all()
+       
+        context = {
+            'account' : AccountUser, #name that we want to use
+            
+        }
+        return render(request,'Accountuser.html', context)

@@ -17,5 +17,6 @@ urlpatterns= [
 	path('services', views.Services.as_view(), name="services_view"),
 	path('signup', views.Signup.as_view(), name="signup_view"),
 	path('testimonial', views.Testimonial.as_view(), name="testimonial_view"),
-	
+	path('accountuser', views.AccountDashboardView.as_view(), name="accountdashboard_view"),
+
 ]

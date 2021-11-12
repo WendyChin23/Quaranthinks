@@ -7,3 +7,7 @@ class AccountUserForm(forms.ModelForm):
         model = AccountUser
      
         fields= '__all__'
+
+
+
+    

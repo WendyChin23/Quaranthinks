@@ -142,7 +142,7 @@ class Signup(View):
 			form.save()	
 
 			#return HttpResponse('Student record saved!')			
-			return redirect('appdev:accountdashboard_view')
+			return redirect('appdev:members_view')
 			# except:
 			# 	raise Http404
 		else:

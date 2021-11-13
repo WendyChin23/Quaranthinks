@@ -78,6 +78,15 @@ class Signup(View):
     def get(self, request):
         return render(request,'signup.html')
 
+		
+class AdminDashboard(View):
+    def get(self, request):
+        return render(request,'admindashboard.html')
+
+class AdminPage(View):
+    def get(self, request):
+        return render(request,'adminpage.html')
+
 class Testimonial(View):
     def get(self, request):
         return render(request,'testimonials.html')

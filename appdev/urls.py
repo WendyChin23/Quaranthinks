@@ -18,5 +18,7 @@ urlpatterns= [
 	path('signup', views.Signup.as_view(), name="signup_view"),
 	path('testimonial', views.Testimonial.as_view(), name="testimonial_view"),
 	path('accountuser', views.AccountDashboardView.as_view(), name="accountdashboard_view"),
+	path('adminpage', views.AdminPage.as_view(), name="admin_view"),
+	path('admindashboard', views.AdminDashboard.as_view(), name="admindashboard_view"),
 
 ]

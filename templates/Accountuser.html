@@ -1,118 +1,264 @@
 {% load static %}
-<!DOCTYPE html>
+
+<!doctype html>
 <html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+        <title>USER DASHBOARD</title>
+	    <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="{% static 'css/css/bootstrap.min.css'%}">
+	    <!----css3---->
+        <link rel="stylesheet" href="{% static 'assets/css/css/custom.css' %}">
+		
+		
+		<!--google fonts -->
+	
+	    <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+	
+	
+	<!--google material icon-->
+      <link href="https://fonts.googleapis.com/css2?family=Material+Icons"rel="stylesheet">
 
-<head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  </head>
+  <body>
+  
 
-  <title>ADMIN Account (User)</title>
+<div class="wrapper">
 
-  <meta content="" name="description">
-  <meta content="" name="keywords">
 
-  <!-- Favicons -->
-  <link href="{% static 'assets/img/favicon.jpg'%}" rel="icon">
-  <link href="{% static 'assets/img/apple-touch-icon.jpg'%}" rel="apple-touch-icon">
+        <div class="body-overlay"></div>
+		
+		<!-------------------------sidebar------------>
+		     <!-- Sidebar  -->
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                <h3><img src="{% static 'assets\img\logo.jpg' %}" class="img-fluid"/><span>Quaranthinks</span></h3>
+            </div>
+            <ul class="list-unstyled components">
+			<li>
+                    <a href="{% url 'appdev:admindashboard_view' %}" class="dashboard"><i class="material-icons">dashboard</i>
+					<span>HOME</span></a>
+                </li>
+		
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+                <li class="dropdown">
+                    <a href="#homeSubmenu1" data-toggle="collapse" aria-expanded="false" 
+					class="dropdown-toggle">
+					<i class="material-icons">aspect_ratio</i>Account</a>
+                    <ul class="collapse list-unstyled menu" id="homeSubmenu1">
+                        <li  class="active">
+                            <a href="{% url 'appdev:accountdashboard_view' %}">User</a>
+                        </li>
+                        <li>
+                            <a href="#">Admin</a>
+                        </li>
+                      
+                    </ul>
+                </li>
+                
+                <li class="dropdown">
+                    <a href="#pageSubmenu2" data-toggle="collapse" aria-expanded="false" 
+					class="dropdown-toggle">
+					<i class="material-icons">apps</i><span>Vouchers</span></a>
+                    <ul class="collapse list-unstyled menu" id="pageSubmenu2">
+                        <li>
+                            <a href="#">General</a>
+                        </li>
+                        <li>
+                            <a href="#">Exclusives</a>
+                        </li>
+                      
+                    </ul>
+                </li>
+				
+				
 
-  <!-- Vendor CSS Files -->
-  <link href="{% static 'assets/vendor/animate.css/animate.min.css' %}" rel="stylesheet">
-  <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
-  <link href="{% static 'assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
-  <link href="{% static 'assets/vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
-  <link href="{% static 'assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
-  <link href="{% static 'assets/vendor/remixicon/remixicon.css' %}" rel="stylesheet">
-  <link href="{% static 'assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
-
-  <!-- Template Main CSS File -->
-  <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
-
-  <!-- =======================================================
-  * Template Name: Sailor - v4.6.0
-  * Template URL: https://bootstrapmade.com/sailor-free-bootstrap-theme/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
-</head>
-
-<body>
-
-  <!-- ======= Header ======= -->
-  <header id="header" class="fixed-top d-flex align-items-center">
-    <div class="container d-flex align-items-center">
-
-      <h1 class="logo me-auto"><a href="{% url 'appdev:Home_view' %}">TECHNOBIGAY</a></h1>
-      <!-- Uncomment below if you prefer to use an image logo -->
-      <!-- <a href="index.html" class="logo me-auto"><img src="{% static 'assets/img/logo.png' %}" alt="" class="img-fluid"></a>-->
-
-      <nav id="navbar" class="navbar">
-        <ul>
-          <li><a href="{% url 'appdev:Home_view' %}" class="active">Home</a></li>
-
-       
-              <li><a href="{% url 'appdev:team_view' %}">Team</a></li>
            
+        </nav>
+		
+		
+		
+		
+		<!--------page-content---------------->
+		
+		<div id="content">
+		   
+		   <!--top--navbar----design--------->
+		   
+		   <div class="top-navbar">
+		      <div class="xp-topbar">
 
-            
-          <li><a href="{% url 'appdev:services_view' %}">Services</a></li>
-          <li><a href="{% url 'appdev:rewards_view' %}"  >Rewards</a></li>
-          <li><a href="{% url 'appdev:grades_view' %}">Grades</a></li>
-        
+                <!-- Start XP Row -->
+                <div class="row"> 
+                    <!-- Start XP Col -->
+                    <div class="col-2 col-md-1 col-lg-1 order-2 order-md-1 align-self-center">
+                        <div class="xp-menubar">
+                               <span class="material-icons text-white">signal_cellular_alt
+							   </span>
+                         </div>
+                    </div> 
+                    <!-- End XP Col -->
 
-          <li><a href="{% url 'appdev:contact_view' %}">Contact</a></li>
-          <li><a href="{% url 'appdev:members_view' %}">Account</a></li>
-          <li><a href="{% url 'appdev:Home_view' %}" class="getstarted">Get Started</a></li>
-        </ul>
-        <i class="bi bi-list mobile-nav-toggle"></i>
-      </nav><!-- .navbar -->
+                    <!-- Start XP Col -->
+                    <div class="col-md-5 col-lg-3 order-3 order-md-2">
+                        <div class="xp-searchbar">
+                            <form>
+                                <div class="input-group">
+                                  <input type="search" class="form-control" 
+								  placeholder="Search">
+                                  <div class="input-group-append">
+                                    <button class="btn" type="submit" 
+									id="button-addon2">GO</button>
+                                  </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- End XP Col -->
 
+                    <!-- Start XP Col -->
+                    <div class="col-10 col-md-6 col-lg-8 order-1 order-md-3">
+                        <div class="xp-profilebar text-right">
+							 <nav class="navbar p-0">
+                        <ul class="nav navbar-nav flex-row ml-auto">   
+                            <li class="dropdown nav-item active">
+                                <a href="#" class="nav-link" data-toggle="dropdown">
+                                   <span class="material-icons">notifications</span>
+								   <span class="notification">4</span>
+                               </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="#">You have 5 new messages</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">You're now friend with Mike</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Wish Mary on her birthday!</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">5 warnings in Server Console</a>
+                                    </li>
+                                  
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+								<span class="material-icons">question_answer</span>
+
+								</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link" href="#" data-toggle="dropdown">
+								<img src="{% static 'assets\img\user.jpg'%}" style="width:40px; border-radius:50%;"/>
+								<span class="xp-user-live"></span>
+								</a>
+								<ul class="dropdown-menu small-menu">
+                                    <li>
+                                        <a href="#">
+										  <span class="material-icons">
+person_outline
+</span>Profile
+
+										</a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><span class="material-icons">
+settings
+</span>Settings</a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><span class="material-icons">
+logout</span>Logout</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    
+               
+            </nav>
+							
+                        </div>
+                    </div>
+                    <!-- End XP Col -->
+
+                </div> 
+                <!-- End XP Row -->
+
+            </div>
+		     <div class="xp-breadcrumbbar text-center">
+                <h4 class="page-title">Account</h4>  
+                  <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">User</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+                  </ol>                
+            </div>
+			
+		   </div>
+		   
+		   
+
+
+
+
+
+
+		   
+		   <!--------main-content------------->
+		   {% block content %}
+		   <div class="main-content">
+			  <div class="row">
+			    
+				<div class="col-md-12">
+				<div class="table-wrapper">
+    <div class="table-title">
+      <div class="row">
+        <div class="col-sm-6 p-0 d-flex justify-content-lg-start justify-content-center">
+          <h2 class="ml-lg-2">Manage Admin</h2>
+        </div>
+        <div class="col-sm-6 p-0 d-flex justify-content-lg-end justify-content-center">
+          <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal">
+		  <!-- <i class="material-icons">&#xE147;</i> <span>Add New Employee</span></a>
+          <a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal"> -->
+		  <i class="material-icons">&#xE15C;</i> <span>Delete</span></a>
+        </div>
+      </div>
     </div>
-  </header><!-- End Header -->
-
-<head>
-    <title>Dashboard</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="{% static 'new/css/vendor/bootstrap.min.css' %}" type="text/css" rel="stylesheet">
-    <link href="{% static 'new/css/vendor/font-awesome.min.css' %}" type="text/css" rel="stylesheet">
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>
-    <link href="{% static 'new/css/jquery.bdt.css' %}" type="text/css" rel="stylesheet">
-    <link href="{% static 'new/css/style.css' %}" type="text/css" rel="stylesheet">
-    <i class="bi bi-list mobile-nav-toggle"></i>
-</head>
-<body>
-{% block content %}
-<div class="container">
-    <div class="row">
-            <div class="box clearfix">
-            <center><h1 class="heading"><br><br><br>Admin User Dashboard</h1></center>
-            <center> <h2 class="heading">Account User</h2></center>
-            
-           
-
-
-</center> <br>
-
-            <table class="table table-hover" id="bootstrap-table">
-
-                <thead>
-                <tr>
-                        
-                    <th>ID Number</th> 
-                    <th>First Name</th> 
-                    <th>Last Name</th> 
-                    <th>Email</th> 
-                    <th>Address</th>
-                    <th>Age</th>
-                    <th>Birthdate</th>
-                    <th>Username</th>
-                    <th>Password</th>
-                    <th>Action</th>  
-                </tr> 
-                </thead>
-                <tbody>
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th>
+            <span class="custom-checkbox">
+								<input type="checkbox" id="selectAll">
+								<label for="selectAll"></label>
+							</span>
+          </th>
+          <th>ID Number</th> 
+          <th>First Name</th> 
+          <th>Last Name</th> 
+          <th>Email</th> 
+          <th>Address</th>
+          <th>Age</th>
+          <th>Birthdate</th>
+          <th>Username</th>
+          <th>Password</th>
+          <th>Action</th> 
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <span class="custom-checkbox">
+			<input type="checkbox" id="checkbox1" name="options[]" value="1">
+			<label for="checkbox1"></label>
+							</span>
+          </td>
+          <tbody>
             {% for accountuser in accountuser %}
             <tr>
                         
@@ -127,11 +273,13 @@
                  <td>{{accountuser.password}}</td>
                  
                 <td>
+    
+                  <td>
                 
-                    <button href="#" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal3-{{accountuser.idn}}" data-whatever="@mdo data-placement=" title="Update">UPDATE</button>
+                    <button href="#" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal-{{student.idn}}" data-whatever="@mdo data-placement=" title="Update">UPDATE</button>
 
-                        <div class="modal fade" id="exampleModal3-{{accountuser.idn}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                          <div class="modal-dialog">
+
+                    <div class="modal fade" id="exampleModal-{{student.idn}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"> <div class="modal-dialog">
                             <div class="modal-content">
                               <div class="modal-header">
                                 <h5 class="modal-title" id="exampleModalLabel">Update User</h5>
@@ -139,6 +287,9 @@
                                   <span aria-hidden="true">&times;</span>
                                 </button>
                               </div>
+
+                              
+                              
                               <div class="modal-body">
                                 <form method="POST">
                                   {% csrf_token %}
@@ -193,7 +344,7 @@
     </div>
                           
                          <!-- Modal HTML -->
-<div id="Modal-{{accountuser.idn}}" class="modal fade">
+<div id="Modal-{{accountuser.idn}}" >
 	<div class="modal-dialog modal-confirm">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -227,108 +378,106 @@
     </div>
    
 
-    <br>   <br>   <br>   <br>   <br>   <br>   <br>   <br>   <br>   <br>   <br>
+  
     
 {% endblock content %}
-<script src="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
-<script src="{% static 'new/js/vendor/bootstrap.min.js' %}" type="text/javascript"></script>
-<script src="{% static 'new/js/vendor/jquery.sortelements.js' %}" type="text/javascript"></script>
-<script src="{% static 'new/js/jquery.bdt.min.js' %}" type="text/javascript"></script>
-<script>
-    $(document).ready( function () {
-        $('#bootstrap-table').bdt({
-            showSearchForm: 1,
-            showEntriesPerPageField: 1
-        });
-    });
-</script>
-
-  <!-- ======= Footer ======= -->
-  <footer id="footer">
-    <div class="footer-top">
-      <div class="container">
-        <div class="row">
-
-          <div class="col-lg-3 col-md-6">
-            <div class="footer-info">
-              <h3>TECHNOBIGAY</h3>
-              <p>+
-                N Bacalso Street <br>
-                Cebu 6000, Philippines<br><br>
-                <strong>Phone:</strong> +63912345678<br>
-                <strong>Email:</strong> support@quaranthinks.com<br>
-              </p>
-              <div class="social-links mt-3">
-                <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
-                <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
-                <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
-                <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
-                <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-2 col-md-6 footer-links">
-            <h4>Useful Links</h4>
-            <ul>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>
-            </ul>
-          </div>
-
-          <div class="col-lg-3 col-md-6 footer-links">
-            <h4>Our Services</h4>
-            <ul>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Rewards</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Grades</a></li>
 
 
-            </ul>
-          </div>
 
-          <div class="col-lg-4 col-md-6 footer-newsletter">
-            <h4>Our Newsletter</h4>
-            <p>Love getting exclusive deals? Join our newsletter program for more info!</p>
-            <form action="" method="post">
-              <input type="email" name="email"><input type="submit" value="Subscribe">
-            </form>
 
-          </div>
 
+
+
+
+<!-- Delete Modal HTML
+<div id="deleteEmployeeModal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form>
+        <div class="modal-header">
+          <h4 class="modal-title">Delete Employee</h4>
+          <button type="button" class="close" data-dismiss="modal" 
+		  aria-hidden="true">&times;</button>
         </div>
-      </div>
+        <div class="modal-body">
+          <p>Are you sure you want to delete these Records?</p>
+          <p class="text-warning"><small>This action cannot be undone.</small></p>
+        </div>
+        <div class="modal-footer">
+          <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+          <input type="submit" class="btn btn-danger" value="Delete">
+        </div>
+      </form>
     </div>
+	</div>
+  </div>
+				
+		   
+			  </div>
+			  -->
+			 
 
-    <div class="container">
-      <div class="copyright">
-        &copy; Copyright <strong><span>TechnoBigay by QuaranThinks</span></strong>. All Rights Reserved
-      </div>
-      <div class="credits">
-        <!-- All the links in the footer should remain intact. -->
-        <!-- You can delete the links only if you purchased the pro version. -->
-        <!-- Licensing information: https://bootstrapmade.com/license/ -->
-        <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/sailor-free-bootstrap-theme/ -->
-        Designed by <a href="https://bootstrapmade.com/">QuaranThinks</a>
-      </div>
-    </div>
-  </footer><!-- End Footer -->
 
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
-  <!-- Vendor JS Files -->
-  <script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-  <script src="{% static 'assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
-  <script src="{% static 'assets/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
-  <script src="{% static 'assets/vendor/php-email-form/validate.js' %}"></script>
-  <script src="{% static 'assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
-  <script src="{% static 'assets/vendor/waypoints/noframework.waypoints.js' %}"></script>
 
-  <!-- Template Main JS File -->
-  <script src="{% static 'assets/js/main.js' %}"></script>
 
-</body>
 
-</html>
+			 <!---footer---->
+			 
+			 
+		</div>
+		
+		<footer class="footer">
+			    <div class="container-fluid">
+				  <div class="footer-in">
+                    <p class="mb-0">&copy 2021 Quaranthinks - All Rights Reserved.</p>
+                </div>
+				</div>
+			 </footer>
+</div>
+</div>
+
+
+<!----------html code compleate----------->
+
+
+
+
+
+
+
+
+  
+     <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+   <script src="{% static 'assets\js\js\jquery-3.3.1.slim.min.js' %}"></script>
+   <script src="{% static 'assets\js\js\popper.min.js' %}"></script>
+   <script src="{% static 'assets\js\js\bootstrap.min.js' %}"></script>
+   <script src="{% static 'assets\js\js\jquery-3.3.1.min.js' %}"></script>
+  
+  
+  <script type="text/javascript">
+        
+		$(document).ready(function(){
+		  $(".xp-menubar").on('click',function(){
+		    $('#sidebar').toggleClass('active');
+			$('#content').toggleClass('active');
+		  });
+		  
+		   $(".xp-menubar,.body-overlay").on('click',function(){
+		     $('#sidebar,.body-overlay').toggleClass('show-nav');
+		   });
+		  
+		});
+		
+</script>
+  
+  
+
+
+
+  </body>
+  
+  </html>
+
+

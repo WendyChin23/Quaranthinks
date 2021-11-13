@@ -89,6 +89,14 @@
       </div>
     </section><!-- End Breadcrumbs -->
 
+    {% if message_name%}
+      <center>
+        <h2>Thanks {{message_name}}!</h2>
+        <p>We have received your email and we will respond shortly...</p>
+      </center>
+      </br></br></br>
+    {% else%}  
+
     <!-- ======= Contact Section ======= -->
     <section id="contact" class="contact">
       <div class="container">
@@ -125,7 +133,8 @@
 
           <div class="col-lg-8 mt-5 mt-lg-0">
 
-            <form action="forms/contact.php" method="post" role="form" class="php-email-form">
+            <form action="{% url 'appdev:contact_view' %}" method="POST" role="form" class="php-email-form">
+              {% csrf_token %}
               <div class="row">
                 <div class="col-md-6 form-group">
                   <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
@@ -145,7 +154,7 @@
                 <div class="error-message"></div>
                 <div class="sent-message">Your message has been sent. Thank you!</div>
               </div>
-              <div class="text-center"><button type="submit">Send Message</button></div>
+              <div class="btn dento-btn"><button type="submit">Send Message</button></div>
             </form>
 
           </div>
@@ -154,6 +163,7 @@
 
       </div>
     </section><!-- End Contact Section -->
+    {% endif %}
 
   </main><!-- End #main -->
 

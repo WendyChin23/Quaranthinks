@@ -1,10 +1,12 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import View
 from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.shortcuts import(get_object_or_404,render,HttpResponseRedirect)
 from .forms import *
 from appdev.forms import AccountUserForm
+from django.core.mail import send_mail, BadHeaderError
+from tech import settings  
 
 from appdev.models import AccountUser
 # Create your views here.
@@ -32,6 +34,20 @@ class Team(View):
 class Contact(View):
 	def get(self, request):
 		return render(request,'contact.html')
+
+	def contact(request):
+		if request.method == "POST":
+			message_name = request.POST.['name']
+			message_email = request.POST['email']
+			message_subject = requeset.POST['subject']
+			message = request.POST['message']
+
+			send_mail(message_subject, message, message_email, [settings.EMAIL_HOST_USER])
+
+			return render(request, 'contact.html', {'message_name' : message_name})
+
+		else:
+			return render(request, 'contact.html', {})	
 
 class Grades(View):
 	def get(self, request):

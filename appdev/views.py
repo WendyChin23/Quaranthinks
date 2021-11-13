@@ -47,7 +47,7 @@ class Contact(View):
             
             print(message_name,message_email,message_subject,message) 
 
-            send_mail(message_subject,message,'psalm.alonzo0723@gmail.com',[settings.EMAIL_HOST_USER], fail_silently = False,)   
+            send_mail(message_subject,message,settings.EMAIL_HOST_USER,[message_email], fail_silently = False,)   
 
             return HttpResponseRedirect('appdev:contact_view')        
         else:

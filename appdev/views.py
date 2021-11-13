@@ -7,81 +7,80 @@ from .forms import *
 from appdev.forms import AccountUserForm
 from django.core.mail import send_mail, BadHeaderError
 from tech import settings  
+from django.urls import reverse
 
 from appdev.models import AccountUser
 # Create your views here.
 
 class Home(View):
-	def get(self, request):
-		return render(request,'index.html')
+    def get(self, request):
+        return render(request,'index.html')
 
 class About(View):
-	def get(self, request):
-		return render(request,'about.html')
+    def get(self, request):
+        return render(request,'about.html')
 
 class Blogsingle(View):
-	def get(self, request):
-		return render(request,'blog-single.html')
+    def get(self, request):
+        return render(request,'blog-single.html')
 
 class Blog(View):
-	def get(self, request):
-		return render(request,'blog.html')
+    def get(self, request):
+        return render(request,'blog.html')
 
 class Team(View):
-	def get(self, request):
-		return render(request,'team.html')
+    def get(self, request):
+        return render(request,'team.html')
 
 class Contact(View):
-	def get(self, request):
-		return render(request,'contact.html')
+    def get(self, request):
+        return render(request,'contact.html')
 
-	def post(self,request):
-		if request.method == "POST":
-			if 'btnSendMessage' in request.POST:
-				print("Send Message button is clicked")
-				message_name = str(request.POST.get("name"))
-				message_email = str(request.POST.get("email"))
-				message_subject = str(request.POST.get("subject"))
-				message = str(request.POST.get("message"))
-				tosend = str(settings.EMAIL_HOST_USER)
+    def post(self, request):
+        if request.method == 'POST':
+            
+            print("Send Message button is clicked")
+            message_name = request.POST.get("name")
+            message_email = request.POST.get("email_address")
+            message_subject = request.POST.get("subject")
+            message = request.POST.get("message")
+            
+            print(message_name,message_email,message_subject,message) 
 
-				send_mail(message_subject, message, message_email, [tosend], fail_silently=False)
+            send_mail(message_subject,message,message_email,[settings.EMAIL_HOST_USER], fail_silently = False,)   
 
-				return render(request, 'contact.html', {'message_name' : message_name})
-			else:
-				msg = "Mail did not send successfully"
-				return HttpResponse(msg)	
-
-		else:
-			return render(request, 'contact.html', {})	
+            return HttpResponseRedirect('appdev:contact_view')        
+        else:
+            msg = "Mail did not send successfully"
+            return HttpResponse(msg)    
 
 class Grades(View):
-	def get(self, request):
-		return render(request,'grades.html')
+    def get(self, request):
+        return render(request,'grades.html')
 
 class Members(View):
-	def get(self, request):
-		return render(request,'members.html')
+    def get(self, request):
+        return render(request,'members.html')
 
 class Portfolio(View):
-	def get(self, request):
-		return render(request,'portfolio-details.html')
+    def get(self, request):
+        return render(request,'portfolio-details.html')
 
 class Rewards(View):
-	def get(self, request):
-		return render(request,'rewards.html')
+    def get(self, request):
+        return render(request,'rewards.html')
 
 class Services(View):
-	def get(self, request):
-		return render(request,'services.html')
+    def get(self, request):
+        return render(request,'services.html')
 
 class Signup(View):
-	def get(self, request):
-		return render(request,'signup.html')
+    def get(self, request):
+        return render(request,'signup.html')
 
 class Testimonial(View):
-	def get(self, request):
-		return render(request,'testimonials.html')
+    def get(self, request):
+        return render(request,'testimonials.html')
 
 class AccountDashboardView(View):
     def get(self, request):
@@ -100,15 +99,15 @@ class AccountDashboardView(View):
                 Idn = request.POST.get("idn-idn")                                                                                                                                                                                                                                                                                                                                            
                 fname = request.POST.get("first-name")
                 lname = request.POST.get("last-name")
-                Email = request.POST.get("email-email")				
+                Email = request.POST.get("email-email")             
                 Address = request.POST.get("address-address")
                 Age = request.POST.get("age-age")
                 Birthdate = request.POST.get("birth-date")
                 Username = request.POST.get("user-name")
                 Password = request.POST.get("pass-word")
-				
+                
                 update_user = AccountUser.objects.filter(idn=Idn).update(firstname = fname, lastname = lname, address = Address,
-				email = Email, age = Age, birthdate = Birthdate, username = Username, password = Password )
+                email = Email, age = Age, birthdate = Birthdate, username = Username, password = Password )
                 print(update_user)
                 print('user updated')
 
@@ -139,36 +138,36 @@ class Signup(View):
     #         print(form.errors)
     #         return HttpResponse('not valid')
 
-	def get(self, request):
-		return render(request, 'signup.html')
+    def get(self, request):
+        return render(request, 'signup.html')
 
-	def post(self, request):		
-		form = AccountUserForm(request.POST)		
-		# fname = request.POST.get("firstname")
-		# print(fname)
-		# lname = request.POST.get("lastname")
-		# print(lname)
-		if form.is_valid():
-			# try:
+    def post(self, request):        
+        form = AccountUserForm(request.POST)        
+        # fname = request.POST.get("firstname")
+        # print(fname)
+        # lname = request.POST.get("lastname")
+        # print(lname)
+        if form.is_valid():
+            # try:
             
-			Idn = request.POST.get("idn")
-			fname = request.POST.get("firstname")
-			lname = request.POST.get("lastname")
-			Address = request.POST.get("address")
-			Age = request.POST.get("age")
-			Birthdate = request.POST.get("birthdate")
-			Username = request.POST.get("username")
-			Password = request.POST.get("password")
-			form = AccountUser(idn = Idn, firstname = fname, lastname = lname, address = Address, age = Age,
-			 birthdate = Birthdate, username = Username, password=Password)
-			form.save()	
+            Idn = request.POST.get("idn")
+            fname = request.POST.get("firstname")
+            lname = request.POST.get("lastname")
+            Address = request.POST.get("address")
+            Age = request.POST.get("age")
+            Birthdate = request.POST.get("birthdate")
+            Username = request.POST.get("username")
+            Password = request.POST.get("password")
+            form = AccountUser(idn = Idn, firstname = fname, lastname = lname, address = Address, age = Age,
+             birthdate = Birthdate, username = Username, password=Password)
+            form.save() 
 
-			#return HttpResponse('Student record saved!')			
-			return redirect('appdev:members_view')
-			# except:
-			# 	raise Http404
-		else:
-			print(form.errors)
-			return HttpResponse('not valid')
+            #return HttpResponse('Student record saved!')           
+            return redirect('appdev:members_view')
+            # except:
+            #   raise Http404
+        else:
+            print(form.errors)
+            return HttpResponse('not valid')
 
-		
+        

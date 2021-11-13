@@ -35,16 +35,22 @@ class Contact(View):
 	def get(self, request):
 		return render(request,'contact.html')
 
-	def contact(request):
+	def post(self,request):
 		if request.method == "POST":
-			message_name = request.POST.['name']
-			message_email = request.POST['email']
-			message_subject = requeset.POST['subject']
-			message = request.POST['message']
+			if 'btnSendMessage' in request.POST:
+				print("Send Message button is clicked")
+				message_name = str(request.POST.get("name"))
+				message_email = str(request.POST.get("email"))
+				message_subject = str(request.POST.get("subject"))
+				message = str(request.POST.get("message"))
+				tosend = str(settings.EMAIL_HOST_USER)
 
-			send_mail(message_subject, message, message_email, [settings.EMAIL_HOST_USER])
+				send_mail(message_subject, message, message_email, [tosend], fail_silently=False)
 
-			return render(request, 'contact.html', {'message_name' : message_name})
+				return render(request, 'contact.html', {'message_name' : message_name})
+			else:
+				msg = "Mail did not send successfully"
+				return HttpResponse(msg)	
 
 		else:
 			return render(request, 'contact.html', {})	
@@ -164,4 +170,5 @@ class Signup(View):
 		else:
 			print(form.errors)
 			return HttpResponse('not valid')
+
 		

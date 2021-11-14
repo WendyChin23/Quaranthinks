@@ -196,11 +196,12 @@ logout</span>Logout</a>
                   <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="#">User</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
-                  </ol>                
+                  </ol>     
+                        
             </div>
 			
 		   </div>
-		   
+       <br><br>
 		   
 
 
@@ -253,10 +254,7 @@ logout</span>Logout</a>
       <tbody>
         <tr>
           <td>
-            <span class="custom-checkbox">
-			<input type="checkbox" id="checkbox1" name="options[]" value="1">
-			<label for="checkbox1"></label>
-							</span>
+            
           </td>
           <tbody>
             {% for accountuser in accountuser %}
@@ -279,7 +277,8 @@ logout</span>Logout</a>
                     <button href="#" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal-{{student.idn}}" data-whatever="@mdo data-placement=" title="Update">UPDATE</button>
 
 
-                    <div class="modal fade" id="exampleModal-{{student.idn}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"> <div class="modal-dialog">
+                    <div class="modal fade" id="exampleModal-{{student.idn}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="false"> 
+                      <div class="modal-dialog">
                             <div class="modal-content">
                               <div class="modal-header">
                                 <h5 class="modal-title" id="exampleModalLabel">Update User</h5>
@@ -344,7 +343,7 @@ logout</span>Logout</a>
     </div>
                           
                          <!-- Modal HTML -->
-<div id="Modal-{{accountuser.idn}}" >
+<div id="Modal-{{accountuser.idn}}" class="modal fade" data-backdrop="false">
 	<div class="modal-dialog modal-confirm">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -426,7 +425,7 @@ logout</span>Logout</a>
 			 
 			 
 		</div>
-		
+		<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 		<footer class="footer">
 			    <div class="container-fluid">
 				  <div class="footer-in">

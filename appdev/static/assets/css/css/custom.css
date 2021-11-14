@@ -696,13 +696,13 @@ background-color:rgba(0,0,0,0.09);
 	   
 	   /*-------modal-style start------*/
 	   .modal .modal-dialog{
-		   max-width:400px;
+		   max-width:300px;
 	   }
 	   .modal .modal-header, .modal .modal-body,.modal .modal-footer{
 		   padding:20px 30px;
 	   }
 	   .modal .modal-content{
-		   border-radius:3px;
+		   border-radius:1px;
 	   }
 	   
 	   .modal .modal-footer{

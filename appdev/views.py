@@ -4,7 +4,6 @@ from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.shortcuts import(get_object_or_404,render,HttpResponseRedirect)
 from .forms import *
-from appdev.forms import AccountUserForm
 from django.core.mail import send_mail, BadHeaderError
 from tech import settings  
 from django.urls import reverse
@@ -34,25 +33,26 @@ class Team(View):
 
 class Contact(View):
     def get(self, request):
-        return render(request,'contact.html')
+        return render(request,'contact.html',{})
 
     def post(self, request):
-        if request.method == 'POST':
-            
-            print("Send Message button is clicked")
-            message_name = request.POST.get("name")
-            message_email = request.POST.get("email_address")
-            message_subject = request.POST.get("subject")
-            message = request.POST.get("message")
-            
-            print(message_name,message_email,message_subject,message) 
+        conform = ContactForm(request.POST)
+        if request.method == "POST": 
+            if conform.is_valid():
+                name = request.POST.get("name")
+                subject = request.POST.get("subject")
+                email = request.POST.get("email")
+                message = request.POST.get("message")
 
-            send_mail(message_subject,message,settings.EMAIL_HOST_USER,[message_email], fail_silently = False,)   
-
-            return HttpResponseRedirect('appdev:contact_view')        
-        else:
-            msg = "Mail did not send successfully"
-            return HttpResponse(msg)    
+                conform = ContactMessage(name = name, subject = subject, email = email, message = message) 
+                conform.save()
+                send_mail(name,message,email,[settings.EMAIL_HOST_USER], fail_silently = False,)
+                return redirect('appdev:contact_view')
+            else:
+                print(form.errors)
+                pok = "Not send message"
+                return HttpResponse(pok)          
+        
 
 class Grades(View):
     def get(self, request):
@@ -78,7 +78,7 @@ class Signup(View):
     def get(self, request):
         return render(request,'signup.html')
 
-		
+        
 class AdminDashboard(View):
     def get(self, request):
         return render(request,'admindashboard.html')

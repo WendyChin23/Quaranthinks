@@ -34,6 +34,19 @@ class Grade(models.Model):
     finals = models.CharField(max_length = 5)
     finalgrade = models.CharField(max_length = 5)
 
+class ExclusiveVoucher(models.Model):
+    ev_code = models.IntegerField()
+
+    def __str__(self):
+        return str(self.ev_code)
+
+class GeneralVoucher(models.Model):
+    gv_code = models.IntegerField() 
+
+    def __str__(self):
+        return str(self.gv_code)   
+
+
 
 
 

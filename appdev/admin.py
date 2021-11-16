@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import AccountUser, ContactMessage, Grade
+from .models import AccountUser, ContactMessage, Grade, ExclusiveVoucher, GeneralVoucher
 
 # Register your models here.
 
@@ -14,7 +14,13 @@ class GradeDashboard(admin.ModelAdmin):
 	list_filter = ['faculty_name']
 	search_fields = ['subject_code']
 
+class ExclusiveDashboard(admin.ModelAdmin):
+	list_display = ('id', 'gv_code')
+	
+
+
 admin.site.register(AccountUser)
 admin.site.register(ContactMessage, ContactDashboard)
 admin.site.register(Grade, GradeDashboard)
-
+admin.site.register(ExclusiveVoucher)
+admin.site.register(GeneralVoucher)

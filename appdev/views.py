@@ -162,12 +162,13 @@ class Signup(View):
             Idn = request.POST.get("idn")
             fname = request.POST.get("firstname")
             lname = request.POST.get("lastname")
+            Email = request.POST.get("email")
             Address = request.POST.get("address")
             Age = request.POST.get("age")
             Birthdate = request.POST.get("birthdate")
             Username = request.POST.get("username")
             Password = request.POST.get("password")
-            form = AccountUser(idn = Idn, firstname = fname, lastname = lname, address = Address, age = Age,
+            form = AccountUser(idn = Idn, firstname = fname, lastname = lname, email = Email, address = Address, age = Age,
              birthdate = Birthdate, username = Username, password=Password)
             form.save() 
 

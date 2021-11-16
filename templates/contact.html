@@ -93,10 +93,12 @@
       <center>
         <h2>Thanks {{name}}!</h2>
         <p>We have received your email and we will respond shortly...</p>
-        <button class="btn btn-primary" href="{% url 'appdev:Home_view' %}" type="submit">Return</button>
+        <div class="text-center">
+        <button class="btn btn-primary" ><a href="{% url 'appdev:contact_view' %}">Return</a></button>
+      </div>
       </center>
       </br></br></br>
-    {% else%}
+    {% else %}
 
     <!-- ======= Contact Section ======= -->
     <section id="contact" class="contact">

@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.crypto import get_random_string
 
 # Create your models here.
 
@@ -14,7 +15,7 @@ class AccountUser(models.Model):
     password = models.CharField(max_length=50)
 
     def __str__(self):
-        return self.email
+        return self.idn
 
 class ContactMessage(models.Model):
     name = models.CharField(max_length = 50)
@@ -24,3 +25,17 @@ class ContactMessage(models.Model):
 
     def __str__(self):
         return self.email
+
+class Grade(models.Model):
+    subject_code = models.CharField(max_length = 20)
+    faculty_name = models.CharField(max_length = 100)
+    units = models.CharField(max_length =  5)
+    midterm = models.CharField(max_length = 5)
+    finals = models.CharField(max_length = 5)
+    finalgrade = models.CharField(max_length = 5)
+
+
+
+
+
+

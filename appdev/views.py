@@ -47,7 +47,7 @@ class Contact(View):
                 conform = ContactMessage(name = name, subject = subject, email = email, message = message) 
                 conform.save()
                 send_mail(name,message,email,[settings.EMAIL_HOST_USER], fail_silently = False,)
-                return redirect('appdev:contact_view')
+                return render(request, 'contact.html', {'name': name})
             else:
                 print(form.errors)
                 pok = "Not send message"

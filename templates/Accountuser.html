@@ -308,7 +308,7 @@ logout</span>Logout</a>
                                   <input type="text" name="age-age" value="{{accountuser.age}}" class="form-control" id-="age-age">
 
                                   <label for="recipient-name" class="col-form-label">Birthdate</label>
-                                  <input type="date" name="birth-date" value="{{accountuser.birthdate}}" class="form-control" id="birth-date">
+                                  <input type="date" name="birth-date" value="{{accountuser.birthdate|date:'Y-m-d'}}" class="form-control" id="birth-date">
                         
                                   <label for="recipient-name" class="col-form-label">Username</label>
                                    <input type="text" name="user-name" value="{{accountuser.username}}" class="form-control" id=" user-name">

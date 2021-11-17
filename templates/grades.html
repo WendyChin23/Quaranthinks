@@ -242,18 +242,18 @@ logout</span>Logout</a>
         </tr>
       </thead>
       
-              {% for accountuser in accountuser %}
+              {% for grade in grades %}
             <tr>
-                     <td>   
-                <td></td> 
-                <td></td> 
-                <td></td> 
+                <td>{{grade.subject_code}}</td>  
+                <td>{{grade.midterm}}</td> 
+                <td>{{grade.finals}}</td> 
+                <td>{{grade.finalgrade}}</td> 
                 <td></td>
                  
                 <td>
     
                                   
-                    <button href="#" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal-{{accountuser.idn}}" data-whatever="@mdo data-placement=" title="Update">UPDATE</button>
+                    
 
                     <div class="modal fade" id="exampleModal-{{accountuser.idn}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="false"> 
                       <div class="modal-dialog">
@@ -314,8 +314,7 @@ logout</span>Logout</a>
                         
                         
                         <!-- Button trigger modal -->
-  <a href="button" href="#" class="btn btn-primary" data-target="#Modal-{{accountuser.idn}}"data-toggle="modal">DELETE</a>
-    </div>
+  
                           
                          <!-- Modal HTML -->
 <div id="Modal-{{accountuser.idn}}" class="modal fade" data-backdrop="false">

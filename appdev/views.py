@@ -8,7 +8,7 @@ from django.core.mail import send_mail, BadHeaderError
 from tech import settings  
 from django.urls import reverse
 
-from appdev.models import AccountUser
+from appdev.models import *
 # Create your views here.
 
 class Home(View):
@@ -54,9 +54,15 @@ class Contact(View):
                 return HttpResponse(pok)          
         
 
-class Grades(View):
+class GradesView(View):
     def get(self, request):
-        return render(request,'grades.html')
+        grades = Grade.objects.all()
+
+        context = {
+            'grades' :grades, #name that we want to use
+            
+        }
+        return render(request,'grades.html',context)
 
 class Members(View):
     def get(self, request):

@@ -33,15 +33,22 @@ class Grade(models.Model):
     midterm = models.FloatField()
     finals = models.FloatField()
     finalgrade = models.FloatField()
+    #group = models.ForeignKey(AccountUser, on_delete=models.CASCADE)
 
 class ExclusiveVoucher(models.Model):
     ev_code = models.IntegerField()
+    ev_title = models.CharField(max_length = 20)
+    ev_percentage = models.CharField(max_length = 10)
+    #group = models.ForeignKey(AccountUser, on_delete=models.CASCADE)
 
     def __str__(self):
         return str(self.ev_code)
 
 class GeneralVoucher(models.Model):
     gv_code = models.IntegerField() 
+    gv_title = models.CharField(max_length = 20)
+    gv_percentage = models.CharField(max_length = 10)
+    #group = models.ForeignKey(AccountUser, on_delete=models.CASCADE)
 
     def __str__(self):
         return str(self.gv_code)   

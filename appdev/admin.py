@@ -17,9 +17,13 @@ class GradeDashboard(admin.ModelAdmin):
 class ExclusiveDashboard(admin.ModelAdmin):
 	list_display = ('id', 'gv_code')
 	
+class AccountDashboard(admin.ModelAdmin):
+	list_display = ('idn', 'firstname', 'lastname', 'email', 'address', 'age', 'birthdate','username', 'password' )
+	list_filter = ['email']
+	search_fields = ['lastname']
 
 
-admin.site.register(AccountUser)
+admin.site.register(AccountUser, AccountDashboard)
 admin.site.register(ContactMessage, ContactDashboard)
 admin.site.register(Grade, GradeDashboard)
 admin.site.register(ExclusiveVoucher)

@@ -1,0 +1,34 @@
+{% load static %}
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>AdminLogin</title>
+
+<link href="{% static 'assets/css/loginbox.css' %}" rel="stylesheet"  />
+  
+<body>    
+    <h1>Admin Login</h1><br>    
+    <div class="login">    
+    <form id="login" method="get" action="login.php">    
+        <label><b>User Name     
+        </b>    
+        </label>    
+        <input type="text" name="Uname" id="Uname" placeholder="Username">    
+        <br><br>    
+        <label><b>Password     
+        </b>    
+        </label>    
+        <input type="Password" name="Pass" id="Pass" placeholder="Password">    
+        <br><br>    
+        
+     
+            <a href = "admindashboard" button type="button">Log In </a></button> 
+        <br><br>    
+        <input type="checkbox" id="check">    
+        <span>Remember me</span>    
+        <br><br>    
+        <a href="#"> Forgot Password</a>    
+    </form>     
+</div>    
+</body>    
+</html>     

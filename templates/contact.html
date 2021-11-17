@@ -39,7 +39,7 @@
 </head>
 
 <body>
-
+  
   <!-- ======= Header ======= -->
   <header id="header" class="fixed-top d-flex align-items-center">
     <div class="container d-flex align-items-center">
@@ -89,6 +89,17 @@
       </div>
     </section><!-- End Breadcrumbs -->
 
+    {% if name %}
+      <center>
+        <h2>Thanks {{name}}!</h2>
+        <p>We have received your email and we will respond shortly...</p>
+        <div class="text-center">
+        <button class="btn btn-primary" ><a href="{% url 'appdev:contact_view' %}">Return</a></button>
+      </div>
+      </center>
+      </br></br></br>
+    {% else %}
+
     <!-- ======= Contact Section ======= -->
     <section id="contact" class="contact">
       <div class="container">
@@ -124,8 +135,9 @@
           </div>
 
           <div class="col-lg-8 mt-5 mt-lg-0">
-
-            <form action="forms/contact.php" method="post" role="form" class="php-email-form">
+{% block content %}
+            <form action="{% url 'appdev:contact_view' %}" method="POST">
+              {% csrf_token %}
               <div class="row">
                 <div class="col-md-6 form-group">
                   <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
@@ -138,14 +150,16 @@
                 <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
               </div>
               <div class="form-group mt-3">
-                <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
+                <textarea class="form-control" id="message" name="message" rows="5" placeholder="Message" required></textarea>
               </div>
-              <div class="my-3">
+              <!--<div class="my-3">
                 <div class="loading">Loading</div>
                 <div class="error-message"></div>
                 <div class="sent-message">Your message has been sent. Thank you!</div>
-              </div>
-              <div class="text-center"><button type="submit">Send Message</button></div>
+              </div>-->
+              <div class="text-center">
+                <button class="btn btn-primary" href="{% url 'appdev:contact_view' %}" type="submit" >Send Message</button></div>
+{% endblock content %}
             </form>
 
           </div>
@@ -154,6 +168,7 @@
 
       </div>
     </section><!-- End Contact Section -->
+    {% endif %}
 
   </main><!-- End #main -->
 

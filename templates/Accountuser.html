@@ -37,11 +37,11 @@
 		     <!-- Sidebar  -->
         <nav id="sidebar">
             <div class="sidebar-header">
-                <h3><img src="{% static 'assets\img\logo.jpg' %}" class="img-fluid"/><span>Quaranthinks</span></h3>
+                <h3><img src="{% static 'assets\img\logo.jpg' %}" class="img-fluid"/><span>QuaranThinks</span></h3>
             </div>
             <ul class="list-unstyled components">
 			<li>
-                    <a href="{% url 'appdev:admindashboard_view' %}" class="dashboard"><i class="material-icons">dashboard</i>
+                    <a href="{% url 'appdev:Home_view' %}" class="dashboard"><i class="material-icons">dashboard</i>
 					<span>HOME</span></a>
                 </li>
 		
@@ -54,9 +54,7 @@
                         <li  class="active">
                             <a href="{% url 'appdev:accountdashboard_view' %}">User</a>
                         </li>
-                        <li>
-                            <a href="#">Admin</a>
-                        </li>
+                        
                       
                     </ul>
                 </li>
@@ -77,8 +75,7 @@
                 </li>
 
                 <li class="dropdown">
-                    <a href="#pageSubmenu3" data-toggle="collapse" aria-expanded="false" 
-                    >
+                    <a href="{% url 'appdev:grades_view' %}">
                     <i class="material-icons">apps</i><span>Grades</span></a>
                    
                 </li>
@@ -226,7 +223,7 @@ logout</span>Logout</a>
     <div class="table-title">
       <div class="row">
         <div class="col-sm-6 p-0 d-flex justify-content-lg-start justify-content-center">
-          <h2 class="ml-lg-2">Manage Admin</h2>
+          <h2 class="ml-lg-2">View Profile</h2>
         </div>
      
      
@@ -251,12 +248,7 @@ logout</span>Logout</a>
           <th>Action</th> 
         </tr>
       </thead>
-      <tbody>
-        <tr>
-          <td>
-            
-          </td>
-          <tbody>
+      
             {% for accountuser in accountuser %}
             <tr>
                      <td>   

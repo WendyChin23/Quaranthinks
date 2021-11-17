@@ -29,10 +29,10 @@ class ContactMessage(models.Model):
 class Grade(models.Model):
     subject_code = models.CharField(max_length = 20)
     faculty_name = models.CharField(max_length = 100)
-    units = models.CharField(max_length =  5)
-    midterm = models.CharField(max_length = 5)
-    finals = models.CharField(max_length = 5)
-    finalgrade = models.CharField(max_length = 5)
+    units = models.FloatField()
+    midterm = models.FloatField()
+    finals = models.FloatField()
+    finalgrade = models.FloatField()
 
 class ExclusiveVoucher(models.Model):
     ev_code = models.IntegerField()

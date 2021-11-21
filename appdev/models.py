@@ -1,21 +1,29 @@
 from django.db import models
-from django.utils.crypto import get_random_string
+from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 # Create your models here.
 
 class AccountUser(models.Model):
-    idn = models.CharField(max_length = 50)
-    firstname = models.CharField(max_length = 50)
-    lastname = models.CharField(max_length = 50)
-    email = models.CharField(max_length = 50)
-    address = models.CharField(max_length=50)
+    uid = models.BigAutoField(primary_key = True)
+    first_name = models.CharField(max_length = 50) #pwede ma unique
+    last_name = models.CharField(max_length = 50)
+    email = models.CharField(max_length = 50, unique = True)
+    address = models.CharField(max_length=100)
     age = models.IntegerField()
-    birthdate = models.DateField(max_length=50)
-    username = models.CharField(max_length=50)
-    password = models.CharField(max_length=50)
+    birthdate = models.DateField()
+    username = models.CharField(max_length = 100, unique = True)
+    password = models.CharField(max_length = 50)
 
-    def __str__(self):
-        return self.idn
+   
+
+    
+# @receiver(post_save, sender=User)
+# def update_profile_signal(sender, instance, created, **kwargs):
+#     if created:
+#         Profile.objects.create(user=instance)
+#     instance.profile.save()        
 
 class ContactMessage(models.Model):
     name = models.CharField(max_length = 50)

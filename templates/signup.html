@@ -13,10 +13,10 @@
   <link rel="stylesheet" type="text/css" href="{% static 'assets/css/signup.css' %}">
   
   <!--Bootsrap 4 CDN-->
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     
     <!--Fontawesome CDN-->
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
 
   <!-- Favicons -->
@@ -44,11 +44,11 @@
 </head>
 
 <body>
-  {% block content %}
-	
-	<hr/>
-	<form method="POST">
-		{% csrf_token %}
+  
+{% block content %} 
+  <hr/>
+  <form method="POST">
+    {% csrf_token %}
 
   <!-- ======= Header ======= -->
   <header id="header" class="fixed-top d-flex align-items-center">
@@ -61,7 +61,7 @@
       <nav id="navbar" class="navbar">
         <ul>
           <li><a href="{% url 'appdev:Home_view' %}">Home</a></li>
-		  <li><a href="{% url 'appdev:team_view' %}">Team</a></li>
+      <li><a href="{% url 'appdev:team_view' %}">Team</a></li>
           <li><a href="{% url 'appdev:services_view' %}">Services</a></li>
           <li><a href="{% url 'appdev:rewards_view' %}">Rewards</a></li>
           <li><a href="{% url 'appdev:grades_view' %}">Grades</a></li>
@@ -74,6 +74,7 @@
 
     </div>
   </header><!-- End Header -->
+</form>
 
   <main id="main">
 
@@ -93,88 +94,108 @@
     </section><!-- End Breadcrumbs -->
 
     <!-- ======= Members Section ======= -->
-	<br><br><br>
-	<div class="container">
-	<div class="d-flex justify-content-center h-100">
-		<div class="card">
-			<div class="card-header">
-				<h3>Register</h3>
-				<div class="d-flex justify-content-end social_icon">
-					<span><i class="fab fa-facebook-square"></i></span>
-					<span><i class="fab fa-google-plus-square"></i></span>
-					<span><i class="fab fa-twitter-square"></i></span>
-				</div>
-			</div>
-			<div class="card-body">
-				<form>
-					<div class="input-group form-group">
-						<div class="input-group-prepend">
-							<span class="input-group-text"><i class="fas fa-id-card"></i></span>
-						</div>
-						<input type="text" class="form-control" placeholder="Student ID"  id="id-Idn" name="idn">
-					</div>
-					<div class="input-group form-group">
-						<div class="input-group-prepend">
-							<span class="input-group-text"><i class="fas fa-user"></i></span>
-						</div>
-						<input type="text" class="form-control" placeholder="First Name" id="id-fname" name="firstname"> 
-					</div>
-					<div class="input-group form-group">
-						<div class="input-group-prepend">
-							<span class="input-group-text"><i class="fas fa-user"></i></span>
-						</div>
-						<input type="text" class="form-control" placeholder="Last Name" id="id-lname" name="lastname">
-					</div>
-					<div class="input-group form-group">
-						<div class="input-group-prepend">
-							<span class="input-group-text"><i class="fas fa-at"></i></span>
-						</div>
-						<input type="text" class="form-control" placeholder="Email"  id="id-email" name="email">
-					</div>
-					<div class="input-group form-group">
-						<div class="input-group-prepend">
-							<span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
-						</div>
-						<input type="text" class="form-control" placeholder="Address"  id="id-Address" name="address">
-					</div>
-					<div class="input-group form-group">
-						<div class="input-group-prepend">
-							<span class="input-group-text"><i class="fas fa-calendar"></i></span>
-						</div>
-						<input type="text" class="form-control" placeholder="Age"  id="id-age" name="age">
-					</div>
-					<div class="input-group form-group">
-						<div class="input-group-prepend">
-							<span class="input-group-text"><i class="fas fa-birthday-cake"></i></span>
-						</div>
-						<input type="date" class="form-control" placeholder="Birth Date"  id="id-birthdate" name="birthdate">
-					</div>
-					<div class="input-group form-group">
-						<div class="input-group-prepend">
-							<span class="input-group-text"><i class="fas fa-user-tie"></i></span>
-						</div>
-						<input type="text" class="form-control" placeholder="Username"  id="id-username" name="username">
-					</div>
-					<div class="input-group form-group">
-						<div class="input-group-prepend">
-							<span class="input-group-text"><i class="fas fa-key"></i></span>
-						</div>
-						<input type="password" class="form-control" placeholder="Password"  id="id-password" name="password">
-					</div>
-					<div class="form-group">
+
+  <br><br><br>
+  <div class="container">
+  <div class="d-flex justify-content-center h-100">
+    <div class="card">
+      <div class="card-header">
+        <h3>Register</h3>
+        <div class="d-flex justify-content-end social_icon">
+          <span><i class="fab fa-facebook-square"></i></span>
+          <span><i class="fab fa-google-plus-square"></i></span>
+          <span><i class="fab fa-twitter-square"></i></span>
+        </div>
+      </div>
+      <div class="card-body">
+
+        <!--<form method="post" >
+             {% csrf_token %}
+             <table>
+                {{ form }}
+                 <tr>
+                    <td></td>
+                    <td><input type="submit" name="btnRegister" value="Register" /></td>
+                </tr>
+             </table>
+
+         </form>-->
+        {% load crispy_forms_tags %}  
+
+      <form method="POST">
+        {% csrf_token %}
+          <div class="input-group form-group">
+
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-user"></i></span>
+            </div>
+            <input type="text" class="form-control" placeholder="First Name" id="first_name" name="first_name"> 
+          </div>
+
+          <div class="input-group form-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-user"></i></span>
+            </div>
+            <input type="text" class="form-control" placeholder="Last Name" id="last_name" name="last_name">
+          </div>
+
+          <div class="input-group form-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-at"></i></span>
+            </div>
+            <input type="text" class="form-control" placeholder="Email"  id="email" name="email">
+          </div>
+
+          <div class="input-group form-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
+            </div>
+            <input type="text" class="form-control" placeholder="Address"  id="address" name="address">
+          </div>
+
+          <div class="input-group form-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-calendar"></i></span>
+            </div>
+            <input type="text" class="form-control" placeholder="Age"  id="age" name="age">
+          </div>
+
+          <div class="input-group form-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-birthday-cake"></i></span>
+            </div>
+            <input type="date" class="form-control" placeholder="Birth Date"  id="id-birthdate" name="birthdate">
+          </div>
+
+          <div class="input-group form-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-user-tie"></i></span>
+            </div>
+            <input type="text" class="form-control" placeholder="Username"  id="username" name="username">
+          </div>
+
+          <div class="input-group form-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-key"></i></span>
+            </div>
+            <input type="password" class="form-control" placeholder="Password"  id="password" name="password">
+          </div>
+
+          <div class="form-group">
             <div class="text-center"><button class="btn float-right login_btn"  href="{% url 'appdev:members_view' %}" type="submit">Sign Up</button></div>            
 
-					</div>
-          {% endblock content %}
-				</form>
-			</div>
-			<div class="card-footer">
-				<div class="d-flex justify-content-center links" href="{% url 'appdev:members_view' %}">
-					Already have an account?<a href="{% url 'appdev:members_view' %}">Login here</a>
-				</div>
-			</div>
-		</div>
-	</div>
+          </div>
+          </div>
+   {% endblock content %}       
+        </form>
+      </div>
+      <div class="card-footer">
+        <div class="d-flex justify-content-center links" href="{% url 'appdev:members_view' %}">
+          Already have an account?<a href="{% url 'appdev:members_view' %}">Login here</a>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 <br><br><br>
     <!-- End Members Section -->

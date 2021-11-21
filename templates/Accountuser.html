@@ -252,9 +252,9 @@ logout</span>Logout</a>
             {% for accountuser in accountuser %}
             <tr>
                      <td>   
-                <td>{{accountuser.idn}}</td> 
-                <td>{{accountuser.firstname}}</td> 
-                <td>{{accountuser.lastname}}</td> 
+                <td>{{accountuser.uid}}</td> 
+                <td>{{accountuser.first_name}}</td> 
+                <td>{{accountuser.last_name}}</td> 
                 <td>{{accountuser.email}}</td> 
                 <td>{{accountuser.address}}</td> 
                 <td>{{accountuser.age}}</td>
@@ -265,9 +265,9 @@ logout</span>Logout</a>
                 <td>
     
                                   
-                    <button href="#" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal-{{accountuser.idn}}" data-whatever="@mdo data-placement=" title="Update">UPDATE</button>
+                    <button href="#" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal-{{accountuser.uid}}" data-whatever="@mdo data-placement=" title="Update">UPDATE</button>
 
-                    <div class="modal fade" id="exampleModal-{{accountuser.idn}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="false"> 
+                    <div class="modal fade" id="exampleModal-{{accountuser.uid}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="false"> 
                       <div class="modal-dialog">
                             <div class="modal-content">
                               <div class="modal-header">
@@ -283,13 +283,13 @@ logout</span>Logout</a>
                                   <div class="form-group">
                                 
                                  <label for="recipient-name" class="col-form-label">ID Number</label>
-                                <input name="idn-idn" value="{{accountuser.idn}}" subject.type="text" class="form-control" id="idn-idn" readonly>
+                                <input name="Uid-Uid" value="{{accountuser.uid}}" subject.type="text" class="form-control" id="Uid-Uid" readonly>
 
                                   <label for="recipient-name" class="col-form-label">First Name</label>
-                                  <input type="text" name="first-name" value="{{accountuser.firstname}}" class="form-control" id="first-name">
+                                  <input type="text" name="first-name" value="{{accountuser.first_name}}" class="form-control" id="first-name">
                         
                                   <label for="recipient-name" class="col-form-label">Last Name</label>
-                                  <input type="text" name="last-name" value="{{accountuser.lastname}}" class="form-control" id="last-name">
+                                  <input type="text" name="last-name" value="{{accountuser.last_name}}" class="form-control" id="last-name">
                                   <label for="recipient-name" class="col-form-label">Email</label>
                                   <input type="text" name="email-email" value = "{{accountuser.email}}" class="form-control" >
                         
@@ -326,11 +326,11 @@ logout</span>Logout</a>
                         
                         
                         <!-- Button trigger modal -->
-  <a href="button" href="#" class="btn btn-primary" data-target="#Modal-{{accountuser.idn}}"data-toggle="modal">DELETE</a>
+  <a href="button" href="#" class="btn btn-primary" data-target="#Modal-{{accountuser.uid}}"data-toggle="modal">DELETE</a>
     </div>
                           
                          <!-- Modal HTML -->
-<div id="Modal-{{accountuser.idn}}" class="modal fade" data-backdrop="false">
+<div id="Modal-{{accountuser.uid}}" class="modal fade" data-backdrop="false">
 	<div class="modal-dialog modal-confirm">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -344,7 +344,7 @@ logout</span>Logout</a>
           {% csrf_token %}
 
 			<div class="modal-body">
-				<input type="text" name="iidn-idn" value = {{accountuser.idn}} hidden>
+				<input type="text" name="Uuid-Uid" value = {{accountuser.uid}} hidden>
         Are you sure you want to delete
 			</div>
 			<div class="modal-footer">

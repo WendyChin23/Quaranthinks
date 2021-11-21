@@ -126,25 +126,25 @@ class AccountDashboardView(View):
 		if request.method == 'POST':
 			if 'BtnUpdate' in request.POST:
 				print('update button clicked')
-				Idn = request.POST.get("idn-idn")                                                                                                                                                                                                                                                                                                                                            
-				fname = request.POST.get("first_name")
-				lname = request.POST.get("last_name")
-				Email = request.POST.get("email")             
-				Address = request.POST.get("address")
-				Age = request.POST.get("age")
-				Birthdate = request.POST.get("birthdate")
-				Username = request.POST.get("username")
-				Password = request.POST.get("password")
+				Uid = request.POST.get("Uid-Uid")                                                                                                                                                                                                                                                                                                                                            
+				fname = request.POST.get("first-name")
+				lname = request.POST.get("last-name")
+				Email = request.POST.get("email-email")             
+				Address = request.POST.get("address-address")
+				Age = request.POST.get("age-age")
+				Birthdate = request.POST.get("birth-date")
+				Username = request.POST.get("user-name")
+				Password = request.POST.get("pass-word")
 				
-				update_user = AccountUser.objects.filter(idn=Idn).update(firstname = fname, lastname = lname, address = Address,
+				update_user = AccountUser.objects.filter(uid = Uid).update(first_name = fname, last_name = lname, address = Address,
 				email = Email, age = Age, birthdate = Birthdate, username = Username, password = Password )
 				print(update_user)
 				print('user updated')
 
 			elif 'BtnDelete' in request.POST:
 				print('delete button clicked')
-				Idn = request.POST.get("iidn-idn")
-				students = AccountUser.objects.filter(idn=Idn).delete()
+				Uid = request.POST.get("Uuid-Uid")
+				user = AccountUser.objects.filter(uid=Uid).delete()
 
 		return redirect('appdev:accountdashboard_view')
 
@@ -180,6 +180,7 @@ class Signup(View):
 		if form.is_valid():
 			# try:
 			fname = request.POST.get("first_name")
+			Uid = request.POST.get("uid")            
 			lname = request.POST.get("last_name")
 			Email = request.POST.get("email")
 			Address = request.POST.get("address")
@@ -187,7 +188,7 @@ class Signup(View):
 			Birthdate = request.POST.get("birthdate")
 			Username = request.POST.get("username")
 			Password = request.POST.get("password")
-			form = AccountUser(first_name = fname, last_name = lname, email = Email, address = Address, age = Age,
+			form = AccountUser(uid = Uid, first_name = fname, last_name = lname, email = Email, address = Address, age = Age,
 			 birthdate = Birthdate, username = Username, password=Password)
 			print('clicked')
 			form.save() 

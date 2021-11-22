@@ -1,5 +1,6 @@
 {% load static %}
 
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -31,6 +32,7 @@
 <div class="wrapper">
 
 
+
         <div class="body-overlay"></div>
 		
 		<!-------------------------sidebar------------>
@@ -38,6 +40,10 @@
         <nav id="sidebar">
             <div class="sidebar-header">
                 <h3><img src="{% static 'assets\img\logo.jpg' %}" class="img-fluid"/><span>QuaranThinks</span></h3>
+               {% for accountuser in accountuser %}
+                <p>{{accountuser.username}}</p>
+                 {% endfor %} 
+                
             </div>
             <ul class="list-unstyled components">
 			<li>

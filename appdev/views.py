@@ -76,8 +76,10 @@ class Members(View):
 			password = request.POST.get("password")
 			check_user = AccountUser.objects.filter(username=username, password=password)
 
-			if check_user:		
-				return render(request, 'accountuser.html',{'user':check_user})
+			if check_user:
+				request.session['user'] = username
+				if AccountUser.objects.filter(username=username).count()>0:	
+						return redirect('appdev:accountdashboard_view')
 			else:	
 				return HttpResponse('not valid')
 		else:	
@@ -114,12 +116,15 @@ class Testimonial(View):
 
 class AccountDashboardView(View):
 	def get(self, request):
-		accountuser = AccountUser.objects.all()
-	   
-		context = {
-			'accountuser' : accountuser, #name that we want to use
+		if 'user' in request.session:
+			current_user = request.session['user']
+			accountuser = AccountUser.objects.filter(username=current_user)
 			
-		}
+		#accountuser = AccountUser.objects.all()
+
+			context = {
+				'accountuser' : accountuser, #name that we want to use
+			}
 		return render(request,'Accountuser.html', context)
 
 	def post(self, request):

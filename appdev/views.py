@@ -104,6 +104,24 @@ class AdminDashboard(View):
 	def get(self, request):
 		return render(request,'admindashboard.html')
 
+class ClientDashboard(View):
+	def get(self, request):
+		return render(request,'client.html')
+
+class ClientHome(View):
+	def get(self, request):
+		return render(request,'clienthome.html')	
+		
+		
+		
+class ClientGrades(View):
+	def get(self, request):
+		return render(request,'clientgrades.html')
+
+class ClientVouchers(View):
+	def get(self, request):
+		return render(request,'clientvouchers.html')			
+
 class AdminPage(View):
 	def get(self, request):
 		return render(request,'adminpage.html')

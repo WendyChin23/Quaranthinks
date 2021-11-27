@@ -58,8 +58,10 @@ class Contact(View):
 
 class GradesView(View):
 	def get(self, request):
-		grades = Grade.objects.all()
-
+		if 'admin' in request.session:
+			#current_admin = request.session['admin']
+			grades = Grade.objects.all()
+			
 		context = {
 			'grades' :grades, #name that we want to use
 			
@@ -71,19 +73,20 @@ class Members(View):
 		return render(request,'members.html')
 
 	def post(self, request):
-		if request.method == 'POST':
-			username = request.POST.get("username")
-			password = request.POST.get("password")
-			check_user = AccountUser.objects.filter(username=username, password=password)
+		pass
+		# if request.method == 'POST':
+		# 	username = request.POST.get("username")
+		# 	password = request.POST.get("password")
+		# 	check_user = AccountUser.objects.filter(username=username, password=password)
 
-			if check_user:
-				request.session['user'] = username
-				if AccountUser.objects.filter(username=username).count()>0:	
-						return redirect('appdev:accountdashboard_view')
-			else:	
-				return HttpResponse('not valid')
-		else:	
-			return render(request,"signup.html", context)
+		# 	if check_user:
+		# 		request.session['usern'] = username
+		# 		if AccountUser.objects.filter(username=username).count()>0:	
+		# 				return redirect('appdev:contact_view')
+		# 	else:	
+		# 		return HttpResponse('not valid')
+		# else:	
+		# 	return render(request,"signup.html", context)
 
 class Portfolio(View):
 	def get(self, request):
@@ -128,20 +131,40 @@ class AdminPage(View):
 	def get(self, request):
 		return render(request,'adminpage.html')
 
+	def post(self, request):
+		if request.method == 'POST':
+			username = request.POST.get("username")
+			password = request.POST.get("password")
+			check_admin = Admin.objects.filter(username=username, password=password)
+
+			if check_admin:
+				request.session['admin'] = username
+				if Admin.objects.filter(username=username).count()>0:	
+						return redirect('appdev:accountdashboard_view')
+			else:	
+				return HttpResponse('not valid')
+		else:	
+			return render(request,"signup.html", context)
+
 class Testimonial(View):
 	def get(self, request):
 		return render(request,'testimonials.html')
 
 class AccountDashboardView(View):
 	def get(self, request):
-		if 'user' in request.session:
-			current_user = request.session['user']
-			accountuser = AccountUser.objects.filter(username=current_user)
+		if 'admin' in request.session:
+			current_admin = request.session['admin']
+			accountadmin = Admin.objects.filter(username=current_admin)
+			accountuser = AccountUser.objects.all()
+			# accountgrade = Grade.objects.all()
+			# accountevoucher = ExclusiveVoucher.objects.all()
+			# accountgvoucher = GeneralVoucher.object.all()
 			
-		#accountuser = AccountUser.objects.all()
+			#accountuser = AccountUser.objects.all()
 
 			context = {
-				'accountuser' : accountuser, #name that we want to use
+				'accountadmin' : accountadmin, #name that we want to use
+				'accountuser' : accountuser,
 			}
 		return render(request,'Accountuser.html', context)
 

@@ -267,7 +267,8 @@ logout</span>Logout</a>
       <thead>
         <tr>
     
-          <th style="width: 300px;">Subject Code</th> 
+          <th style="width: 300px;">Username</th>
+          <th>Subject Code</th> 
           <th>Midterm</th> 
           <th>Finals</th> 
           <th style="width: 200px;">Final Grade</th> 
@@ -276,6 +277,7 @@ logout</span>Logout</a>
       
               {% for grade in grades %}
             <tr>
+                <td>{{grade.username_id}}</td>
                 <td>{{grade.subject_code}}</td>  
                 <td>{{grade.midterm}}</td> 
                 <td>{{grade.finals}}</td> 

@@ -16,9 +16,11 @@ class AccountUser(models.Model):
     username = models.CharField(max_length = 100, unique = True)
     password = models.CharField(max_length = 50)
 
-   
-
-    
+class Admin(models.Model):
+    aid = models.AutoField(primary_key = True)
+    username = models.CharField(max_length = 50)
+    password = models.CharField(max_length = 30)
+ 
 # @receiver(post_save, sender=User)
 # def update_profile_signal(sender, instance, created, **kwargs):
 #     if created:
@@ -41,7 +43,7 @@ class Grade(models.Model):
     midterm = models.FloatField()
     finals = models.FloatField()
     finalgrade = models.FloatField()
-    student = models.ForeignKey(AccountUser,to_field='username', on_delete=models.CASCADE)
+    username = models.ForeignKey(AccountUser,to_field='username', on_delete=models.CASCADE)
 
 class ExclusiveVoucher(models.Model):
     ev_id = models.BigAutoField(primary_key = True)

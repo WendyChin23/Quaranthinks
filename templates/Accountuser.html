@@ -40,8 +40,8 @@
         <nav id="sidebar">
             <div class="sidebar-header">
                 <h3><img src="{% static 'assets\img\logo.jpg' %}" class="img-fluid"/><span>QuaranThinks</span></h3>
-               {% for accountuser in accountuser %}
-                <p>{{accountuser.username}}</p>
+               {% for accountadmin in accountadmin %}
+                <p>{{accountadmin.username}}</p>
                  {% endfor %} 
                 
             </div>

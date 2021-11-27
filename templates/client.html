@@ -22,10 +22,12 @@
 		<i class="fa fa-user" aria-hidden="true"></i>
 	</header>
 	<div class="body">
+		{% for userdetail in userdetails %}
 		<nav class="side-bar">
 			<div class="user-p">
 				<img src="{% static 'assets\img\team\Yap.png' %}">
-				<h4>USER NAME</h4>
+				<h4>{{userdetail.first_name}}</h4>
+				{% endfor %} 
 			</div>
             <ul>
 				<li>
@@ -97,18 +99,18 @@
         </tr>
       </thead>
       
-            {% for accountuser in accountuser %}
-            
+           
+            {% for userdetail in userdetails %}
                       
-                {{accountuser.uid}}
-                {{accountuser.first_name}}
-                {{accountuser.last_name}}
-                {{accountuser.email}}
-                {{accountuser.address}}
-                {{accountuser.age}}
-                {{accountuser.birthdate}}
-                 {{accountuser.username}}
-                 {{accountuser.password}}
+                {{userdetail.uid}}
+                {{userdetail.first_name}}
+                {{userdetail.last_name}}
+                {{userdetail.email}}
+                {{userdetail.address}}
+                {{userdetail.age}}
+                {{userdetail.birthdate}}
+                 {{userdetail.username}}
+                 {{userdetail.password}}
                 
            
              {% endfor %}   

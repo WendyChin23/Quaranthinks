@@ -73,20 +73,19 @@ class Members(View):
 		return render(request,'members.html')
 
 	def post(self, request):
-		pass
-		# if request.method == 'POST':
-		# 	username = request.POST.get("username")
-		# 	password = request.POST.get("password")
-		# 	check_user = AccountUser.objects.filter(username=username, password=password)
+		if request.method == 'POST':
+			username = request.POST.get("username")
+			password = request.POST.get("password")
+			check_user = AccountUser.objects.filter(username=username, password=password)
 
-		# 	if check_user:
-		# 		request.session['usern'] = username
-		# 		if AccountUser.objects.filter(username=username).count()>0:	
-		# 				return redirect('appdev:contact_view')
-		# 	else:	
-		# 		return HttpResponse('not valid')
-		# else:	
-		# 	return render(request,"signup.html", context)
+			if check_user:
+				request.session['usern'] = username
+				if AccountUser.objects.filter(username=username).count()>0:	
+						return redirect('appdev:clientdashboard_view')
+			else:	
+				return HttpResponse('not valid')
+		else:	
+			return render(request,"signup.html", context)
 
 class Portfolio(View):
 	def get(self, request):
@@ -111,13 +110,19 @@ class AdminDashboard(View):
 
 class ClientDashboard(View):
 	def get(self, request):
-		return render(request,'client.html')
+		if 'usern' in request.session:
+			current_user = request.session['usern']
+			userdetails = AccountUser.objects.filter(username=current_user)
+			usergrades = Grade.objects.filter(username=current_user)
+
+			context = {'userdetails':userdetails,
+					   'usergrades':usergrades,}
+		return render(request,'client.html', context)
 
 class ClientHome(View):
 	def get(self, request):
 		return render(request,'clienthome.html')	
-		
-		
+			
 		
 class ClientGrades(View):
 	def get(self, request):

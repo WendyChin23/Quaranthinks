@@ -6,7 +6,7 @@ from django.shortcuts import(get_object_or_404,render,HttpResponseRedirect)
 from .forms import AccountUserForm
 from django.core.mail import send_mail, BadHeaderError
 from tech import settings  
-from django.urls import reverse
+from django.urls import reverse_lazy
 from django.contrib import messages
 
 
@@ -113,10 +113,10 @@ class ClientDashboard(View):
 		if 'usern' in request.session:
 			current_user = request.session['usern']
 			userdetails = AccountUser.objects.filter(username=current_user)
-			usergrades = Grade.objects.filter(username=current_user)
+			
 
 			context = {'userdetails':userdetails,
-					   'usergrades':usergrades,}
+					   }
 		return render(request,'client.html', context)
 
 class ClientHome(View):
@@ -126,11 +126,27 @@ class ClientHome(View):
 		
 class ClientGrades(View):
 	def get(self, request):
-		return render(request,'clientgrades.html')
+		if 'usern' in request.session:
+			current_user = request.session['usern']
+			usergrades = Grade.objects.filter(username=current_user)
+
+			context = {'usergrades':usergrades,
+						}
+		return render(request,'clientgrades.html', context)
 
 class ClientVouchers(View):
 	def get(self, request):
-		return render(request,'clientvouchers.html')			
+		if 'usern' in request.session:
+			current_user = request.session['usern']
+			check_grade = Grade.objects.filter(username=current_user, midterm__range =(4.0, 4.5))
+			if check_grade:
+				check_vouchers = ExclusiveVoucher.objects.filter(ev_code=14554)
+			else:
+				return reverse_lazy('clientvouchers')
+					
+
+			context = {'check_vouchers':check_vouchers}		
+		return render(request,'clientvouchers.html', context)			
 
 class AdminPage(View):
 	def get(self, request):

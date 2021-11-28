@@ -78,8 +78,41 @@
 		</nav>
 
         <section class="section-1">
-			<h1>TECHNO BIGAY</h1>
-			<p>GRADES HERE!</p>
+			<table id="example" class="table table-striped table-bordered" style="width:100%">
+      <thead>
+                <tr>
+                   	<th>Subject Code</th> 
+                    <th>Faculty Name</th> 
+                    <th>Units</th> 
+                    <th>Midterm</th> 
+                    <th>Final</th>
+                    <th>Final Grade</th>
+                         
+                </tr>
+            </thead>
+      
+           
+            <tbody>
+            {% for usergrade in usergrades %}
+            <tr>
+                <td>{{usergrade.subject_code}}</td>
+                <td>{{usergrade.faculty_name}}</td>
+                <td>{{usergrade.units}}</td>
+                <td>{{usergrade.midterm}}</td>
+                <td>{{usergrade.final}}</td>
+                <td>{{usergrade.finalgrade}}</td>
+                
+                
+            </tr>
+              {% endfor %}          
+            </tbody>   
+                          
+          
+                   
+          
+          </div>
+          </div>
+      </div>
 		</section>
 
 

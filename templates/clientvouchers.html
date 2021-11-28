@@ -77,8 +77,37 @@
 			</ul>
 		</nav>
         <section class="section-1">
-			<h1>TECHNO BIGAY</h1>
-			<p>VOUCHERS HERE!</p>
+			<table id="example" class="table table-striped table-bordered" style="width:100%">
+      <thead>
+                <tr>
+                   	<th>Voucher Code</th> 
+                    <th>Voucher Title</th> 
+                    <th>Voucher Percentage</th> 
+                    
+                         
+                </tr>
+            </thead>
+      
+           
+            <tbody>
+            {% for check_voucher in check_vouchers %}
+            <tr>
+                <td>{{check_voucher.ev_code}}</td>
+                <td>{{check_voucher.ev_title}}</td>
+                <td>{{check_voucher.ev_percentage}}</td>
+              {% endfor %}  
+                
+                
+            </tr>
+                        
+            </tbody>   
+                          
+          
+                   
+          
+          </div>
+          </div>
+      </div>
 		</section>
 
 

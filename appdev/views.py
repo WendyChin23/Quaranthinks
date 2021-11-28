@@ -138,14 +138,27 @@ class ClientVouchers(View):
 	def get(self, request):
 		if 'usern' in request.session:
 			current_user = request.session['usern']
-			check_grade = Grade.objects.filter(username=current_user, midterm__range =(4.0, 4.5))
-			if check_grade:
-				check_vouchers = ExclusiveVoucher.objects.filter(ev_code=14554)
-			else:
-				return reverse_lazy('clientvouchers')
-					
+			userdetails = AccountUser.objects.filter(username=current_user)
+			check_gvoucher = Grade.objects.filter(username=current_user, midterm__range=(4.0,4.5))
+			check_evoucher = Grade.objects.filter(username=current_user, midterm__range =(4.6, 5.0))
+			
 
-			context = {'check_vouchers':check_vouchers}		
+			if check_gvoucher:
+				check_vouchers = GeneralVoucher.objects.filter(gv_code=12345)		
+			else:					
+				check_vouchers = None
+
+			if check_evoucher:
+				check_evouchers	= ExclusiveVoucher.objects.filter(ev_code=14554)
+			else:
+				check_evouchers = None	
+				
+
+		
+				
+			context = {'check_vouchers':check_vouchers,
+						'userdetails':userdetails,
+						'check_evouchers':check_evouchers}		
 		return render(request,'clientvouchers.html', context)			
 
 class AdminPage(View):

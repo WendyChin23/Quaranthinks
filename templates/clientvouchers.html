@@ -25,7 +25,9 @@
 		<nav class="side-bar">
 			<div class="user-p">
 				<img src="{% static 'assets\img\team\Yap.png' %}">
-				<h4>USER NAME</h4>
+				{% for userdetail in userdetails %}
+				<h4>{{userdetail.username}}</h4>
+				{% endfor %}
 			</div>
             <ul>
 				<li>
@@ -90,14 +92,26 @@
       
            
             <tbody>
+            
+            {% if check_vouchers %}
+            
+
+			{% for check_evoucher in check_evouchers %}
             {% for check_voucher in check_vouchers %}
+            
             <tr>
-                <td>{{check_voucher.ev_code}}</td>
-                <td>{{check_voucher.ev_title}}</td>
-                <td>{{check_voucher.ev_percentage}}</td>
-              {% endfor %}  
+                <td>{{check_voucher.gv_code}}</td>
+                <td>{{check_evoucher.ev_code}}</td>
+                <td>{{check_voucher.gv_title}}</td>              
+                <td>{{check_voucher.gv_percentage}}</td>
                 
+
+
                 
+            {% endfor %} 
+            {% endfor %}
+                
+            {% endif %}   
             </tr>
                         
             </tbody>   

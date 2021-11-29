@@ -24,6 +24,7 @@ urlpatterns= [
 	path('clienthome', views.ClientHome.as_view(), name="clienthome_view"),
     path('clientgrades', views.ClientGrades.as_view(), name="clientgrades_view"),
 	path('clientvouchers', views.ClientVouchers.as_view(), name="clientvouchers_view"),
+	path('donationpage', views.Donation.as_view(), name="donation_view"),
 
 	
 ]

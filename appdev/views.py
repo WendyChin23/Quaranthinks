@@ -122,7 +122,10 @@ class ClientDashboard(View):
 class ClientHome(View):
 	def get(self, request):
 		return render(request,'clienthome.html')	
-			
+
+class Donation(View):
+	def get(self, request):
+		return render(request,'donationpage.html')			
 		
 class ClientGrades(View):
 	def get(self, request):

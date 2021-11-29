@@ -1,0 +1,66 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Payment Checkout Form</title>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css">
+	<link rel="stylesheet" href="{% static 'assets\css\styles.css' %}">
+
+</head>
+<body>
+	
+
+
+<div class="wrapper">
+  <div class="payment">
+    <div class="payment-logo">
+      <p>TB</p>
+    </div>
+    
+    
+    <h2>Donation Gateway</h2>
+    <div class="form">
+
+
+    <div class="card space icon-relative">
+        <label class="label">Donation Amount:</label>
+        <input type="text" class="input" placeholder="Enter Amount">
+        <i class="fas fa-user"></i>
+        
+      </div>
+
+
+      <div class="card space icon-relative">
+        <label class="label">Card holder:</label>
+        <input type="text" class="input" placeholder="Enter Name">
+        <i class="fas fa-user"></i>
+      </div>
+
+
+     
+        <label class="label">Mode of Payment:</label>
+
+        <select name="mod" id="mode-select">
+            <option value="">--Please choose an option--</option>
+            <option value="Gcash">Gcash</option>
+            <option value="PayMaya">PayMaya</option>
+            <option value="Credit Card">Credit Card</option>
+            <option value="PayPal">PayPal</option>
+         
+        </select>
+        
+
+      <div class="btn">
+        DONATE
+      </div> 
+      
+    </div>
+  </div>
+</div>
+
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+
+</body>
+</html>

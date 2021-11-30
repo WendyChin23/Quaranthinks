@@ -126,6 +126,17 @@ class ClientDashboard(View):
 					   }
 		return render(request,'client.html', context)
 
+class ClientGradeDashboard(View):
+	def get(self, request):
+		if 'usern' in request.session:
+			current_user = request.session['usern']
+			userdetails = Grade.objects.filter(username=current_user)
+			
+
+			context = {'userdetails':userdetails,
+					   }
+		return render(request,'client.html', context)
+
 class ClientHome(View):
 	def get(self, request):
 		return render(request,'clienthome.html')	
@@ -154,7 +165,6 @@ class ClientVouchers(View):
 			check_gvoucher = Grade.objects.filter(username=current_user, midterm__range=(4.0,4.5))
 			check_evoucher = Grade.objects.filter(username=current_user, midterm__range =(4.6, 5.0))
 			
-
 			if check_gvoucher:
 				check_vouchers = GeneralVoucher.objects.filter(gv_code=12345)		
 			else:					
@@ -216,6 +226,21 @@ class AccountDashboardView(View):
 
 	def post(self, request):
 		if request.method == 'POST':
+			if 'BtnGradeUpdate' in request.POST:
+				print('update button clicked')
+				username_id = request.POST.get("username_id")
+				subject_code = request.POST.get("subject_code")
+				faculty_name = request.POST.get("faculty_name")
+				units = request.POST.get("units")
+				midterm = request.POST.get("midterm")
+				finals = request.POST.get("finals")
+				finalgrade = request.POST.get("finalgrade")
+				
+				update_user = Grade.objects.filter(username_id = username_id).update(subject_code = subject_code, 
+				faculty_name = faculty_name, units=units,midterm=midterm,finals=finals,finalgrade=finalgrade)
+				print(update_user)
+				print('user updated')
+
 			if 'BtnUpdate' in request.POST:
 				print('update button clicked')
 				Uid = request.POST.get("Uid-Uid")                                                                                                                                                                                                                                                                                                                                            
@@ -232,7 +257,7 @@ class AccountDashboardView(View):
 				email = Email, age = Age, birthdate = Birthdate, username = Username, password = Password )
 				print(update_user)
 				print('user updated')
-
+			
 			elif 'BtnDelete' in request.POST:
 				print('delete button clicked')
 				Uid = request.POST.get("Uuid-Uid")

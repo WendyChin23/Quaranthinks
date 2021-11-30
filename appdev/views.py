@@ -3,12 +3,22 @@ from django.views.generic import View
 from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.shortcuts import(get_object_or_404,render,HttpResponseRedirect)
+<<<<<<< HEAD
+from .forms import AccountUserForm, DonationForm
+=======
 from .forms import AccountUserForm, GradeForm
+>>>>>>> 417d9ab6394303690f120d229708d5c740fc0c91
 from django.core.mail import send_mail, BadHeaderError
 from tech import settings  
 from django.urls import reverse_lazy
 from django.contrib import messages
-
+from .forms import *
+from django.views.generic import View
+from django.http import HttpResponse
+from django.shortcuts import redirect
+from django.shortcuts import(get_object_or_404,render,HttpResponseRedirect)
+from .forms import *
+from django.db import models
 
 from appdev.models import *
 # Create your views here.
@@ -116,11 +126,29 @@ class ClientDashboard(View):
 class ClientHome(View):
 	def get(self, request):
 		return render(request,'clienthome.html')	
+  
+ 			
 
-class Donation(View):
-	def get(self, request):
-		return render(request,'donationpage.html')			
-		
+	def post(self, request):
+		if request.method == 'POST':
+			name = request.POST.get("name")
+			email = request.POST.get("email")
+			amount = request.POST.get("amount")
+			
+			check_admin = Donation.objects.filter(name=name, email=email, amount=amount)
+
+			if check_admin:
+				request.session['donation'] = name
+				if Donation.objects.filter(name=name).count()>0:	
+						return redirect('appdev:Home_view')
+			else:	
+				return HttpResponse('not valid')
+		else:	
+			return render(request,"Home_view.html", context)
+							
+
+
+
 class ClientGrades(View):
 	def get(self, request):
 		if 'usern' in request.session:
@@ -277,10 +305,7 @@ class Signup(View):
 
 	def post(self, request):        
 		form = AccountUserForm(request.POST)        
-		# fname = request.POST.get("firstname")
-		# print(fname)
-		# lname = request.POST.get("lastname")
-		# print(lname)
+		
 		if form.is_valid():
 			# try:
 			fname = request.POST.get("first_name")
@@ -340,4 +365,70 @@ class Signup(View):
 				
 	
 
+class Donation(View):
+	def get(self, request):
+		return render(request, 'donationpage.html')
+
+	def post(self, request):        
+		form = DonationForm(request.POST)        
 		
+		if form.is_valid():
+			# try:
+			Id = request.POST.get("id")  
+			Name = request.POST.get("name")
+			Email = request.POST.get("email")
+			Mop = request.POST.get("mop")
+			Amount = request.POST.get("amount")
+
+			form = Donation( id= Id, name = Name,
+			email= Email, mop =Mop, amount=Amount)
+			print('clicked')
+			form.save() 
+
+			return redirect('appdev:donationdashboard_view')
+			# except:
+			#   raise Http404
+		else:
+			print(form.errors)
+			return HttpResponse('not valid')
+
+class DonationDashboard(View):
+	def get(self, request):
+		if 'admin' in request.session:
+			current_admin = request.session['admin']
+			accountadmin = Admin.objects.filter(username=current_admin)
+			donate = Donation.objects.all()
+			# accountgrade = Grade.objects.all()
+			# accountevoucher = ExclusiveVoucher.objects.all()
+			# accountgvoucher = GeneralVoucher.object.all()
+			
+			#accountuser = AccountUser.objects.all()
+
+			context = {
+				'accountadmin' : accountadmin, #name that we want to use
+				'donate' : donate,
+			}
+		return render(request,'donationdashboard.html')
+
+	def post(self, request):
+		if request.method == 'POST':
+			if 'BtnUpdate' in request.POST:
+				print('update button clicked')
+				Id = request.POST.get("id-id")                                                                                                                                                                                                                                                                                                                                            
+				Name = request.POST.get("name-name")
+				Email = request.POST.get("email-email") 
+				Amount = request.POST.get("amount-amount")
+				Mop = request.POST.get("mop-mop")
+
+				
+				update_donation = DonationForm.objects.filter(id = Id).update(name = Name,
+				id=Id, email=Email, amount=Amount, mop=Mop )
+				print(update_donation)
+				print('user updated')
+
+			elif 'BtnDelete' in request.POST:
+				print('delete button clicked')
+				Id = request.POST.get("iid-id")
+				user = DonationForm.objects.filter(id=Id).delete()
+
+		return redirect('appdev:accountdashboard_view')

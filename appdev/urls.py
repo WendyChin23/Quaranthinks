@@ -25,6 +25,7 @@ urlpatterns= [
     path('clientgrades', views.ClientGrades.as_view(), name="clientgrades_view"),
 	path('clientvouchers', views.ClientVouchers.as_view(), name="clientvouchers_view"),
 	path('donationpage', views.Donation.as_view(), name="donation_view"),
-
+	path('donationdashboard', views.DonationDashboard.as_view(), name="donationdashboard_view"),
+	
 	
 ]

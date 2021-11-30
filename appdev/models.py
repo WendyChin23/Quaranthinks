@@ -21,6 +21,14 @@ class Admin(models.Model):
     username = models.CharField(max_length = 50)
     password = models.CharField(max_length = 30)
  
+class Donation(models.Model):
+    id = models.AutoField(primary_key = True)
+    name = models.CharField(max_length = 50)
+    email = models.CharField(max_length = 30)
+    mop = models.CharField(max_length = 30)
+    amount = models.IntegerField()
+    
+
 # @receiver(post_save, sender=User)
 # def update_profile_signal(sender, instance, created, **kwargs):
 #     if created:

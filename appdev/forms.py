@@ -32,6 +32,11 @@ class AccountUserForm(forms.ModelForm):
 class GradeForm(forms.ModelForm):
 	class Meta:
 		model = Grade 
-		fields= '__all__'       
+		fields= '__all__'      
+
+class DonationForm(forms.ModelForm):
+	class Meta:
+		model = Donation 
+		fields= '__all__'  		 
 
 	

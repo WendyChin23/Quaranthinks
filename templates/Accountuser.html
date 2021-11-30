@@ -269,8 +269,9 @@ logout</span>Logout</a>
                  <td>{{accountuser.password}}</td>
                  
                 <td>
-    
-                                  
+                    
+                  <a href="{% url 'appdev:grades_view' %}" type="button" class="btn btn-primary" title="Update">GRADES</a>     
+                  
                     <button href="#" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal-{{accountuser.uid}}" data-whatever="@mdo data-placement=" title="Update">UPDATE</button>
 
 

@@ -14,6 +14,7 @@ from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.shortcuts import(get_object_or_404,render,HttpResponseRedirect)
 from .forms import *
+from django.db import models
 
 from appdev.models import *
 # Create your views here.
@@ -384,7 +385,7 @@ class DonationDashboard(View):
 				'accountadmin' : accountadmin, #name that we want to use
 				'donate' : donate,
 			}
-		return render(request,'donationdashboard.html', context)
+		return render(request,'donationdashboard.html')
 
 	def post(self, request):
 		if request.method == 'POST':

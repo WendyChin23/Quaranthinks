@@ -273,6 +273,8 @@ logout</span>Logout</a>
                                   
                     <button href="#" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal-{{accountuser.uid}}" data-whatever="@mdo data-placement=" title="Update">UPDATE</button>
 
+
+
                     <div class="modal fade" id="exampleModal-{{accountuser.uid}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="false"> 
                       <div class="modal-dialog">
                             <div class="modal-content">
@@ -359,10 +361,11 @@ logout</span>Logout</a>
 			</div>
 		</div>
 	</div>
+    {% endfor %}  
 </div>  
                 </td> 
              </tr>
-              {% endfor %}          
+                      
             </tbody>
             </table>
         </div>

@@ -202,6 +202,7 @@ class AccountDashboardView(View):
 			current_admin = request.session['admin']
 			accountadmin = Admin.objects.filter(username=current_admin)
 			accountuser = AccountUser.objects.all()
+
 			# accountgrade = Grade.objects.all()
 			# accountevoucher = ExclusiveVoucher.objects.all()
 			# accountgvoucher = GeneralVoucher.object.all()
@@ -325,7 +326,8 @@ class Signup(View):
 		# # context = {'form':form}	
 
 		# # return render(request,"signup.html", context)
-				
+
+
 	
 
 		

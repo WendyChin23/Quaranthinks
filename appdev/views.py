@@ -3,7 +3,7 @@ from django.views.generic import View
 from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.shortcuts import(get_object_or_404,render,HttpResponseRedirect)
-from .forms import AccountUserForm
+from .forms import AccountUserForm, GradeForm
 from django.core.mail import send_mail, BadHeaderError
 from tech import settings  
 from django.urls import reverse_lazy
@@ -54,19 +54,6 @@ class Contact(View):
 				print(form.errors)
 				pok = "Not send message"
 				return HttpResponse(pok)          
-		
-
-class GradesView(View):
-	def get(self, request):
-		if 'admin' in request.session:
-			#current_admin = request.session['admin']
-			grades = Grade.objects.all()
-			
-		context = {
-			'grades' :grades, #name that we want to use
-			
-		}
-		return render(request,'grades.html',context)
 
 class Members(View):
 	def get(self, request):
@@ -138,11 +125,11 @@ class ClientGrades(View):
 	def get(self, request):
 		if 'usern' in request.session:
 			current_user = request.session['usern']
-			# userdetails = AccountUser.objects.filter(username=current_user)
-			usergrades = Grade.objects.filter(username_id=current_user)
+			userdetails = AccountUser.objects.filter(username=current_user)
+			usergrades = Grade.objects.filter(username=current_user)
 
 			context = {'usergrades':usergrades,
-						# 'userdetails':userdetails,
+						'userdetails':userdetails,
 						}
 		return render(request,'clientgrades.html', context)
 
@@ -195,42 +182,50 @@ class Testimonial(View):
 	def get(self, request):
 		return render(request,'testimonials.html')
 
+		
+
+class GradesView(View):
+	def get(self, request):
+		if 'user' in request.session:
+			current_user = request.session['user']
+			url = request.session.get('add_web')
+			grades = Grade.objects.filter(username_id=url)
+
+		# if 'admin' in request.session:
+		# 	#current_admin = request.session['admin']
+		# 	grades = Grade.objects.all()
+		context = {
+			'grades' : grades, #name that we want to use
+			'current_user' : current_user,
+			'url' : url,
+		}
+		return render(request,'grades.html',context)
+
 class AccountDashboardView(View):
 	def get(self, request):
+		
 		if 'admin' in request.session:
 			current_admin = request.session['admin']
 			accountadmin = Admin.objects.filter(username=current_admin)
 			accountuser = AccountUser.objects.all()
-
+			
+		form = GradeForm(request.POST or None) 
+		if request.method == 'POST':
+			if form.is_valid():
+				request.session['web_input'] = request.POST['web_input']
+				return redirect('add_web')
 			# accountgrade = Grade.objects.all()
 			# accountevoucher = ExclusiveVoucher.objects.all()
 			# accountgvoucher = GeneralVoucher.object.all()
-			
 			#accountuser = AccountUser.objects.all()
-
-			context = {
+		context = {
 				'accountadmin' : accountadmin, #name that we want to use
 				'accountuser' : accountuser,
-			}
+		}
 		return render(request,'Accountuser.html', context)
 
 	def post(self, request):
 		if request.method == 'POST':
-			if 'BtnGradeUpdate' in request.POST:
-				print('update button clicked')
-				username_id = request.POST.get("username_id")
-				subject_code = request.POST.get("subject_code")
-				faculty_name = request.POST.get("faculty_name")
-				units = request.POST.get("units")
-				midterm = request.POST.get("midterm")
-				finals = request.POST.get("finals")
-				finalgrade = request.POST.get("finalgrade")
-				
-				update_user = Grade.objects.filter(username_id = username_id).update(subject_code = subject_code, 
-				faculty_name = faculty_name, units=units,midterm=midterm,finals=finals,finalgrade=finalgrade)
-				print(update_user)
-				print('user updated')
-
 			if 'BtnUpdate' in request.POST:
 				print('update button clicked')
 				Uid = request.POST.get("Uid-Uid")                                                                                                                                                                                                                                                                                                                                            
@@ -340,8 +335,7 @@ class Signup(View):
 		# # context = {'form':form}	
 
 		# # return render(request,"signup.html", context)
-
-
+				
 	
 
 		

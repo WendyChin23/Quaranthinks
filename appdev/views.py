@@ -188,6 +188,7 @@ class GradesView(View):
 	def get(self, request):
 		if 'user' in request.session:
 			current_user = request.session['user']
+			# kani nalang kuwang para mu connect
 			url = request.session.get('add_web')
 			grades = Grade.objects.filter(username_id=url)
 
@@ -209,11 +210,12 @@ class AccountDashboardView(View):
 			accountadmin = Admin.objects.filter(username=current_admin)
 			accountuser = AccountUser.objects.all()
 			
+		# kani nalang kuwang para mu connect
 		form = GradeForm(request.POST or None) 
 		if request.method == 'POST':
-			if form.is_valid():
+			if form.is_valid(): # di sha mu pass
 				request.session['web_input'] = request.POST['web_input']
-				return redirect('add_web')
+				return redirect('appdev:grades_view')
 			# accountgrade = Grade.objects.all()
 			# accountevoucher = ExclusiveVoucher.objects.all()
 			# accountgvoucher = GeneralVoucher.object.all()

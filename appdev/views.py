@@ -77,15 +77,22 @@ class Members(View):
 			username = request.POST.get("username")
 			password = request.POST.get("password")
 			check_user = AccountUser.objects.filter(username=username, password=password)
+			check_admin = Admin.objects.filter(username='admin', password='admin')
 
 			if check_user:
 				request.session['usern'] = username
 				if AccountUser.objects.filter(username=username).count()>0:	
-						return redirect('appdev:clientdashboard_view')
-			else:	
+					return redirect('appdev:clientdashboard_view')
+
+			if check_admin:
+				request.session['admin'] = 'admin'
+				if Admin.objects.filter(username='admin').count()>0:	
+					return redirect('appdev:accountdashboard_view')
+
+			else:
 				return HttpResponse('not valid')
 		else:	
-			return render(request,"signup.html", context)
+			return render(request,"signup.html")
 
 class Portfolio(View):
 	def get(self, request):

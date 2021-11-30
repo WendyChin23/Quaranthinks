@@ -138,11 +138,11 @@ class ClientGrades(View):
 	def get(self, request):
 		if 'usern' in request.session:
 			current_user = request.session['usern']
-			userdetails = AccountUser.objects.filter(username=current_user)
-			usergrades = Grade.objects.filter(username=current_user)
+			# userdetails = AccountUser.objects.filter(username=current_user)
+			usergrades = Grade.objects.filter(username_id=current_user)
 
 			context = {'usergrades':usergrades,
-						'userdetails':userdetails,
+						# 'userdetails':userdetails,
 						}
 		return render(request,'clientgrades.html', context)
 

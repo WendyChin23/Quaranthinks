@@ -205,11 +205,7 @@ class GradesView(View):
             #   }  
         else:
             return HttpResponse('not valid')     
-<<<<<<< Updated upstream
             return render(request,'grades.html', {'graded':graded})
-=======
-        return render(request,'grades.html', {'graded':graded})
->>>>>>> Stashed changes
 
 
 class AccountDashboardView(View):
@@ -250,11 +246,7 @@ class AccountDashboardView(View):
                 student = request.POST.get("username")
                 check_grade = AccountUser.objects.get(username=student)
 
-<<<<<<< Updated upstream
                 if check_student:
-=======
-                if check_grade:
->>>>>>> Stashed changes
                     request.session['usert'] = student
                     request.session.modified = True
                     if AccountUser.objects.filter(username=student).count()>0:

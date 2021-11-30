@@ -126,17 +126,6 @@ class ClientDashboard(View):
 					   }
 		return render(request,'client.html', context)
 
-class ClientGradeDashboard(View):
-	def get(self, request):
-		if 'usern' in request.session:
-			current_user = request.session['usern']
-			userdetails = Grade.objects.filter(username=current_user)
-			
-
-			context = {'userdetails':userdetails,
-					   }
-		return render(request,'client.html', context)
-
 class ClientHome(View):
 	def get(self, request):
 		return render(request,'clienthome.html')	

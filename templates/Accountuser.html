@@ -270,59 +270,7 @@ logout</span>Logout</a>
                  
                 <td>
                     
-                  <button href="#" type="button" class="btn btn-primary" data-toggle="modal" data-target="#gradesModal-{{accountuser.uid}}" data-whatever="@mdo data-placement=" title="Update">GRADES</button>
-
-                    <div class="modal fade" id="gradesModal-{{accountuser.uid}}" tabindex="-1" aria-labelledby="gradesModal" aria-hidden="true" data-backdrop="false"> 
-                      <div class="modal-dialog">
-                            <div class="modal-content">
-                              <div class="modal-header">
-                                <h5 class="modal-title" id="gradesModal">Update User</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                  <span aria-hidden="true">&times;</span>
-                                </button>
-                              </div>                              
-                              
-                              <div class="modal-body">
-                                <form method="POST">
-                                  {% csrf_token %}
-                                  <div class="form-group">
-                                
-                                 <label for="recipient-name" class="col-form-label" hidden>ID</label>
-                                  <input name="Uid-Uid" value="{{accountuser.id}}" subject.type="text" class="form-control" id="Uid-Uid" readonly hidden>
-
-                                  <label for="recipient-name" class="col-form-label">subject_code</label>
-                                  <input type="text" name="subject_code" value="{{accountuser.subject_code}}" class="form-control" id="first-name">
-                        
-                                  <label for="recipient-name" class="col-form-label">faculty_name</label>
-                                  <input type="text" name="faculty_name" value="{{accountuser.faculty_name}}" class="form-control" id="last-name">
-                                  <label for="recipient-name" class="col-form-label">Email</label>
-                                  <input type="text" name="units" value = "{{accountuser.units	}}" class="form-control" >
-                        
-                                  <label for="recipient-name" class="col-form-label">Address</label>
-                                  <input type="text" name="midterm" value="{{accountuser.midterm}}" class="form-control" id="address-address">
-
-                                  <label for="recipient-name" class="col-form-label">Age</label>
-                                  <input type="text" name="finals" value="{{accountuser.finals}}" class="form-control" id-="age-age">
-
-                                  <label for="recipient-name" class="col-form-label">Birthdate</label>
-                                  <input type="date" name="finalgrade" value="{{accountuser.finalgrade}}" class="form-control" id="birth-date">
-                        
-                                  <label for="recipient-name" class="col-form-label" hidden>Username</label>
-                                   <input type="text" name="username_id" value="{{accountuser.username_id}}" class="form-control" id=" user-name" readonly hidden>
-
-                                  </div>
-                                            
-                              </div>
-                              <div class="modal-footer">
-                                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                                <button type="submit" id="BtnGradeUpdate" name="BtnGradeUpdate" href = "{% url 'appdev:clientdashboard_view' %}" class="btn btn-primary">UPDATE</button>
-                              </div>
-
-                                </form>
-                              </div>
-                            </div>
-                          </div>
-                        </div>            
+                  <a href="{% url 'appdev:grades_view' %}" type="button" class="btn btn-primary" title="Update">GRADES</a>     
                   
                     <button href="#" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal-{{accountuser.uid}}" data-whatever="@mdo data-placement=" title="Update">UPDATE</button>
 

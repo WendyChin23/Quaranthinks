@@ -263,7 +263,7 @@ logout</span>Logout</a>
       </div>
     </div>
    <!-- {% block content %}-->
-    <table class="table table-striped table-hover">
+    <table  class="table table-striped table-hover">
       <thead>
         <tr>
     
@@ -278,6 +278,7 @@ logout</span>Logout</a>
               {% for grade in grades %}
             <tr>
                 <td>{{grade.username_id}}</td>
+                <td>{{grade.faculty_name}}</td>
                 <td>{{grade.subject_code}}</td>  
                 <td>{{grade.midterm}}</td> 
                 <td>{{grade.finals}}</td> 
@@ -289,11 +290,11 @@ logout</span>Logout</a>
                                   
                     
 
-                    <div class="modal fade" id="exampleModal-{{accountuser.idn}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="false"> 
+                    <div class="modal fade" id="exampleModal-{{grade.username}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="false"> 
                       <div class="modal-dialog">
                             <div class="modal-content">
                               <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Update User</h5>
+                                <h5 class="modal-title" id="exampleModalLabel">Update Grades</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                   <span aria-hidden="true">&times;</span>
                                 </button>
@@ -305,30 +306,23 @@ logout</span>Logout</a>
                                   <div class="form-group">
                                 
                                  <label for="recipient-name" class="col-form-label">ID Number</label>
-                                <input name="idn-idn" value="{{accountuser.idn}}" subject.type="text" class="form-control" id="idn-idn" readonly>
+                                <input name="username" value="{{grade.username_id}}" subject.type="text" class="form-control" id="idn-idn" readonly>
 
                                   <label for="recipient-name" class="col-form-label">First Name</label>
-                                  <input type="text" name="first-name" value="{{accountuser.firstname}}" class="form-control" id="first-name">
+                                  <input type="text" name="facultyname" value="{{grade.faculty_name}}" class="form-control" id="first-name">
                         
                                   <label for="recipient-name" class="col-form-label">Last Name</label>
-                                  <input type="text" name="last-name" value="{{accountuser.lastname}}" class="form-control" id="last-name">
-                                  <label for="recipient-name" class="col-form-label">Email</label>
-                                  <input type="text" name="email-email" value = "{{accountuser.email}}" class="form-control" >
+                                  <input type="text" name="subjectcode" value="{{grade.subject_code}}" class="form-control" id="last-name">
                         
                                   <label for="recipient-name" class="col-form-label">Address</label>
-                                  <input type="text" name="address-address" value="{{accountuser.address}}" class="form-control" id="address-address">
+                                  <input type="text" name="midterm" value="{{grade.midterm}}" class="form-control" id="address-address">
 
                                   <label for="recipient-name" class="col-form-label">Age</label>
-                                  <input type="text" name="age-age" value="{{accountuser.age}}" class="form-control" id-="age-age">
+                                  <input type="text" name="final" value="{{grade.final}}" class="form-control" id-="age-age">
 
                                   <label for="recipient-name" class="col-form-label">Birthdate</label>
-                                  <input type="date" name="birth-date" value="{{accountuser.birthdate|date:'Y-m-d'}}" class="form-control" id="birth-date">
+                                  <input type="date" name="finalgrade" value="{{grade.finalgrade}}" class="form-control" id="birth-date">
                         
-                                  <label for="recipient-name" class="col-form-label">Username</label>
-                                   <input type="text" name="user-name" value="{{accountuser.username}}" class="form-control" id=" user-name">
-                        
-                                  <label for="recipient-name" class="col-form-label">Password</label>
-                                  <input type="text" name="pass-word" value="{{accountuser.password}}" class="form-control" id=" pass-word">
                             
                                   </div>
                                 
@@ -351,7 +345,7 @@ logout</span>Logout</a>
   
                           
                          <!-- Modal HTML -->
-<div id="Modal-{{accountuser.idn}}" class="modal fade" data-backdrop="false">
+<div id="Modal-{{grade.username}}" class="modal fade" data-backdrop="false">
 	<div class="modal-dialog modal-confirm">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -365,7 +359,7 @@ logout</span>Logout</a>
           {% csrf_token %}
 
 			<div class="modal-body">
-				<input type="text" name="iidn-idn" value = {{accountuser.idn}} hidden>
+				<input type="text" name="iidn-idn" value = {{grade.username}} hidden>
         Are you sure you want to delete
 			</div>
 			<div class="modal-footer">

@@ -18,14 +18,17 @@ urlpatterns= [
 	path('signup', views.Signup.as_view(), name="signup_view"),
 	path('testimonial', views.Testimonial.as_view(), name="testimonial_view"),
 	path('accountuser', views.AccountDashboardView.as_view(), name="accountdashboard_view"),
-	# path('adminpage', views.AdminPage.as_view(), name="admin_view"),
+	path('adminpage', views.AdminPage.as_view(), name="admin_view"),
 	path('admindashboard', views.AdminDashboard.as_view(), name="admindashboard_view"),
 	path('clientdashboard', views.ClientDashboard.as_view(), name="clientdashboard_view"),
 	path('clienthome', views.ClientHome.as_view(), name="clienthome_view"),
     path('clientgrades', views.ClientGrades.as_view(), name="clientgrades_view"),
 	path('clientvouchers', views.ClientVouchers.as_view(), name="clientvouchers_view"),
 	path('donationpage', views.Donation.as_view(), name="donation_view"),
+
 	path('donationdashboard', views.DonationDashboard.as_view(), name="donationdashboard_view"),
-	
+	path('success', views.Success.as_view(), name="success_view"),
+
+
 	
 ]

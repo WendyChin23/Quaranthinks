@@ -81,7 +81,14 @@
                    
                 </li>
 				
-				
+                <li class="dropdown">
+                  <a href="{% url 'appdev:donationdashboard_view' %}">
+                  <i class="material-icons">apps</i><span>Donations</span></a>
+                 
+              </li>
+
+         
+      </nav>
 
            
         </nav>
@@ -160,7 +167,7 @@
                             </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link" href="#" data-toggle="dropdown">
-								<img src="{% static 'assets\img\user.png'%}" style="width:40px; border-radius:50%;"/>
+								<img src="{% static 'assets\img\user1.png'%}" style="width:40px; border-radius:50%;"/>
 								<span class="xp-user-live"></span>
 								</a>
 								<ul class="dropdown-menu small-menu">
@@ -178,7 +185,7 @@ settings
 </span>Settings</a>
                                     </li>
                                     <li>
-                                        <a href="#"><span class="material-icons">
+                                        <a href="#"><span pclass="material-icons">
 logout</span>Logout</a>
                                     </li>
                                 </ul>

@@ -45,7 +45,7 @@ class GradeForm(forms.ModelForm):
 
 class DonationForm(forms.ModelForm):
 	class Meta:
-		model = Donation
+		model = DonationSource
 		fields = '__all__'		 
 
 	

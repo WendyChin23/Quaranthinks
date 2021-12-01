@@ -87,7 +87,11 @@
                 </li>
 				
 				
-
+                <li class="dropdown">
+                  <a href="{% url 'appdev:donationdashboard_view' %}">
+                  <i class="material-icons">apps</i><span>Donations</span></a>
+                 
+              </li>
            
         </nav>
 		
@@ -297,7 +301,7 @@ logout</span>Logout</a>
                                   <div class="form-group">
                                 
                                  <label for="recipient-name" class="col-form-label">ID Number</label>
-                                <input name="Uid-Uid" value="{{accountuser.uid}}" subject.type="text" class="form-control" id="Uid-Uid" readonly>
+                                <input name="uid-uid" value="{{accountuser.uid}}" subject.type="text" class="form-control" id="uid-uid" readonly>
 
                                   <label for="recipient-name" class="col-form-label">First Name</label>
                                   <input type="text" name="first-name" value="{{accountuser.first_name}}" class="form-control" id="first-name">
@@ -358,7 +362,7 @@ logout</span>Logout</a>
           {% csrf_token %}
 
 			<div class="modal-body">
-				<input type="text" name="Uuid-Uid" value = {{accountuser.uid}} hidden>
+				<input type="text" name="iidn-idn" value = {{accountuser.uid}} hidden>
         Are you sure you want to delete
 			</div>
 			<div class="modal-footer">

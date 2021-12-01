@@ -63,10 +63,12 @@ class Contact(View):
 
 class GradesView(View):
     def get(self, request):
-        if 'admin' in request.session:
-            #current_admin = request.session['admin']
-            grades = Grade.objects.all()
-            
+        if 'stugrade' in request.session:
+            current_user = request.session.get('stugrade')
+            grades = Grade.objects.filter(username=stugrade)
+        else:
+            return HttpResponse('NOT VALID')
+
         context = {
             'grades' :grades, #name that we want to use
             
@@ -138,11 +140,29 @@ class ClientHome(View):
         
 class ClientGrades(View):
     def get(self, request):
-        return render(request,'clientgrades.html')
+       if 'usern' in request.session:
+        current_user = request.session['usern']
+        usergrades = Grade.objects.filter(username=current_user, midterm__range=(4.0,4.5))
+
+        return render(request,'clientgrades.html',{'usergrades':usergrades})
 
 class ClientVouchers(View):
     def get(self, request):
-        return render(request,'clientvouchers.html')            
+        if 'usern' in request.session:
+            current_user = request.session['usern']
+            userdetails = AccountUser.objects.filter(username=current_user)
+            check_gvoucher = Grade.objects.filter(username=current_user, midterm__range=(4.0,4.5))
+
+            if check_gvoucher:
+                check_vouchers = GeneralVoucher.objects.filter(gv_code__range=(345,12345))   
+            else:
+                check_vouchers = None
+
+            context ={'check_vouchers':check_vouchers,
+                       'userdetails':userdetails,}    
+            return render(request,'clientvouchers.html',context)    
+
+                    
 
 class AdminPage(View):
     def get(self, request):
@@ -204,6 +224,18 @@ class AccountDashboardView(View):
                 print('delete button clicked')
                 Idn = request.POST.get("iidn-idn")
                 students = AccountUser.objects.filter(uid=Idn).delete()
+
+            elif 'BtnGrades' in request.POST:
+                form = AccountUserForm(request.POST)
+                if form.is_valid():
+                    studentgrade = request.POST.get('username')
+                    form = AccountUser.objects.filter(username=studentgrade)
+                    request.session['stugrade'] = form
+                    form.save()
+                    return redirect('appdev:grades_view')
+                else:
+                    print(form.errors)
+                    return HttpResponse('error')
 
         return redirect('appdev:accountdashboard_view')
 

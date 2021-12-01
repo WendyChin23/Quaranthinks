@@ -279,7 +279,7 @@ logout</span>Logout</a>
                     <!-- {{ form.non_field_errors }}
                     {{ form.web_input }} -->
                     <input type="text" name="username" value="{{accountuser.username}}"  class="form-control" id=" username" hidden>
-                    <a href="{% url 'appdev:grades_view' %}" type="submit" name="BtnGrades" class="btn btn-primary" title="Update">GRADES</a>               
+                    <a href="{% url 'appdev:grades_view' %}" type="button" name="BtnGrades" class="btn btn-primary" title="Update">GRADES</a>               
                   </form>
                   
                     <button href="#" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal-{{accountuser.uid}}" data-whatever="@mdo data-placement=" title="Update">UPDATE</button>

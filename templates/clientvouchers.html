@@ -93,23 +93,14 @@
            
             <tbody>
             
-            {% if check_vouchers %}
-            
-
-			{% for check_evoucher in check_evouchers %}
-            {% for check_voucher in check_vouchers %}
-            
+            {% if check_vouchers %} 
+			
+            {% for check_voucher in check_vouchers %}      
             <tr>
                 <td>{{check_voucher.gv_code}}</td>
-                <!--<td>{{check_evoucher.ev_code}}</td>-->
                 <td>{{check_voucher.gv_title}}</td>              
-                <td>{{check_voucher.gv_percentage}}</td>
-                
-
-
-                
+                <td>{{check_voucher.gv_percentage}}</td>     
             {% endfor %} 
-            {% endfor %}
                 
             {% endif %}   
             </tr>

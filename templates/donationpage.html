@@ -20,10 +20,11 @@
     
     
     <h2>Donation Gateway</h2>
+    <form action= "{% url 'appdev:donationdashboard_view' %}" method="POST">
+        {% csrf_token %}
     <div class="form">
 
-        <form method="POST">
-            {% csrf_token %}
+       
               <!-- <div class="input-group form-group">
     
                 <div class="input-group-prepend">
@@ -63,7 +64,7 @@
       </div>
   
 
-      {% endblock content %}   
+        
      
         <!-- <label class="label">Mode of Payment:</label>
 
@@ -80,7 +81,7 @@
     <center><button class="btn"  href="{% url 'appdev:donation_view' %}" type="submit">DONATE</button></div>            
     </center>
           </div>
-      
+          {% endblock content %} 
     </div>
   </div>
 </div>

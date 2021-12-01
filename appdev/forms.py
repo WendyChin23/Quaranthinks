@@ -1,8 +1,12 @@
 from django import forms
 #from django.db.models import fields
 from django.contrib.auth.forms import UserCreationForm
+from django.db.models import fields
 from .models import *
 from django.contrib.auth.models import User
+from django import forms
+#from django.db.models import fields
+from .models import *
 
 class ContactForm(forms.ModelForm):
 	class Meta:
@@ -34,9 +38,14 @@ class GradeForm(forms.ModelForm):
 		model = Grade 
 		fields= '__all__'      
 
+# class DonationForm(forms.ModelForm):
+# 	class Meta:
+# 		model = Donation 
+# 		fields= '__all__'  
+
 class DonationForm(forms.ModelForm):
 	class Meta:
-		model = Donation 
-		fields= '__all__'  		 
+		model = Donation
+		fields = '__all__'		 
 
 	

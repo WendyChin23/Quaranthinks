@@ -1,26 +1,15 @@
-from django.shortcuts import render, redirect
-from django.views.generic import View
-from django.http import HttpResponse
-from django.shortcuts import redirect
-from django.shortcuts import(get_object_or_404,render,HttpResponseRedirect)
-<<<<<<< HEAD
-from .forms import AccountUserForm, DonationForm
-=======
-from .forms import AccountUserForm, GradeForm
->>>>>>> 417d9ab6394303690f120d229708d5c740fc0c91
-from django.core.mail import send_mail, BadHeaderError
-from tech import settings  
-from django.urls import reverse_lazy
 from django.contrib import messages
-from .forms import *
-from django.views.generic import View
+from django.core.mail import BadHeaderError, send_mail
 from django.http import HttpResponse
-from django.shortcuts import redirect
-from django.shortcuts import(get_object_or_404,render,HttpResponseRedirect)
-from .forms import *
-from django.db import models
+from django.shortcuts import (HttpResponseRedirect, get_object_or_404,
+                              redirect, render)
+from django.urls import reverse_lazy
+from django.views.generic import View
+from tech import settings
 
-from appdev.models import *
+from .forms import *
+from .forms import AccountUserForm, DonationForm, GradeForm
+
 # Create your views here.
 
 class Home(View):
@@ -380,8 +369,8 @@ class Donation(View):
 			Mop = request.POST.get("mop")
 			Amount = request.POST.get("amount")
 
-			form = Donation( id= Id, name = Name,
-			email= Email, mop =Mop, amount=Amount)
+			form1 = Donation(id= Id, name = Name, email= Email, mop =Mop, amount=Amount)
+			
 			print('clicked')
 			form.save() 
 

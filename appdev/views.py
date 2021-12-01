@@ -90,8 +90,8 @@ class Members(View):
                         return redirect('appdev:clientdashboard_view')
 
             if check_admin:
-                request.session['admin'] = 'admin'
-                if Admin.objects.filter(username='admin').count()>0:    
+                request.session['admin'] = username
+                if Admin.objects.filter(username=username).count()>0:    
                     return redirect('appdev:accountdashboard_view')
             
             else:   
@@ -169,10 +169,14 @@ class Testimonial(View):
 
 class AccountDashboardView(View):
     def get(self, request):
-        accountuser = AccountUser.objects.all()
+        if 'admin' in request.session:
+            current_admin = request.session['admin']
+            accountadmin = Admin.objects.filter(username=current_admin) 
+            accountuser = AccountUser.objects.all()
        
         context = {
-            'accountuser' : accountuser, #name that we want to use
+            'accountuser' : accountuser,
+            'accountadmin':accountadmin, #name that we want to use
             
         }
         return render(request,'Accountuser.html', context)

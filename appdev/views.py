@@ -142,9 +142,11 @@ class ClientGrades(View):
     def get(self, request):
        if 'usern' in request.session:
         current_user = request.session['usern']
+        userdetails = AccountUser.objects.filter(username=current_user)
         usergrades = Grade.objects.filter(username=current_user, midterm__range=(4.0,4.5))
 
-        return render(request,'clientgrades.html',{'usergrades':usergrades})
+        return render(request,'clientgrades.html',{'usergrades':usergrades,
+        											'userdetails':userdetails})
 
 class ClientVouchers(View):
     def get(self, request):

@@ -71,7 +71,7 @@
 					<i class="material-icons">apps</i><span>Vouchers</span></a>
                     <ul class="collapse list-unstyled menu" id="pageSubmenu2">
                         <li>
-                            <a href="{% url 'appdev:genvoucher_view' %}">General</a>
+                            <a href="#">General</a>
                         </li>
                         <li>
                             <a href="#">Exclusives</a>
@@ -233,6 +233,46 @@ logout</span>Logout</a>
 			  <div class="row">
 			    
 				<div class="col-md-12">
+                    <button href="#" type="button" class="btn btn-primary" data-toggle="modal" data-target="#addvoucher-{{gvoucher.gv_code}}" data-whatever="@mdo data-placement=" title="Update">Add General Voucher</button>
+
+                    <div class="modal fade" id="addvoucher-{{gvoucher.gv_code}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="false"> 
+                      <div class="modal-dialog" style="padding-top: 100px; padding-left: 100px;">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Add General</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>                              
+                              
+                              <div class="modal-body">
+                                <form method="POST">
+                                  {% csrf_token %}
+                                  <div class="form-group">
+                                
+                                 <label for="recipient-name" class="col-form-label">Voucher Code</label>
+                                <input name="gv_code" subject.type="text" class="form-control" id="gv_code_add" >
+                                <label for="recipient-name" class="col-form-label">Voucher Title</label>
+                                <input name="gv_title" subject.type="text" class="form-control" id="gv_title_add" >
+
+                                  <label for="recipient-name" class="col-form-label">Voucher Percentage</label>
+                                  <input type="text" name="gv_percentage" class="form-control" id="gv_percentage_add">
+                                                    
+                                  </div>
+                                
+                        
+                                
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                                <button type="submit" id="BtnUpdate" name="BtnAdd" href = "{% url 'appdev:genvoucher_view' %}" class="btn btn-primary">Add</button>
+                              </div>
+
+                                </form>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
 				<div class="table-wrapper">
     <div class="table-title">
       <div class="row">
@@ -250,32 +290,19 @@ logout</span>Logout</a>
           <th>
        
           </th>
-          <th>ID Number</th> 
-          <th>First Name</th> 
-          <th>Last Name</th> 
-          <th>Email</th> 
-          <th>Address</th>
-          <th>Age</th>
-          <th>Birthdate</th>
-          <th>Username</th>
-          <th>Password</th>
-          <th>Action</th> 
+          <th>Voucher Code</th> 
+          <th>Voucher Title</th> 
+          <th>Voucher Percentage</th>
+          <th>Action</th>
         </tr>
       </thead>
       
-            {% for accountuser in accountuser %}
+            {% for gvoucher in gvoucher %}
             <tr>
                      <td>   
-                <td>{{accountuser.uid}}</td> 
-                <td>{{accountuser.first_name}}</td> 
-                <td>{{accountuser.last_name}}</td> 
-                <td>{{accountuser.email}}</td> 
-                <td>{{accountuser.address}}</td> 
-                <td>{{accountuser.age}}</td>
-                <td>{{accountuser.birthdate}}</td>
-                 <td>{{accountuser.username}}</td>
-                 <td>{{accountuser.password}}</td>
-                 
+                <td>{{gvoucher.gv_code}}</td> 
+                <td>{{gvoucher.gv_title}}</td> 
+                <td>{{gvoucher.gv_percentage}}</td>  
                 <td>
                   
                   <form method="POST" action="{% url 'appdev:grades_view' %}">
@@ -283,14 +310,14 @@ logout</span>Logout</a>
                     <!-- {{ form.non_field_errors }}
                     {{ form.web_input }} -->
                     <input type="text" name="username" value="{{accountuser.username}}"  class="form-control" id=" username" hidden>
-                    <a href="{% url 'appdev:grades_view' %}" type="button" name="BtnGrades" class="btn btn-primary" title="Update">GRADES</a>               
+                                 
                   </form>
                   
-                    <button href="#" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal-{{accountuser.uid}}" data-whatever="@mdo data-placement=" title="Update">UPDATE</button>
+                    <button href="#" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal-{{gvoucher.gv_code}}" data-whatever="@mdo data-placement=" title="Update">UPDATE</button>
 
 
-                    <div class="modal fade" id="exampleModal-{{accountuser.uid}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="false"> 
-                      <div class="modal-dialog">
+                    <div class="modal fade" id="exampleModal-{{gvoucher.gv_code}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="false"> 
+                      <div class="modal-dialog" style="padding-top: 100px; padding-left: 100px;">
                             <div class="modal-content">
                               <div class="modal-header">
                                 <h5 class="modal-title" id="exampleModalLabel">Update User</h5>
@@ -304,32 +331,14 @@ logout</span>Logout</a>
                                   {% csrf_token %}
                                   <div class="form-group">
                                 
-                                 <label for="recipient-name" class="col-form-label">ID Number</label>
-                                <input name="uid-uid" value="{{accountuser.uid}}" subject.type="text" class="form-control" id="uid-uid" readonly>
+                                 <label for="recipient-name" class="col-form-label">Voucher Code</label>
+                                <input name="gv_code" value="{{gvoucher.gv_code}}" subject.type="text" class="form-control" id="gv_code" readonly>
+                                <label for="recipient-name" class="col-form-label">Voucher Title</label>
+                                <input name="gv_title" value="{{gvoucher.gv_title}}" subject.type="text" class="form-control" id="gv_title" >
 
-                                  <label for="recipient-name" class="col-form-label">First Name</label>
-                                  <input type="text" name="first-name" value="{{accountuser.first_name}}" class="form-control" id="first-name">
-                        
-                                  <label for="recipient-name" class="col-form-label">Last Name</label>
-                                  <input type="text" name="last-name" value="{{accountuser.last_name}}" class="form-control" id="last-name">
-                                  <label for="recipient-name" class="col-form-label">Email</label>
-                                  <input type="text" name="email-email" value = "{{accountuser.email}}" class="form-control" >
-                        
-                                  <label for="recipient-name" class="col-form-label">Address</label>
-                                  <input type="text" name="address-address" value="{{accountuser.address}}" class="form-control" id="address-address">
-
-                                  <label for="recipient-name" class="col-form-label">Age</label>
-                                  <input type="text" name="age-age" value="{{accountuser.age}}" class="form-control" id-="age-age">
-
-                                  <label for="recipient-name" class="col-form-label">Birthdate</label>
-                                  <input type="date" name="birth-date" value="{{accountuser.birthdate|date:'Y-m-d'}}" class="form-control" id="birth-date">
-                        
-                                  <label for="recipient-name" class="col-form-label">Username</label>
-                                   <input type="text" name="user-name" value="{{accountuser.username}}" class="form-control" id=" user-name">
-                        
-                                  <label for="recipient-name" class="col-form-label">Password</label>
-                                  <input type="text" name="pass-word" value="{{accountuser.password}}" class="form-control" id=" pass-word">
-                            
+                                  <label for="recipient-name" class="col-form-label">Voucher Percentage</label>
+                                  <input type="text" name="gv_percentage" value="{{gvoucher.gv_percentage}}" class="form-control" id="gv_percentage">
+                                                    
                                   </div>
                                 
                         
@@ -337,7 +346,7 @@ logout</span>Logout</a>
                               </div>
                               <div class="modal-footer">
                                 <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                                <button type="submit" id="BtnUpdate" name="BtnUpdate" href = "{% url 'appdev:clientdashboard_view' %}" class="btn btn-primary">UPDATE</button>
+                                <button type="submit" id="BtnUpdate" name="BtnUpdate" href = "{% url 'appdev:genvoucher_view' %}" class="btn btn-primary">UPDATE</button>
                               </div>
 
                                 </form>
@@ -348,17 +357,15 @@ logout</span>Logout</a>
                         
                         
                         <!-- Button trigger modal -->
-  <a href="button" href="#" class="btn btn-primary" data-target="#Modal-{{accountuser.uid}}"data-toggle="modal">DELETE</a>
+  <a href="button" href="#" class="btn btn-primary" data-target="#Modal-{{gv_code.gv_code}}"data-toggle="modal">DELETE</a>
     </div>
                           
                          <!-- Modal HTML -->
-<div id="Modal-{{accountuser.uid}}" class="modal fade" data-backdrop="false">
+<div id="Modal-{{gv_code.gv_code}}" class="modal fade" data-backdrop="false" style="padding-top: 100px; padding-left: 100px;">
 	<div class="modal-dialog modal-confirm">
 		<div class="modal-content">
 			<div class="modal-header">
-				<div class="icon-box">
-					<i class="material-icons">&#xE5CD;</i>
-				</div>				
+						
 				<h4 class="modal-title">Are you sure?</h4>	
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 			</div>
@@ -366,8 +373,8 @@ logout</span>Logout</a>
           {% csrf_token %}
 
 			<div class="modal-body">
-				<input type="text" name="iidn-idn" value = {{accountuser.uid}} hidden>
-        Are you sure you want to delete
+				<input type="text" name="gv_title" value = {{gvoucher.gv_title}} hidden>
+        Are you sure you want to delete?
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>

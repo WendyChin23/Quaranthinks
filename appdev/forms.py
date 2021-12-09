@@ -48,4 +48,7 @@ class DonationForm(forms.ModelForm):
 		model = DonationSource
 		fields = '__all__'		 
 
-	
+class PointsForm(forms.ModelForm):
+	class Meta:
+		model = Points
+		fields = '__all__'	

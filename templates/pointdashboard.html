@@ -141,12 +141,7 @@
 						<span>Vouchers</span>
 					</a>
 				</li>
-        <li>
-          <a href="{% url 'appdev:pointsdasboard_view' %}">
-  <i class="fa fa-money " aria-hidden="true"></i>
-  <span>Points</span>
-</a>
-</li>
+
 				<li>
                     <a href="{% url 'appdev:contact_view' %}">
 						<i class="fa fa-envelope-o" aria-hidden="true"></i>
@@ -174,28 +169,24 @@
     <table id="example" class="table table-striped table-bordered" style="width:100%">
       <thead>
                 <tr>
-                   	<th>Voucher Code</th> 
-                    <th>Voucher Title</th> 
-                    <th>Voucher Percentage</th> 
-                    
+               
+                  
+                    <th>Points </th> 
                          
                 </tr>
             </thead>
       
            
             <tbody>
-            {% if check_vouchers %} 
-			
-            {% for check_voucher in check_vouchers %}      
+            {% for userpoints in userpoints %}
             <tr>
-                <td>{{check_voucher.gv_code}}</td>
-                <td>{{check_voucher.gv_title}}</td>              
-                <td>{{check_voucher.gv_percentage}}</td>     
-            {% endfor %} 
+               
+               
+                <td>{{userpoints.points}}</td>
+
                 
-            {% endif %}   
             </tr>
-                        
+              {% endfor %}          
             </tbody>   
                           
           

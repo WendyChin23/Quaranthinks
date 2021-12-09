@@ -28,6 +28,11 @@ class DonationSource(models.Model):
     mop = models.CharField(max_length = 30)
     amount = models.IntegerField()
     
+class Points(models.Model):
+    pid = models.AutoField(primary_key = True)
+    username = models.ForeignKey(AccountUser,to_field='username', on_delete=models.CASCADE)
+    points = models.IntegerField()
+        
 
 # @receiver(post_save, sender=User)
 # def update_profile_signal(sender, instance, created, **kwargs):

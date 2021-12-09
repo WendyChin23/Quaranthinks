@@ -395,3 +395,33 @@ class DonationDashboard(View):
                 students = DonationSource.objects.filter(id=Id).delete()
 
         return redirect('appdev:donationdashboard_view')
+
+class PointsDashBoard(View):
+    def get(self, request):
+        return render('pointpage.html')
+
+    def post(self, request):
+        if request.method == 'POST':
+            if 'BtnUpdate' in request.POST:
+                print('update button clicked')
+            Pid = request.POST.get("pid")     
+            Names = request.POST.get("names")
+            Point = request.POST.get("points")
+
+            form = points(pid = Pid, names = Names, points = point)
+            print('clicked')
+            form.save() 
+       
+                print(update_point)
+                print('points updated')
+            # except:
+            #   raise Http404
+            else:
+                print(form.errors)
+                return HttpResponse('not valid')   
+
+        elif 'BtnDelete' in request.POST:
+                print('delete button clicked')
+                Point = request.POST.get("points")
+
+        return redirect('appdev:pointdashboard_view')

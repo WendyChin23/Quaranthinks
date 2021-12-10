@@ -443,8 +443,9 @@ class GenVoucher(View):
         if 'admin' in request.session:
             current_user=request.session['admin']
             gvoucher=GeneralVoucher.objects.all()
-
-            context = {'gvoucher':gvoucher}
+            student=AccountUser.objects.all()
+            context = {'gvoucher':gvoucher,
+                        'student':student,}
         return render(request,'generalvoucher.html', context)
 
     def post(self, request):
@@ -454,17 +455,20 @@ class GenVoucher(View):
                 gv_code = request.POST.get("gv_code")                                                                                                                                                                                                                                                                                                                                            
                 gv_title = request.POST.get("gv_title")
                 gv_percentage = request.POST.get("gv_percentage")
+            
+
                 update_generalvoucher = GeneralVoucher.objects.filter(gv_code=gv_code).update(gv_title = gv_title, 
                  gv_percentage=gv_percentage)
                 print(update_generalvoucher)
                 print('generalvoucher updated')
 
-            elif 'BtnAdd' in request.POST:
+            elif 'BtnAddGenVoucher' in request.POST:
                 print ('Add General Voucher Clicked')
-                gv_code_add = request.POST.get("gv_code_add")
-                gv_title_add = request.POST.get("gv_code_title")
-                gv_percentage_add = request.POST.get("gv_code_percentage")
-                add_generalvoucher = GeneralVoucher(gv_code = gv_code, gv_title = gv_title, gv_percentage = gv_percentage)
+                gv_code = request.POST.get("gv_code")
+                gv_title = request.POST.get("gv_title")
+                gv_percentage = request.POST.get("gv_percentage")
+                gv_id = request.POST.get("gv_id")
+                add_generalvoucher = GeneralVoucher(gv_code = gv_code, gv_title = gv_title, gv_percentage = gv_percentage, student_id=gv_id)
                 add_generalvoucher.save()
                 return redirect('appdev:genvoucher_view')
 

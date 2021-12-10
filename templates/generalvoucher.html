@@ -251,12 +251,21 @@ logout</span>Logout</a>
                                   <div class="form-group">
                                 
                                  <label for="recipient-name" class="col-form-label">Voucher Code</label>
-                                <input name="gv_code" subject.type="text" class="form-control" id="gv_code_add" >
+                                <input name="gv_code" subject.type="text" class="form-control" id="gv_code" >
                                 <label for="recipient-name" class="col-form-label">Voucher Title</label>
-                                <input name="gv_title" subject.type="text" class="form-control" id="gv_title_add" >
+                                <input name="gv_title" subject.type="text" class="form-control" id="gv_title" >
 
                                   <label for="recipient-name" class="col-form-label">Voucher Percentage</label>
-                                  <input type="text" name="gv_percentage" class="form-control" id="gv_percentage_add">
+                                  <input type="text" name="gv_percentage" class="form-control" id="gv_percentage">
+
+                                <label for="recipient-name" class="col-form-label">Student</label>
+                                <div class = "form-group">
+                                      <select class="form-select"  name="gv_id" aria-label="Default select example">
+                                          {% for student in student %} 
+                                          <option value="{{student.username}}">{{student.username}}</option>
+                                           {% endfor %}
+                                      </select>
+                                  </div> 
                                                     
                                   </div>
                                 
@@ -265,7 +274,7 @@ logout</span>Logout</a>
                               </div>
                               <div class="modal-footer">
                                 <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                                <button type="submit" id="BtnUpdate" name="BtnAdd" href = "{% url 'appdev:genvoucher_view' %}" class="btn btn-primary">Add</button>
+                                <button type="submit" id="BtnAddGenVoucher" name="BtnAddGenVoucher" href = "{% url 'appdev:genvoucher_view' %}" class="btn btn-primary">Add</button>
                               </div>
 
                                 </form>
@@ -357,11 +366,12 @@ logout</span>Logout</a>
                         
                         
                         <!-- Button trigger modal -->
-  <a href="button" href="#" class="btn btn-primary" data-target="#Modal-{{gv_code.gv_code}}"data-toggle="modal">DELETE</a>
+   <button href="#" type="button" class="btn btn-primary" data-toggle="modal" data-target="#Modal-{{gvoucher.gv_code}}" data-whatever="@mdo data-placement=" title="Update">DELETE</button>
+  
     </div>
                           
                          <!-- Modal HTML -->
-<div id="Modal-{{gv_code.gv_code}}" class="modal fade" data-backdrop="false" style="padding-top: 100px; padding-left: 100px;">
+<div id="Modal-{{gvoucher.gv_code}}" class="modal fade" data-backdrop="false" style="padding-top: 100px; padding-left: 100px;">
 	<div class="modal-dialog modal-confirm">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -373,8 +383,8 @@ logout</span>Logout</a>
           {% csrf_token %}
 
 			<div class="modal-body">
-				<input type="text" name="gv_title" value = {{gvoucher.gv_title}} hidden>
-        Are you sure you want to delete?
+				<input type="text" name="gv_code" value = {{gvoucher.gv_code}} hidden>
+        Are you sure you want to delete this voucher?
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>

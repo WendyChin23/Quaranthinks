@@ -30,6 +30,7 @@ urlpatterns= [
 	path('success', views.Success.as_view(), name="success_view"),
 	path('pointsclient', views.PointsDashBoard.as_view(), name="pointsdasboard_view"),
 	path('pointsadmin', views.PointsAdmin.as_view(), name="pointsadmin_view"),
+	path('generalvoucher', views.GenVoucher.as_view(), name="genvoucher_view"),
 
 	
 ]

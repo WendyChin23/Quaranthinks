@@ -460,6 +460,50 @@ class PointsDashBoard(View):
         											'userdetails':userdetails})
 
 
+class GenVoucher(View):
+    def get(self, request):
+        if 'admin' in request.session:
+            current_user=request.session['admin']
+            gvoucher=GeneralVoucher.objects.all()
+            student=AccountUser.objects.all()
+            context = {'gvoucher':gvoucher,
+                        'student':student,}
+        return render(request,'generalvoucher.html', context)
+
+    def post(self, request):
+        if request.method == 'POST':
+            if 'BtnUpdate' in request.POST:
+                print('update button clicked')
+                gv_code = request.POST.get("gv_code")                                                                                                                                                                                                                                                                                                                                            
+                gv_title = request.POST.get("gv_title")
+                gv_percentage = request.POST.get("gv_percentage")
+            
+
+                update_generalvoucher = GeneralVoucher.objects.filter(gv_code=gv_code).update(gv_title = gv_title, 
+                 gv_percentage=gv_percentage)
+                print(update_generalvoucher)
+                print('generalvoucher updated')
+
+            elif 'BtnAddGenVoucher' in request.POST:
+                print ('Add General Voucher Clicked')
+                gv_code = request.POST.get("gv_code")
+                gv_title = request.POST.get("gv_title")
+                gv_percentage = request.POST.get("gv_percentage")
+                gv_id = request.POST.get("gv_id")
+                add_generalvoucher = GeneralVoucher(gv_code = gv_code, gv_title = gv_title, gv_percentage = gv_percentage, student_id=gv_id)
+                add_generalvoucher.save()
+                return redirect('appdev:genvoucher_view')
+
+
+                
+            elif 'BtnDelete' in request.POST:
+                print('delete button clicked')
+                gv_code = request.POST.get("gv_code")
+                delete_generalvoucher = GeneralVoucher.objects.filter(gv_code=gv_code).delete()
+
+        return redirect('appdev:genvoucher_view')
+
+
 
 
 

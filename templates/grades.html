@@ -36,8 +36,12 @@
 		<!-------------------------sidebar------------>
 		     <!-- Sidebar  -->
         <nav id="sidebar">
+           
+            
+            
             <div class="sidebar-header">
                 <h3><img src="{% static 'assets\img\logo.jpg' %}" class="img-fluid"/><span>Quaranthinks</span></h3>
+                
             </div>
             <ul class="list-unstyled components">
 			<li>
@@ -283,13 +287,13 @@ logout</span>Logout</a>
           <th>Midterm</th> 
           <th>Finals</th> 
           <th style="width: 200px;">Final Grade</th> 
+          <th>Action</th> 
         </tr>
       </thead>
       
               {% for grade in grades %}
             <tr>
                 <td>{{grade.username_id}}</td>
-                <td>{{grade.faculty_name}}</td>
                 <td>{{grade.subject_code}}</td>  
                 <td>{{grade.midterm}}</td> 
                 <td>{{grade.finals}}</td> 
@@ -298,9 +302,7 @@ logout</span>Logout</a>
                  
                 <td>
     
-                                  
-                    
-
+                <button href="#" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal-{{grade.username}}" data-whatever="@mdo data-placement=" title="Update">UPDATE</button>                 
                     <div class="modal fade" id="exampleModal-{{grade.username}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="false"> 
                       <div class="modal-dialog">
                             <div class="modal-content">

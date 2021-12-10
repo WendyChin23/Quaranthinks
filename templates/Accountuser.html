@@ -265,7 +265,7 @@ logout</span>Logout</a>
       
             {% for accountuser in accountuser %}
             <tr>
-                     <td>   
+                <td>   
                 <td>{{accountuser.uid}}</td> 
                 <td>{{accountuser.first_name}}</td> 
                 <td>{{accountuser.last_name}}</td> 
@@ -278,13 +278,13 @@ logout</span>Logout</a>
                  
                 <td>
                   
-                  <form method="POST" action="{% url 'appdev:grades_view' %}">
+                <form method="POST">
                     {% csrf_token %}
                     <!-- {{ form.non_field_errors }}
                     {{ form.web_input }} -->
-                    <input type="text" name="username" value="{{accountuser.username}}"  class="form-control" id=" username" hidden>
-                    <a href="{% url 'appdev:grades_view' %}" type="button" name="BtnGrades" class="btn btn-primary" title="Update">GRADES</a>               
-                  </form>
+                    <input type="text" name="usernamep" value="{{accountuser.username}}" class="form-control" id="usernamep" hidden>
+                    <button href="{% url 'appdev:grades_view' %}" type="submit" class="btn btn-primary" name="BtnGrades" id="BtnGrades" title="grades">Grades</button>           
+                </form>
                   
                     <button href="#" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal-{{accountuser.uid}}" data-whatever="@mdo data-placement=" title="Update">UPDATE</button>
 

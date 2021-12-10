@@ -63,16 +63,16 @@ class Contact(View):
 
 class GradesView(View):
     def get(self, request):
-        if 'stugrade' in request.session:
-            current_user = request.session.get('stugrade')
-            grades = Grade.objects.filter(username=stugrade)
+        if 'sgrades' in request.session:
+            current_user = request.session['sgrades']
+            grades = Grade.objects.filter(username=current_user)
         else:
             return HttpResponse('NOT VALID')
 
         context = {
             'grades' :grades, #name that we want to use
             
-        }
+            }
         return render(request,'grades.html',context)
 
 class Members(View):
@@ -228,16 +228,38 @@ class AccountDashboardView(View):
                 students = AccountUser.objects.filter(uid=Idn).delete()
 
             elif 'BtnGrades' in request.POST:
-                form = AccountUserForm(request.POST)
-                if form.is_valid():
-                    studentgrade = request.POST.get('username')
-                    form = AccountUser.objects.filter(username=studentgrade)
-                    request.session['stugrade'] = form
-                    form.save()
-                    return redirect('appdev:grades_view')
-                else:
-                    print(form.errors)
-                    return HttpResponse('error')
+                 username = request.POST.get("usernamep")
+                 er = Grade.objects.filter(username=username)
+
+                 if er:
+                    request.session['sgrades'] = username
+                    if Grade.objects.filter(username=username).count()>0:
+                        return redirect('appdev:grades_view')
+                    else:
+                        return HttpResponse('bot')
+                 else:
+                    return HttpResponse('tob')       
+
+                               
+                # form = AccountUserForm(request.POST)
+                # if form.is_valid():
+                #     studentgrade = request.POST.get('username')
+                #     form = AccountUser.objects.filter(username=studentgrade)
+                #     request.session['stugrade'] = form
+                #     form.save()
+                #     return redirect('appdev:grades_view')
+                # else:
+                #     print(form.errors)
+                #     return HttpResponse('error')
+                # kl = request.POST.get("username")
+                # cg = request.session.get(kl)
+
+                # if cg is None:
+                #     cg = request.POST.get("username")
+                #     request.session['sgrade'] = cg
+                
+
+
 
         return redirect('appdev:accountdashboard_view')
 

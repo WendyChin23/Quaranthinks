@@ -71,7 +71,7 @@
 					<i class="material-icons">apps</i><span>Vouchers</span></a>
                     <ul class="collapse list-unstyled menu" id="pageSubmenu2">
                         <li>
-                            <a href="#">General</a>
+                            <a href="{%url 'appdev:genvoucher_view'%}">General</a>
                         </li>
                         <li>
                             <a href="#">Exclusives</a>
@@ -211,9 +211,9 @@ logout</span>Logout</a>
 
             </div>
 		     <div class="xp-breadcrumbbar text-center">
-                <h4 class="page-title">DONATION</h4>  
+                <h4 class="page-title">POINTS</h4>  
                   <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="#">Donation</a></li>
+                    <li class="breadcrumb-item"><a href="#">Points</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
                   </ol>                
             </div>
@@ -232,6 +232,60 @@ logout</span>Logout</a>
 		  
 		   <div class="main-content">
 			  <div class="row">
+				<div class="col-md-12">
+                    <button href="#" type="button" class="btn btn-primary" data-toggle="modal" data-target="#addpoints-{{points.pid}}" data-whatever="@mdo data-placement=" title="Update">Add Points</button>
+
+                    <div class="modal fade" id="addpoints-{{points.pid}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="false"> 
+                      <div class="modal-dialog" style="padding-top: 100px; padding-left: 100px;">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Add Points</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>                              
+                              
+                              <div class="modal-body">
+                                <form method="POST">
+                                  {% csrf_token %}
+                                  <div class="form-group">
+                                
+                                 <label for="recipient-name" class="col-form-label">Points </label>
+                                <input name="points" subject.type="text" class="form-control" id="points" >
+                             
+                                <label for="recipient-name" class="col-form-label">Student</label>
+                                <div class = "form-group">
+                                      <select class="form-select"  name="username" aria-label="Default select example">
+                                          {% for username in username %} 
+                                          <option value="{{username.username}}">{{username.username}}</option>
+                                           {% endfor %}
+                                      </select>
+                                  </div> 
+                                                    
+                                  </div>
+                                
+                        
+                                
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                                <button type="submit" id="BtnAddPoints" name="BtnAddPoints" href = "{% url 'appdev:pointsadmin_view' %}" class="btn btn-primary">Add</button>
+                              </div>
+
+                                </form>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+
+
+
+
+
+
+
+
 			    
 				<div class="col-md-12">
 				<div class="table-wrapper">
@@ -241,7 +295,6 @@ logout</span>Logout</a>
           <h2 class="ml-lg-2">View Points</h2>
         </div>
      
-        <a href="{% url 'appdev:donation_view' %}" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">DONATE NOW</a> 
 
       </div>
     </div>
@@ -257,7 +310,7 @@ logout</span>Logout</a>
        
           </th>
           <th>Points ID</th> 
-          <th>Username</th> 
+          <!-- <th>Username</th>  -->
           <th>Points</th> 
           <th>Action</th> 
 
@@ -270,7 +323,7 @@ logout</span>Logout</a>
             <tr>
                      <td>   
                 <td>{{points.pid}}</td> 
-                <td>{{points.username}}</td> 
+                <!-- <td>{{points.username}}</td>  -->
                 <td>{{points.points}}</td> 
  
  
@@ -297,11 +350,11 @@ logout</span>Logout</a>
                                  <label for="recipient-name" class="col-form-label">ID Number</label>
                                 <input name="id-id" value="{{points.pid}}" subject.type="text" class="form-control" id="id-id" readonly>
 
-                                  <label for="recipient-name" class="col-form-label">Name</label>
+                                  <!-- <label for="recipient-name" class="col-form-label">Username</label>
                                   <input type="text" name="name-name" value="{{points.username}}" class="form-control" id="name-name" readonly>
-                        
+                         -->
 
-                                  <label for="recipient-name" class="col-form-label">Email</label>
+                                  <label for="recipient-name" class="col-form-label">Points</label>
                                   <input type="text" name="points-points" value = "{{points.points}}" class="form-control" >
                         
 

@@ -263,7 +263,6 @@ class AccountDashboardView(View):
 
         return redirect('appdev:accountdashboard_view')
 
-
 class Signup(View):
     # def get(self, request):
     #     return render(request, 'student.html')
@@ -418,14 +417,44 @@ class DonationDashboard(View):
 
         return redirect('appdev:donationdashboard_view')
 
+# class PointsAdmin(View):
+#     def get(self, request):
+#         points = Points.objects.all()
+       
+#         context = {
+#             'points' : points, #name that we want to use
+            
+#         }
+#         return render(request,'pointsadmin.html', context)
+
+#     def post(self, request):
+#         if request.method == 'POST':
+#             if 'BtnUpdate' in request.POST:
+#                 print('update button clicked')
+#                 Id = request.POST.get("id-id")                                                                                                                                                                                                                                                                                                                                            
+#                 Name = request.POST.get("name-name")
+#                 Point = request.POST.get("points-points")             
+                
+   
+#                 update_points = Points.objects.filter(pid=Id).update(username=Name, points = Point)
+#                 print(update_points)
+#                 print('points updated')
+                
+#             elif 'BtnDelete' in request.POST:
+#                 print('delete button clicked')
+#                 Id = request.POST.get("pid-id")
+#                 points = Points.objects.filter(pid=Id).delete()
+
+#         return redirect('appdev:pointsadmin_view')
+
 class PointsAdmin(View):
     def get(self, request):
-        points = Points.objects.all()
-       
-        context = {
-            'points' : points, #name that we want to use
-            
-        }
+        if 'admin' in request.session:
+            current_user=request.session['admin']
+            points=Points.objects.all()
+            username=AccountUser.objects.all()
+            context = {'points':points,
+                        'username':username,}
         return render(request,'pointsadmin.html', context)
 
     def post(self, request):
@@ -433,20 +462,35 @@ class PointsAdmin(View):
             if 'BtnUpdate' in request.POST:
                 print('update button clicked')
                 Id = request.POST.get("id-id")                                                                                                                                                                                                                                                                                                                                            
-                Name = request.POST.get("name-name")
+                # Name = request.POST.get("name-name")
                 Point = request.POST.get("points-points")             
                 
    
-                update_points = Points.objects.filter(pid=Id).update(username=Name, points = Point)
+                update_points = Points.objects.filter(pid=Id).update( points = Point)
                 print(update_points)
                 print('points updated')
+
+            elif 'BtnAddPoints' in request.POST:
+                print ('Add Points Clicked')
+                pid = request.POST.get("pid")
+                # username = request.POST.get("username")
+                points = request.POST.get("points")
+                add_points = Points(pid = pid, 
+				 points = points)
+                add_points.save()
+                return redirect('appdev:pointsadmin_view')
+
+
                 
             elif 'BtnDelete' in request.POST:
                 print('delete button clicked')
-                Id = request.POST.get("pid-id")
-                points = Points.objects.filter(pid=Id).delete()
+                Idn = request.POST.get("pid-id")
+                points = Points.objects.filter(pid=Idn).delete()
 
         return redirect('appdev:pointsadmin_view')
+
+
+
 
 
 class PointsDashBoard(View):

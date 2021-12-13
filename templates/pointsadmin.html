@@ -227,7 +227,7 @@ logout</span>Logout</a>
 
 
 
-		   
+{% block content %}		   
 		   <!--------main-content------------->
 		  
 		   <div class="main-content">
@@ -255,9 +255,9 @@ logout</span>Logout</a>
                              
                                 <label for="recipient-name" class="col-form-label">Student</label>
                                 <div class = "form-group">
-                                      <select class="form-select"  name="username" aria-label="Default select example">
-                                          {% for username in username %} 
-                                          <option value="{{username.username}}">{{username.username}}</option>
+                                      <select class="form-select"  name="username_id" aria-label="Default select example">
+                                          {% for acct in accty %} 
+                                          <option value="{{acct.username}}">{{acct.username}}</option>
                                            {% endfor %}
                                       </select>
                                   </div> 
@@ -299,7 +299,7 @@ logout</span>Logout</a>
       </div>
     </div>
  
-    {% block content %} 
+     
     <hr/>
     <form method="POST">
       {% csrf_token %}
@@ -309,9 +309,9 @@ logout</span>Logout</a>
           <th>
        
           </th>
-          <th>Points ID</th> 
-          <!-- <th>Username</th>  -->
-          <th>Points</th> 
+          <th hidden>Points ID</th> 
+          <th>Username</th> 
+          <th>Points</th>
           <th>Action</th> 
 
 
@@ -319,20 +319,20 @@ logout</span>Logout</a>
         </tr>
       </thead>
       
-            {% for points in points %}
+            {% for point in points %}
             <tr>
                      <td>   
-                <td>{{points.pid}}</td> 
-                <!-- <td>{{points.username}}</td>  -->
-                <td>{{points.points}}</td> 
+                <td hidden>{{point.pid}}</td> 
+                <td>{{point.username_id}}</td> 
+                <td>{{point.points}}</td> 
  
  
                 <td>
     
                                   
-                    <button href="#" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal-{{points.pid}}" data-whatever="@mdo data-placement=" title="Update">UPDATE</button>
+                    <button href="#" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal-{{point.pid}}" data-whatever="@mdo data-placement=" title="Update">UPDATE</button>
 
-                    <div class="modal fade" id="exampleModal-{{points.pid}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="false"> 
+                    <div class="modal fade" id="exampleModal-{{point.pid}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="false"> 
                       <div class="modal-dialog">
                             <div class="modal-content">
                               <div class="modal-header">
@@ -347,15 +347,17 @@ logout</span>Logout</a>
                                   {% csrf_token %}
                                   <div class="form-group">
                                 
-                                 <label for="recipient-name" class="col-form-label">ID Number</label>
-                                <input name="id-id" value="{{points.pid}}" subject.type="text" class="form-control" id="id-id" readonly>
+                                 <!-- <label for="recipient-name" class="col-form-label">ID Number</label> -->
+                                <input name="id-id" value="{{point.pid}}" subject.type="text" class="form-control" id="id-id" hidden>
+                                <label for="recipient-name" class="col-form-label">ID Number</label>
+                                <input name="id-id" value="{{point.username_id}}" subject.type="text" class="form-control" id="id-id" readonly>
 
                                   <!-- <label for="recipient-name" class="col-form-label">Username</label>
                                   <input type="text" name="name-name" value="{{points.username}}" class="form-control" id="name-name" readonly>
                          -->
 
                                   <label for="recipient-name" class="col-form-label">Points</label>
-                                  <input type="text" name="points-points" value = "{{points.points}}" class="form-control" >
+                                  <input type="text" name="points-points" value = "{{point.points}}" class="form-control" >
                         
 
             
@@ -377,11 +379,11 @@ logout</span>Logout</a>
                         
                         
                         <!-- Button trigger modal -->
-  <a href="button" href="#" class="btn btn-primary" data-target="#Modal-{{points.pid}}"data-toggle="modal">DELETE</a>
+  <a href="button" href="#" class="btn btn-primary" data-target="#Modal-{{point.pid}}"data-toggle="modal">DELETE</a>
     </div>
                           
                          <!-- Modal HTML -->
-<div id="Modal-{{points.pid}}" class="modal fade" data-backdrop="false">
+<div id="Modal-{{point.pid}}" class="modal fade" data-backdrop="false">
 	<div class="modal-dialog modal-confirm">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -395,7 +397,7 @@ logout</span>Logout</a>
           {% csrf_token %}
 
 			<div class="modal-body">
-				<input type="text" name="pid-id" value = {{points.pid}} hidden>
+				<input type="text" name="pid-id" value = {{point.pid}} hidden>
         Are you sure you want to delete
 			</div>
 			<div class="modal-footer">

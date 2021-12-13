@@ -3,14 +3,15 @@ from django.views.generic import View
 from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.shortcuts import(get_object_or_404,render,HttpResponseRedirect)
-from .forms import AccountUserForm, ContactForm, DonationForm
+from .forms import AccountUserForm, ContactForm, DonationForm, GradeForm
 from django.core.mail import send_mail, BadHeaderError
 from tech import settings  
 from django.urls import reverse
 from django.contrib import messages
 
 
-from appdev.models import *
+from .models import *
+
 # Create your views here.
 
 
@@ -65,15 +66,60 @@ class GradesView(View):
     def get(self, request):
         if 'sgrades' in request.session:
             current_user = request.session['sgrades']
+            accty = AccountUser.objects.filter(username=current_user)
             grades = Grade.objects.filter(username=current_user)
         else:
             return HttpResponse('NOT VALID')
 
         context = {
-            'grades' :grades, #name that we want to use
+            'grades' :grades,
+            'accty':accty #name that we want to use
             
             }
         return render(request,'grades.html',context)
+
+    def post(self,request):
+        gsx = GradeForm(request.POST)
+        if request.method == "POST":
+            if 'BtnAddGrade' in request.POST:
+                if gsx.is_valid():
+                    # username = request.POST.get("username")
+                    username = request.session.get('sgrades')
+                    jkj = AccountUser.objects.get(username=username)
+                    subject = request.POST.get("subject_code")
+                    faculty = request.POST.get("faculty_name")
+                    units = request.POST.get("units")
+                    midterm = request.POST.get("midterm")
+                    final = request.POST.get("finals")
+                    fg = request.POST.get("finalgrade")
+                    gsx = Grade(subject_code = subject, faculty_name = faculty, units = units,
+                    midterm = midterm, finals = final, finalgrade = fg, username = jkj)
+                    gsx.save()
+                    return redirect('appdev:grades_view')
+                else:
+                    print(gsx.errors)
+                    return HttpResponse('not valid')
+
+            if 'BtnUpdateGrade' in request.POST:
+                idl = request.POST.get("idpok")
+                # username = request.session.get('sgrades')
+                # bob = AccountUser.objects.get(username=username)
+                username = request.POST.get("usernamepok")
+                subject = request.POST.get("subject_codepok")
+                faculty = request.POST.get("faculty_namepok")
+                units = request.POST.get("unitspok")
+                midterm = request.POST.get("midtermpok")
+                final = request.POST.get("finalspok")
+                fg = request.POST.get("finalgradepok")
+                update_grade = Grade.objects.filter(id=idl).update(subject_code=subject,faculty_name=faculty,units=units,midterm=midterm,
+                    finals=final, finalgrade=fg, username=username)
+                print(update_grade)
+            
+            if 'BtnDeleteGrade' in request.POST:
+                Idn = request.POST.get("delete_grade")
+                students = Grade.objects.filter(id=Idn).delete()
+
+        return redirect('appdev:grades_view')
 
 class Members(View):
     def get(self, request):
@@ -228,17 +274,17 @@ class AccountDashboardView(View):
                 students = AccountUser.objects.filter(uid=Idn).delete()
 
             elif 'BtnGrades' in request.POST:
-                 username = request.POST.get("usernamep")
-                 er = Grade.objects.filter(username=username)
+                username = request.POST.get("usernamep")
+                er = Grade.objects.filter(username=username)
 
-                 if er:
+                if er:
                     request.session['sgrades'] = username
                     if Grade.objects.filter(username=username).count()>0:
                         return redirect('appdev:grades_view')
                     else:
                         return HttpResponse('bot')
-                 else:
-                    return HttpResponse('tob')       
+                else:
+                    return HttpResponse('Grades not yet submitted')       
 
                                
                 # form = AccountUserForm(request.POST)
@@ -450,11 +496,13 @@ class DonationDashboard(View):
 class PointsAdmin(View):
     def get(self, request):
         if 'admin' in request.session:
-            current_user=request.session['admin']
-            points=Points.objects.all()
-            username=AccountUser.objects.all()
+            current_admin = request.session['admin']
+            points = Points.objects.all()
+            accty = AccountUser.objects.all()
+
             context = {'points':points,
-                        'username':username,}
+                        'accty':accty,}
+
         return render(request,'pointsadmin.html', context)
 
     def post(self, request):
@@ -472,10 +520,10 @@ class PointsAdmin(View):
 
             elif 'BtnAddPoints' in request.POST:
                 print ('Add Points Clicked')
-                pid = request.POST.get("pid")
-                # username = request.POST.get("username")
+                username = request.POST.get("username_id")
+                pop = AccountUser.objects.get(username=username)
                 points = request.POST.get("points")
-                add_points = Points(pid = pid, 
+                add_points = Points(username = pop, 
 				 points = points)
                 add_points.save()
                 return redirect('appdev:pointsadmin_view')

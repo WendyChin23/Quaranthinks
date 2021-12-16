@@ -121,6 +121,10 @@ class GradesView(View):
 
         return redirect('appdev:grades_view')
 
+class NoGrade(View):
+    def get(self,request):
+        return render(request, 'nogrades.html')
+        
 class Members(View):
     def get(self, request):
         return render(request,'members.html')
@@ -284,7 +288,9 @@ class AccountDashboardView(View):
                     else:
                         return HttpResponse('bot')
                 else:
-                    return HttpResponse('Grades not yet submitted')       
+                    GradeForm(request.POST)
+                    return redirect('appdev:grades_view')
+                    # return HttpResponse('Grades not yet submitted')       
 
                                
                 # form = AccountUserForm(request.POST)

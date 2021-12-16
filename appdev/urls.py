@@ -11,6 +11,7 @@ urlpatterns= [
 	path('team', views.Team.as_view(), name="team_view"),
 	path('contact', views.Contact.as_view(), name="contact_view"),
 	path('grades', views.GradesView.as_view(), name="grades_view"),
+	path('nogrades', views.NoGrade.as_view(), name="nograde_view"),
 	path('members', views.Members.as_view(), name="members_view"),
 	path('portfolio', views.Portfolio.as_view(), name="portfolio_view"),
 	path('rewards', views.Rewards.as_view(), name="rewards_view"),

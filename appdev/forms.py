@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 from django import forms
 #from django.db.models import fields
 from .models import *
+from django.core.exceptions import ValidationError
 
 class ContactForm(forms.ModelForm):
 	class Meta:
@@ -19,14 +20,14 @@ class AccountUserForm(forms.ModelForm):
 		fields= ['email' , 'username']
 		#fields = ('username', 'firstname', 'lastname', 'email', 'password1', 'password2', 'address', 'age', 'birthdate')
 
-	# class clean_email(self):
+	# def clean_email(self):
 	# 	email = self.cleaned_data['email'].lower()
 	# 	r = AccountUser.objects.filter(email=email)
 	# 	if r.count():
 	# 		raise  ValidationError("Email already exists")
 	# 		return email  
 
-	# class clean_username(self):
+	# def clean_username(self):
 	# 	username = self.cleaned_data['username'].lower()
 	# 	s = AccountUser.objects.filter(username=username)
 	# 	if s.count():

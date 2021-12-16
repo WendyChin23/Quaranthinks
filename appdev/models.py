@@ -7,7 +7,7 @@ from django.dispatch import receiver
 
 class AccountUser(models.Model):
     uid = models.BigAutoField(primary_key = True)
-    first_name = models.CharField(max_length = 50) #pwede ma unique
+    first_name = models.CharField(max_length = 50) #pwede ma unique, blank is equal to not required, Null is equal to null
     last_name = models.CharField(max_length = 50)
     email = models.CharField(max_length = 50, unique = True)
     address = models.CharField(max_length=100)

@@ -123,8 +123,39 @@ class GradesView(View):
 
 class NoGrade(View):
     def get(self,request):
-        return render(request, 'nogrades.html')
-        
+        if 'sgrades' in request.session:
+            current_user = request.session['sgrades']
+            accty = AccountUser.objects.filter(username=current_user)
+
+            context= {'accty':accty,}
+
+            return render(request, 'nogrades.html',context)
+
+    def post(self, request):
+        gs = GradeForm(request.POST)
+        if request.method == "POST":
+            if 'btnAdd' in request.POST:
+                if gs.is_valid():
+                    username = request.session.get('sgrades')
+                    tys = AccountUser.objects.get(username = username)
+                    # tys = request.POST.get("username")
+                    sub = request.POST.get("subject_code")
+                    fac = request.POST.get("faculty_name")
+                    units = request.POST.get("units")
+                    midterm = request.POST.get("midterm")
+                    final = request.POST.get("finals")
+                    finalgrade = request.POST.get("finalgrade")
+
+                    gs = Grade(subject_code=sub, faculty_name=fac, units=units, midterm=midterm, finals=final, finalgrade=finalgrade,
+                            username=tys)
+                    gs.save()
+                    return redirect('appdev:grades_view')
+                else:
+                    print(gs.errors)
+                    return HttpResponse('not valid')
+
+        return redirect('appdev:nogrades_view')        
+
 class Members(View):
     def get(self, request):
         return render(request,'members.html')
@@ -288,8 +319,9 @@ class AccountDashboardView(View):
                     else:
                         return HttpResponse('bot')
                 else:
-                    GradeForm(request.POST)
-                    return redirect('appdev:grades_view')
+                    # request.session['fgrades'] = username
+                    # if Grade.objects.filter(username=username).count()>=0:
+                    return redirect('appdev:nogrades_view')
                     # return HttpResponse('Grades not yet submitted')       
 
                                

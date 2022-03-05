@@ -3,17 +3,25 @@ from django.views.generic import View
 from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.shortcuts import(get_object_or_404,render,HttpResponseRedirect)
-from .forms import *
+from .forms import AccountUserForm, ContactForm, DonationForm, GradeForm
 from django.core.mail import send_mail, BadHeaderError
 from tech import settings  
 from django.urls import reverse
+from django.contrib import messages
 
-from appdev.models import AccountUser
+
+from .models import *
+
 # Create your views here.
+
 
 class Home(View):
     def get(self, request):
         return render(request,'index.html')
+
+class Success(View):
+    def get(self, request):
+        return render(request,'success.html')       
 
 class About(View):
     def get(self, request):
@@ -54,13 +62,125 @@ class Contact(View):
                 return HttpResponse(pok)          
         
 
-class Grades(View):
+class GradesView(View):
     def get(self, request):
-        return render(request,'grades.html')
+        if 'sgrades' in request.session:
+            current_user = request.session['sgrades']
+            accty = AccountUser.objects.filter(username=current_user)
+            grades = Grade.objects.filter(username=current_user)
+        else:
+            return HttpResponse('NOT VALID')
+
+        context = {
+            'grades' :grades,
+            'accty':accty #name that we want to use
+            
+            }
+        return render(request,'grades.html',context)
+
+    def post(self,request):
+        gsx = GradeForm(request.POST)
+        if request.method == "POST":
+            if 'BtnAddGrade' in request.POST:
+                if gsx.is_valid():
+                    # username = request.POST.get("username")
+                    username = request.session.get('sgrades')
+                    jkj = AccountUser.objects.get(username=username)
+                    subject = request.POST.get("subject_code")
+                    faculty = request.POST.get("faculty_name")
+                    units = request.POST.get("units")
+                    midterm = request.POST.get("midterm")
+                    final = request.POST.get("finals")
+                    fg = request.POST.get("finalgrade")
+                    gsx = Grade(subject_code = subject, faculty_name = faculty, units = units,
+                    midterm = midterm, finals = final, finalgrade = fg, username = jkj)
+                    gsx.save()
+                    return redirect('appdev:grades_view')
+                else:
+                    print(gsx.errors)
+                    return HttpResponse('not valid')
+
+            if 'BtnUpdateGrade' in request.POST:
+                idl = request.POST.get("idpok")
+                # username = request.session.get('sgrades')
+                # bob = AccountUser.objects.get(username=username)
+                username = request.POST.get("usernamepok")
+                subject = request.POST.get("subject_codepok")
+                faculty = request.POST.get("faculty_namepok")
+                units = request.POST.get("unitspok")
+                midterm = request.POST.get("midtermpok")
+                final = request.POST.get("finalspok")
+                fg = request.POST.get("finalgradepok")
+                update_grade = Grade.objects.filter(id=idl).update(subject_code=subject,faculty_name=faculty,units=units,midterm=midterm,
+                    finals=final, finalgrade=fg, username=username)
+                print(update_grade)
+            
+            if 'BtnDeleteGrade' in request.POST:
+                Idn = request.POST.get("delete_grade")
+                students = Grade.objects.filter(id=Idn).delete()
+
+        return redirect('appdev:grades_view')
+
+class NoGrade(View):
+    def get(self,request):
+        if 'sgrades' in request.session:
+            current_user = request.session['sgrades']
+            accty = AccountUser.objects.filter(username=current_user)
+
+            context= {'accty':accty,}
+
+            return render(request, 'nogrades.html',context)
+
+    def post(self, request):
+        gs = GradeForm(request.POST)
+        if request.method == "POST":
+            if 'btnAdd' in request.POST:
+                if gs.is_valid():
+                    username = request.session.get('sgrades')
+                    tys = AccountUser.objects.get(username = username)
+                    # tys = request.POST.get("username")
+                    sub = request.POST.get("subject_code")
+                    fac = request.POST.get("faculty_name")
+                    units = request.POST.get("units")
+                    midterm = request.POST.get("midterm")
+                    final = request.POST.get("finals")
+                    finalgrade = request.POST.get("finalgrade")
+
+                    gs = Grade(subject_code=sub, faculty_name=fac, units=units, midterm=midterm, finals=final, finalgrade=finalgrade,
+                            username=tys)
+                    gs.save()
+                    return redirect('appdev:grades_view')
+                else:
+                    print(gs.errors)
+                    return HttpResponse('not valid')
+
+        return redirect('appdev:nogrades_view')        
 
 class Members(View):
     def get(self, request):
         return render(request,'members.html')
+
+    def post(self, request):
+        if request.method == 'POST':
+            username = request.POST.get("username")
+            password = request.POST.get("password")
+            check_user = AccountUser.objects.filter(username=username, password=password)
+            check_admin = Admin.objects.filter(username='admin', password='admin')
+
+            if check_user:
+                request.session['usern'] = username
+                if AccountUser.objects.filter(username=username).count()>0: 
+                        return redirect('appdev:clientdashboard_view')
+
+            if check_admin:
+                request.session['admin'] = username
+                if Admin.objects.filter(username=username).count()>0:    
+                    return redirect('appdev:accountdashboard_view')
+            
+            else:   
+                return HttpResponse('not valid')
+        else:   
+            return render(request,"signup.html")
 
 class Portfolio(View):
     def get(self, request):
@@ -83,9 +203,68 @@ class AdminDashboard(View):
     def get(self, request):
         return render(request,'admindashboard.html')
 
+class ClientDashboard(View):
+    def get(self, request):
+        if 'usern' in request.session:
+            current_user = request.session['usern']
+            userdetails = AccountUser.objects.filter(username=current_user)
+            usergrades = Grade.objects.filter(username=current_user)
+
+            context = {'userdetails':userdetails,
+                       'usergrades':usergrades,}
+        return render(request,'client.html', context)
+
+class ClientHome(View):
+    def get(self, request):
+        return render(request,'clienthome.html')    
+            
+        
+class ClientGrades(View):
+    def get(self, request):
+       if 'usern' in request.session:
+        current_user = request.session['usern']
+        userdetails = AccountUser.objects.filter(username=current_user)
+        usergrades = Grade.objects.filter(username=current_user, midterm__range=(4.0,4.5))
+
+        return render(request,'clientgrades.html',{'usergrades':usergrades,
+        											'userdetails':userdetails})
+
+class ClientVouchers(View):
+    def get(self, request):
+        if 'usern' in request.session:
+            current_user = request.session['usern']
+            userdetails = AccountUser.objects.filter(username=current_user)
+            check_gvoucher = Grade.objects.filter(username=current_user, midterm__range=(4.0,4.5))
+
+            if check_gvoucher:
+                check_vouchers = GeneralVoucher.objects.filter(gv_code__range=(345,12345))   
+            else:
+                check_vouchers = None
+
+            context ={'check_vouchers':check_vouchers,
+                       'userdetails':userdetails,}    
+            return render(request,'clientvouchers.html',context)    
+
+                    
+
 class AdminPage(View):
     def get(self, request):
         return render(request,'adminpage.html')
+
+    def post(self, request):
+        if request.method == 'POST':
+            username = request.POST.get("username")
+            password = request.POST.get("password")
+            check_admin = Admin.objects.filter(username=username, password=password)
+
+            if check_admin:
+                request.session['admin'] = username
+                if Admin.objects.filter(username=username).count()>0:   
+                        return redirect('appdev:accountdashboard_view')
+            else:   
+                return HttpResponse('not valid')
+        else:   
+            return render(request,"signup.html", context)
 
 class Testimonial(View):
     def get(self, request):
@@ -93,10 +272,14 @@ class Testimonial(View):
 
 class AccountDashboardView(View):
     def get(self, request):
-        accountuser = AccountUser.objects.all()
+        if 'admin' in request.session:
+            current_admin = request.session['admin']
+            accountadmin = Admin.objects.filter(username=current_admin) 
+            accountuser = AccountUser.objects.all()
        
         context = {
-            'accountuser' : accountuser, #name that we want to use
+            'accountuser' : accountuser,
+            'accountadmin':accountadmin, #name that we want to use
             
         }
         return render(request,'Accountuser.html', context)
@@ -105,9 +288,9 @@ class AccountDashboardView(View):
         if request.method == 'POST':
             if 'BtnUpdate' in request.POST:
                 print('update button clicked')
-                Idn = request.POST.get("idn-idn")                                                                                                                                                                                                                                                                                                                                            
-                fname = request.POST.get("first-name")
-                lname = request.POST.get("last-name")
+                Idn = request.POST.get("uid-uid")                                                                                                                                                                                                                                                                                                                                            
+                firstname = request.POST.get("first-name")
+                lastname = request.POST.get("last-name")
                 Email = request.POST.get("email-email")             
                 Address = request.POST.get("address-address")
                 Age = request.POST.get("age-age")
@@ -115,7 +298,7 @@ class AccountDashboardView(View):
                 Username = request.POST.get("user-name")
                 Password = request.POST.get("pass-word")
                 
-                update_user = AccountUser.objects.filter(idn=Idn).update(firstname = fname, lastname = lname, address = Address,
+                update_user = AccountUser.objects.filter(uid=Idn).update(first_name = firstname, last_name = lastname, address = Address,
                 email = Email, age = Age, birthdate = Birthdate, username = Username, password = Password )
                 print(update_user)
                 print('user updated')
@@ -123,10 +306,46 @@ class AccountDashboardView(View):
             elif 'BtnDelete' in request.POST:
                 print('delete button clicked')
                 Idn = request.POST.get("iidn-idn")
-                students = AccountUser.objects.filter(idn=Idn).delete()
+                students = AccountUser.objects.filter(uid=Idn).delete()
+
+            elif 'BtnGrades' in request.POST:
+                username = request.POST.get("usernamep")
+                er = Grade.objects.filter(username=username)
+
+                if er:
+                    request.session['sgrades'] = username
+                    if Grade.objects.filter(username=username).count()>0:
+                        return redirect('appdev:grades_view')
+                    else:
+                        return HttpResponse('bot')
+                else:
+                    # request.session['fgrades'] = username
+                    # if Grade.objects.filter(username=username).count()>=0:
+                    return redirect('appdev:nogrades_view')
+                    # return HttpResponse('Grades not yet submitted')       
+
+                               
+                # form = AccountUserForm(request.POST)
+                # if form.is_valid():
+                #     studentgrade = request.POST.get('username')
+                #     form = AccountUser.objects.filter(username=studentgrade)
+                #     request.session['stugrade'] = form
+                #     form.save()
+                #     return redirect('appdev:grades_view')
+                # else:
+                #     print(form.errors)
+                #     return HttpResponse('error')
+                # kl = request.POST.get("username")
+                # cg = request.session.get(kl)
+
+                # if cg is None:
+                #     cg = request.POST.get("username")
+                #     request.session['sgrade'] = cg
+                
+
+
 
         return redirect('appdev:accountdashboard_view')
-
 
 class Signup(View):
     # def get(self, request):
@@ -158,18 +377,18 @@ class Signup(View):
         # print(lname)
         if form.is_valid():
             # try:
-            
-            Idn = request.POST.get("idn")
-            fname = request.POST.get("firstname")
-            lname = request.POST.get("lastname")
+            fname = request.POST.get("first_name")
+            Uid = request.POST.get("uid")            
+            lname = request.POST.get("last_name")
             Email = request.POST.get("email")
             Address = request.POST.get("address")
             Age = request.POST.get("age")
             Birthdate = request.POST.get("birthdate")
             Username = request.POST.get("username")
             Password = request.POST.get("password")
-            form = AccountUser(idn = Idn, firstname = fname, lastname = lname, email = Email, address = Address, age = Age,
+            form = AccountUser(uid = Uid, first_name = fname, last_name = lname, email = Email, address = Address, age = Age,
              birthdate = Birthdate, username = Username, password=Password)
+            print('clicked')
             form.save() 
 
             #return HttpResponse('Student record saved!')           
@@ -178,6 +397,244 @@ class Signup(View):
             #   raise Http404
         else:
             print(form.errors)
-            return HttpResponse('not valid')
+            return HttpResponse('not valid')    
+    #def post(self, request):
 
-        
+        # if request.method == "POST":  
+        #   if 'btnRegister' in request.POST:
+        #       Uform = AccountUserForm(request.POST)           
+        #       if Uform.is_valid():
+        #           print('clicked')
+        #           user = Uform.save()
+
+        #           user.refresh_from_db()
+        #           # print('clicked')
+        #           # fname = user.profile.first_name = request.POST.get("first_name")
+        #           # lname = user.profile.last_name = request.POST.get("last_name")
+        #           # email = user.profile.email = request.POST.get("email")
+        #           # address = user.profile.address = request.POST.get("address")
+        #           # age = user.profile.age = request.POST.get("age")
+        #           # bdate = user.profile.birthdate = request.POST.get("birthdate")
+        #           # user.save()           
+        #           # username = request.POST.get("username")
+        #           # password = request.POST.get("password1")
+
+        #           # form = AccountUser(first_name = fname, last_name = lname, email = email, address = address, age = age,
+        #           # birthdate = bdate)
+        #           # form.save()
+
+        #           return HttpResponse('Student record saved!')
+        #           return redirect('appdev:members_view')
+        #       else:   
+        #           return HttpResponse('not valid')
+        # #             form = AccountUserForm()
+        # # context = {'form':form} 
+
+        # # return render(request,"signup.html", context)
+                
+
+class Donation(View):
+
+    def get(self, request):
+        return render(request, 'donationpage.html')
+
+    def post(self, request):        
+        form = DonationForm(request.POST)        
+        # fname = request.POST.get("firstname")
+        # print(fname)
+        # lname = request.POST.get("lastname")
+        # print(lname)
+        if form.is_valid():
+            # try:
+
+            Name = request.POST.get("name")
+            Id = request.POST.get("id")            
+            Email = request.POST.get("email")
+            Amount = request.POST.get("amount")
+            Mop = request.POST.get("mop")
+
+            form = DonationSource( id = Id, name = Name, 
+            email=Email, amount=Amount, mop=Mop)
+            print('clicked')
+            form.save() 
+
+            #return HttpResponse('Student record saved!')           
+            return redirect('appdev:success_view')
+            # except:
+            #   raise Http404
+        else:
+            print(form.errors)
+            return HttpResponse('not valid')    
+
+
+
+
+class DonationDashboard(View):
+    def get(self, request):
+        donate = DonationSource.objects.all()
+       
+        context = {
+            'donate' : donate, #name that we want to use
+            
+        }
+        return render(request,'donationdashboard.html', context)
+
+    def post(self, request):
+        if request.method == 'POST':
+            if 'BtnUpdate' in request.POST:
+                print('update button clicked')
+                Id = request.POST.get("id-id")                                                                                                                                                                                                                                                                                                                                            
+                Name = request.POST.get("name-name")
+                Email = request.POST.get("email-email")             
+                Amount = request.POST.get("amount-amount")
+                Mop = request.POST.get("mop-mop")
+   
+                update_donation = DonationSource.objects.filter(id=Id).update(name = Name, 
+                 email=Email, amount=Amount, mop=Mop)
+                print(update_donation)
+                print('donation updated')
+                
+            elif 'BtnDelete' in request.POST:
+                print('delete button clicked')
+                Id = request.POST.get("iid-id")
+                students = DonationSource.objects.filter(id=Id).delete()
+
+        return redirect('appdev:donationdashboard_view')
+
+# class PointsAdmin(View):
+#     def get(self, request):
+#         points = Points.objects.all()
+       
+#         context = {
+#             'points' : points, #name that we want to use
+            
+#         }
+#         return render(request,'pointsadmin.html', context)
+
+#     def post(self, request):
+#         if request.method == 'POST':
+#             if 'BtnUpdate' in request.POST:
+#                 print('update button clicked')
+#                 Id = request.POST.get("id-id")                                                                                                                                                                                                                                                                                                                                            
+#                 Name = request.POST.get("name-name")
+#                 Point = request.POST.get("points-points")             
+                
+   
+#                 update_points = Points.objects.filter(pid=Id).update(username=Name, points = Point)
+#                 print(update_points)
+#                 print('points updated')
+                
+#             elif 'BtnDelete' in request.POST:
+#                 print('delete button clicked')
+#                 Id = request.POST.get("pid-id")
+#                 points = Points.objects.filter(pid=Id).delete()
+
+#         return redirect('appdev:pointsadmin_view')
+
+class PointsAdmin(View):
+    def get(self, request):
+        if 'admin' in request.session:
+            current_admin = request.session['admin']
+            points = Points.objects.all()
+            accty = AccountUser.objects.all()
+
+            context = {'points':points,
+                        'accty':accty,}
+
+        return render(request,'pointsadmin.html', context)
+
+    def post(self, request):
+        if request.method == 'POST':
+            if 'BtnUpdate' in request.POST:
+                print('update button clicked')
+                Id = request.POST.get("id-id")                                                                                                                                                                                                                                                                                                                                            
+                # Name = request.POST.get("name-name")
+                Point = request.POST.get("points-points")             
+                
+   
+                update_points = Points.objects.filter(pid=Id).update( points = Point)
+                print(update_points)
+                print('points updated')
+
+            elif 'BtnAddPoints' in request.POST:
+                print ('Add Points Clicked')
+                username = request.POST.get("username_id")
+                pop = AccountUser.objects.get(username=username)
+                points = request.POST.get("points")
+                add_points = Points(username = pop, 
+				 points = points)
+                add_points.save()
+                return redirect('appdev:pointsadmin_view')
+
+
+                
+            elif 'BtnDelete' in request.POST:
+                print('delete button clicked')
+                Idn = request.POST.get("pid-id")
+                points = Points.objects.filter(pid=Idn).delete()
+
+        return redirect('appdev:pointsadmin_view')
+
+
+
+
+
+class PointsDashBoard(View):
+    def get(self, request):
+       if 'usern' in request.session:
+        current_user = request.session['usern']
+        userdetails = AccountUser.objects.filter(username=current_user)
+        userpoints = Points.objects.filter(username=current_user)
+
+        return render(request,'pointdashboard.html',{'userpoints':userpoints,
+        											'userdetails':userdetails})
+
+
+class GenVoucher(View):
+    def get(self, request):
+        if 'admin' in request.session:
+            current_user=request.session['admin']
+            gvoucher=GeneralVoucher.objects.all()
+            student=AccountUser.objects.all()
+            context = {'gvoucher':gvoucher,
+                        'student':student,}
+        return render(request,'generalvoucher.html', context)
+
+    def post(self, request):
+        if request.method == 'POST':
+            if 'BtnUpdate' in request.POST:
+                print('update button clicked')
+                gv_code = request.POST.get("gv_code")                                                                                                                                                                                                                                                                                                                                            
+                gv_title = request.POST.get("gv_title")
+                gv_percentage = request.POST.get("gv_percentage")
+            
+
+                update_generalvoucher = GeneralVoucher.objects.filter(gv_code=gv_code).update(gv_title = gv_title, 
+                 gv_percentage=gv_percentage)
+                print(update_generalvoucher)
+                print('generalvoucher updated')
+
+            elif 'BtnAddGenVoucher' in request.POST:
+                print ('Add General Voucher Clicked')
+                gv_code = request.POST.get("gv_code")
+                gv_title = request.POST.get("gv_title")
+                gv_percentage = request.POST.get("gv_percentage")
+                gv_id = request.POST.get("gv_id")
+                add_generalvoucher = GeneralVoucher(gv_code = gv_code, gv_title = gv_title, gv_percentage = gv_percentage, student_id=gv_id)
+                add_generalvoucher.save()
+                return redirect('appdev:genvoucher_view')
+
+
+                
+            elif 'BtnDelete' in request.POST:
+                print('delete button clicked')
+                gv_code = request.POST.get("gv_code")
+                delete_generalvoucher = GeneralVoucher.objects.filter(gv_code=gv_code).delete()
+
+        return redirect('appdev:genvoucher_view')
+
+
+
+
+
+

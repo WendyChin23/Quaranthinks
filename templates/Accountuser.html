@@ -1,5 +1,6 @@
 {% load static %}
 
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -31,17 +32,22 @@
 <div class="wrapper">
 
 
+
         <div class="body-overlay"></div>
 		
 		<!-------------------------sidebar------------>
 		     <!-- Sidebar  -->
         <nav id="sidebar">
             <div class="sidebar-header">
-                <h3><img src="{% static 'assets\img\logo.jpg' %}" class="img-fluid"/><span>Quaranthinks</span></h3>
+                <h3><img src="{% static 'assets\img\logo.jpg' %}" class="img-fluid"/><span>QuaranThinks</span></h3>
+               {% for accountadmin in accountadmin %}
+                <p>{{accountadmin.username}}</p>
+                 {% endfor %} 
+                
             </div>
             <ul class="list-unstyled components">
 			<li>
-                    <a href="{% url 'appdev:admindashboard_view' %}" class="dashboard"><i class="material-icons">dashboard</i>
+                    <a href="{% url 'appdev:Home_view' %}" class="dashboard"><i class="material-icons">dashboard</i>
 					<span>HOME</span></a>
                 </li>
 		
@@ -54,9 +60,7 @@
                         <li  class="active">
                             <a href="{% url 'appdev:accountdashboard_view' %}">User</a>
                         </li>
-                        <li>
-                            <a href="#">Admin</a>
-                        </li>
+                        
                       
                     </ul>
                 </li>
@@ -67,7 +71,7 @@
 					<i class="material-icons">apps</i><span>Vouchers</span></a>
                     <ul class="collapse list-unstyled menu" id="pageSubmenu2">
                         <li>
-                            <a href="#">General</a>
+                            <a href="{% url 'appdev:genvoucher_view' %}">General</a>
                         </li>
                         <li>
                             <a href="#">Exclusives</a>
@@ -77,15 +81,22 @@
                 </li>
 
                 <li class="dropdown">
-                    <a href="#pageSubmenu3" data-toggle="collapse" aria-expanded="false" 
-                    >
+                    <a href="{% url 'appdev:grades_view' %}">
                     <i class="material-icons">apps</i><span>Grades</span></a>
                    
                 </li>
 				
 				
-
-           
+                <li class="dropdown">
+                  <a href="{% url 'appdev:donationdashboard_view' %}">
+                  <i class="material-icons">apps</i><span>Donations</span></a>
+                 
+              </li>
+              <li class="dropdown" class="active">
+                <a href="{% url 'appdev:pointsadmin_view' %}">
+                <i class="material-icons">apps</i><span>Points</span></a>
+               
+            </li>
         </nav>
 		
 		
@@ -226,7 +237,7 @@ logout</span>Logout</a>
     <div class="table-title">
       <div class="row">
         <div class="col-sm-6 p-0 d-flex justify-content-lg-start justify-content-center">
-          <h2 class="ml-lg-2">Manage Admin</h2>
+          <h2 class="ml-lg-2">View Profile</h2>
         </div>
      
      
@@ -251,18 +262,13 @@ logout</span>Logout</a>
           <th>Action</th> 
         </tr>
       </thead>
-      <tbody>
-        <tr>
-          <td>
-            
-          </td>
-          <tbody>
+      
             {% for accountuser in accountuser %}
             <tr>
-                     <td>   
-                <td>{{accountuser.idn}}</td> 
-                <td>{{accountuser.firstname}}</td> 
-                <td>{{accountuser.lastname}}</td> 
+                <td>   
+                <td>{{accountuser.uid}}</td> 
+                <td>{{accountuser.first_name}}</td> 
+                <td>{{accountuser.last_name}}</td> 
                 <td>{{accountuser.email}}</td> 
                 <td>{{accountuser.address}}</td> 
                 <td>{{accountuser.age}}</td>
@@ -271,11 +277,19 @@ logout</span>Logout</a>
                  <td>{{accountuser.password}}</td>
                  
                 <td>
-    
-                                  
-                    <button href="#" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal-{{accountuser.idn}}" data-whatever="@mdo data-placement=" title="Update">UPDATE</button>
+                  
+                <form method="POST">
+                    {% csrf_token %}
+                    <!-- {{ form.non_field_errors }}
+                    {{ form.web_input }} -->
+                    <input type="text" name="usernamep" value="{{accountuser.username}}" class="form-control" id="usernamep" hidden>
+                    <button href="{% url 'appdev:grades_view' %}" type="submit" class="btn btn-primary" name="BtnGrades" id="BtnGrades" title="grades">Grades</button>           
+                </form>
+                  
+                    <button href="#" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal-{{accountuser.uid}}" data-whatever="@mdo data-placement=" title="Update">UPDATE</button>
 
-                    <div class="modal fade" id="exampleModal-{{accountuser.idn}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="false"> 
+
+                    <div class="modal fade" id="exampleModal-{{accountuser.uid}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="false"> 
                       <div class="modal-dialog">
                             <div class="modal-content">
                               <div class="modal-header">
@@ -291,13 +305,13 @@ logout</span>Logout</a>
                                   <div class="form-group">
                                 
                                  <label for="recipient-name" class="col-form-label">ID Number</label>
-                                <input name="idn-idn" value="{{accountuser.idn}}" subject.type="text" class="form-control" id="idn-idn" readonly>
+                                <input name="uid-uid" value="{{accountuser.uid}}" subject.type="text" class="form-control" id="uid-uid" readonly>
 
                                   <label for="recipient-name" class="col-form-label">First Name</label>
-                                  <input type="text" name="first-name" value="{{accountuser.firstname}}" class="form-control" id="first-name">
+                                  <input type="text" name="first-name" value="{{accountuser.first_name}}" class="form-control" id="first-name">
                         
                                   <label for="recipient-name" class="col-form-label">Last Name</label>
-                                  <input type="text" name="last-name" value="{{accountuser.lastname}}" class="form-control" id="last-name">
+                                  <input type="text" name="last-name" value="{{accountuser.last_name}}" class="form-control" id="last-name">
                                   <label for="recipient-name" class="col-form-label">Email</label>
                                   <input type="text" name="email-email" value = "{{accountuser.email}}" class="form-control" >
                         
@@ -323,7 +337,7 @@ logout</span>Logout</a>
                               </div>
                               <div class="modal-footer">
                                 <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                                <button type="submit" id="BtnUpdate" name="BtnUpdate" class="btn btn-primary">UPDATE</button>
+                                <button type="submit" id="BtnUpdate" name="BtnUpdate" href = "{% url 'appdev:clientdashboard_view' %}" class="btn btn-primary">UPDATE</button>
                               </div>
 
                                 </form>
@@ -334,11 +348,11 @@ logout</span>Logout</a>
                         
                         
                         <!-- Button trigger modal -->
-  <a href="button" href="#" class="btn btn-primary" data-target="#Modal-{{accountuser.idn}}"data-toggle="modal">DELETE</a>
+  <a href="button" href="#" class="btn btn-primary" data-target="#Modal-{{accountuser.uid}}"data-toggle="modal">DELETE</a>
     </div>
                           
                          <!-- Modal HTML -->
-<div id="Modal-{{accountuser.idn}}" class="modal fade" data-backdrop="false">
+<div id="Modal-{{accountuser.uid}}" class="modal fade" data-backdrop="false">
 	<div class="modal-dialog modal-confirm">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -352,7 +366,7 @@ logout</span>Logout</a>
           {% csrf_token %}
 
 			<div class="modal-body">
-				<input type="text" name="iidn-idn" value = {{accountuser.idn}} hidden>
+				<input type="text" name="iidn-idn" value = {{accountuser.uid}} hidden>
         Are you sure you want to delete
 			</div>
 			<div class="modal-footer">
@@ -361,10 +375,11 @@ logout</span>Logout</a>
 			</div>
 		</div>
 	</div>
+    {% endfor %}  
 </div>  
                 </td> 
              </tr>
-              {% endfor %}          
+                      
             </tbody>
             </table>
         </div>

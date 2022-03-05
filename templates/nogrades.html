@@ -1,0 +1,95 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description">
+    <meta name="author">
+    <meta name="keywords">
+
+ 
+    <title>Grades</title>
+
+  
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
+
+
+    <link href="{% static 'assets/css/main.css' %}" rel="stylesheet" media="all">
+</head>
+{% block content %}
+<body>
+    <div class="page-wrapper bg-dark p-t-100 p-b-50">
+        <div class="wrapper wrapper--w900">
+            <div class="card card-6">
+                <div class="card-heading">
+                  {% for acct in accty %}
+                    <h2 class="title">Grade For: {{acct.username}}</h2>
+                  
+                </div>
+                <form method="POST">
+                <div class="card-body">
+                    {% csrf_token %}
+                    <input name="username" value="{{acct.username}}" type="text" class="form-control" id="gv_code"  hidden>
+                    {% endfor %}
+                        <div class="form-row">
+                            <div class="name">Subject Code</div>
+                            <div class="value">
+                                <input class="input--style-6" type="text" name="subject_code">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="name">Faculty Name</div>
+                            <div class="value">
+                                <input class="input--style-6" type="text" name="faculty_name">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="name">Units</div>
+                            <div class="value">
+                                <input class="input--style-6" type="text" name="units">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="name">Midterm</div>
+                            <div class="value">
+                                <input class="input--style-6" type="text" name="midterm">
+                            </div>
+                        </div>
+            <div class="form-row">
+                            <div class="name">Final</div>
+                            <div class="value">
+                                <input class="input--style-6" type="text" name="finals">
+                            </div>
+                        </div>
+            <div class="form-row">
+                            <div class="name">Final Grade</div>
+                            <div class="value">
+                                <input class="input--style-6" type="text" name="finalgrade">
+                            </div>
+                        </div>
+            
+                    
+               
+                <div class="card-footer">
+          <button class="btn btn--radius-2 btn--blue-2"  type="submit"><a href="{% url 'appdev:accountdashboard_view' %}">Back</a></button>
+                    <button class="btn btn--radius-2 btn--blue-2" name="btnAdd" type="submit">Submit</button>
+                </div>
+            </div>
+            </form>
+        </div>
+    </div>
+
+ 
+    <script src="{% static 'assets/js/jquery.min.js' %}"></script>
+
+
+
+    <script src="{% static 'assets/js/global.js' %}"></script>
+
+</body>
+{% endblock content %}
+
+</html>

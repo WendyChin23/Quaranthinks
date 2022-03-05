@@ -7,28 +7,31 @@
 <link href="{% static 'assets/css/loginbox.css' %}" rel="stylesheet"  />
   
 <body>    
-    <h1>Admin Login</h1><br>    
+    <h1>Admin Login</h1><br>   
+    {% block content %} 
     <div class="login">    
-    <form id="login" method="get" action="login.php">    
+    <form method="POST" >  
+    {% csrf_token %}  
         <label><b>User Name     
         </b>    
         </label>    
-        <input type="text" name="Uname" id="Uname" placeholder="Username">    
+        <input type="text"  name="username" id="username" placeholder="Username">    
         <br><br>    
         <label><b>Password     
         </b>    
         </label>    
-        <input type="Password" name="Pass" id="Pass" placeholder="Password">    
+        <input type="Password" name="password" id="password" placeholder="Password">    
         <br><br>    
         
      
-            <a href = "admindashboard" button type="button">Log In </a></button> 
+        <button><a href = "{% url 'appdev:accountdashboard_view' %}"  type="submit">Log In</a></button> 
         <br><br>    
         <input type="checkbox" id="check">    
         <span>Remember me</span>    
         <br><br>    
         <a href="#"> Forgot Password</a>    
     </form>     
-</div>    
+</div> 
+{% endblock content %}   
 </body>    
 </html>     

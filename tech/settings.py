@@ -42,8 +42,6 @@ INSTALLED_APPS = [
     'appdev',
 ]
 
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
-
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -81,7 +79,7 @@ WSGI_APPLICATION = 'tech.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'accountuser23', 
+        'NAME': 'accountuser', 
         'USER': 'root',
         'PASSWORD': '',
         'HOST': '127.0.0.1',

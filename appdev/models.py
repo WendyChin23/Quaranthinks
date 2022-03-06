@@ -1,44 +1,21 @@
 from django.db import models
-from django.contrib.auth.models import User
-from django.db.models.signals import post_save
-from django.dispatch import receiver
+from django.utils.crypto import get_random_string
 
 # Create your models here.
 
 class AccountUser(models.Model):
-    uid = models.BigAutoField(primary_key = True)
-    first_name = models.CharField(max_length = 50) #pwede ma unique, blank is equal to not required, Null is equal to null
-    last_name = models.CharField(max_length = 50)
-    email = models.CharField(max_length = 50, unique = True)
-    address = models.CharField(max_length=100)
+    idn = models.CharField(max_length = 50)
+    firstname = models.CharField(max_length = 50)
+    lastname = models.CharField(max_length = 50)
+    email = models.CharField(max_length = 50)
+    address = models.CharField(max_length=50)
     age = models.IntegerField()
-    birthdate = models.DateField()
-    username = models.CharField(max_length = 100, unique = True)
-    password = models.CharField(max_length = 50)
+    birthdate = models.DateField(max_length=50)
+    username = models.CharField(max_length=50)
+    password = models.CharField(max_length=50)
 
-class Admin(models.Model):
-    aid = models.AutoField(primary_key = True)
-    username = models.CharField(max_length = 50)
-    password = models.CharField(max_length = 30)
- 
-class DonationSource(models.Model):
-    id = models.AutoField(primary_key = True)
-    name = models.CharField(max_length = 50)
-    email = models.CharField(max_length = 30)
-    mop = models.CharField(max_length = 30)
-    amount = models.IntegerField()
-    
-class Points(models.Model):
-    pid = models.AutoField(primary_key = True)
-    username = models.ForeignKey(AccountUser,to_field='username', on_delete=models.CASCADE)
-    points = models.IntegerField()
-        
-
-# @receiver(post_save, sender=User)
-# def update_profile_signal(sender, instance, created, **kwargs):
-#     if created:
-#         Profile.objects.create(user=instance)
-#     instance.profile.save()        
+    def __str__(self):
+        return self.idn
 
 class ContactMessage(models.Model):
     name = models.CharField(max_length = 50)
@@ -56,24 +33,15 @@ class Grade(models.Model):
     midterm = models.FloatField()
     finals = models.FloatField()
     finalgrade = models.FloatField()
-    username = models.ForeignKey(AccountUser,to_field='username', on_delete=models.CASCADE)
 
 class ExclusiveVoucher(models.Model):
-    ev_id = models.BigAutoField(primary_key = True)
     ev_code = models.IntegerField()
-    ev_title = models.CharField(max_length = 20)
-    ev_percentage = models.CharField(max_length = 10)
-    student = models.ForeignKey(AccountUser,to_field='username', on_delete=models.CASCADE)
 
     def __str__(self):
         return str(self.ev_code)
 
 class GeneralVoucher(models.Model):
-    gv_id = models.BigAutoField(primary_key = True)
     gv_code = models.IntegerField() 
-    gv_title = models.CharField(max_length = 20)
-    gv_percentage = models.CharField(max_length = 10)
-    student = models.ForeignKey(AccountUser,to_field='username', on_delete=models.CASCADE)
 
     def __str__(self):
         return str(self.gv_code)   
